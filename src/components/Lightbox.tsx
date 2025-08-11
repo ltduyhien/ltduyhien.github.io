@@ -12,10 +12,15 @@ const Lightbox: React.FC<LightboxProps> = ({ isOpen, imageSrc, imageAlt, onClose
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showScrollIndicator, setShowScrollIndicator] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      // Reset image states when opening
+      setImageError(false);
+      setImageLoading(true);
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -131,10 +136,29 @@ const Lightbox: React.FC<LightboxProps> = ({ isOpen, imageSrc, imageAlt, onClose
               className="force-scrollbar overflow-y-scroll max-h-[calc(90vh-120px)] bg-white dark:bg-zinc-900 rounded-b-lg overflow-hidden relative"
               style={{ scrollbarWidth: 'auto', msOverflowStyle: 'scrollbar' }}
             >
+              {imageLoading && !imageError && (
+                <div className="flex items-center justify-center h-64">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                </div>
+              )}
+              
+              {imageError && (
+                <div className="flex flex-col items-center justify-center h-64 text-gray-500 dark:text-gray-400">
+                  <svg className="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-lg font-medium mb-2">Image Unavailable</p>
+                  <p className="text-sm text-center">The requested image could not be loaded.</p>
+                  <p className="text-xs text-gray-400 mt-2">Path: {imageSrc}</p>
+                </div>
+              )}
+              
               <img
                 src={imageSrc}
                 alt={imageAlt}
-                className="w-full h-full object-contain shadow-2xl select-none pointer-events-none rounded-b-lg"
+                className={`w-full h-full object-contain shadow-2xl select-none pointer-events-none rounded-b-lg ${
+                  imageLoading || imageError ? 'hidden' : ''
+                }`}
                 style={
                   {
                     WebkitUserSelect: 'none',
@@ -143,6 +167,15 @@ const Lightbox: React.FC<LightboxProps> = ({ isOpen, imageSrc, imageAlt, onClose
                     touchAction: 'none',
                   } as React.CSSProperties
                 }
+                onLoad={() => {
+                  setImageLoading(false);
+                  setImageError(false);
+                }}
+                onError={() => {
+                  setImageLoading(false);
+                  setImageError(true);
+                  console.error('🔍 Lightbox image failed to load:', imageSrc);
+                }}
               />
             </div>
             {showScrollIndicator && (

@@ -44,6 +44,11 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
   const imageSrc = src.startsWith('@private-content') 
     ? src.replace('@private-content', '/private-content')
     : src;
+    
+  // Debug logging for development
+  if (import.meta.env.DEV) {
+    console.log('🔍 ClickableImage path resolution:', { original: src, resolved: imageSrc });
+  }
 
   return (
     <>
@@ -56,7 +61,7 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
       />
       <Lightbox
         isOpen={isLightboxOpen}
-        imageSrc={src}
+        imageSrc={imageSrc}
         imageAlt={caption || alt}
         onClose={handleLightboxClose}
       />

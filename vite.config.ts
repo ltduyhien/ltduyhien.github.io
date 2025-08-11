@@ -19,6 +19,14 @@ export default defineConfig(({ mode }) => {
     },
     assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg'],
     
+    // Development server configuration
+    server: {
+      fs: {
+        // Allow serving files from parent directories (for submodules)
+        allow: ['..', '.'],
+      },
+    },
+    
     // Environment variable configuration
     define: {
       __APP_VERSION__: JSON.stringify(process.env.npm_package_version),

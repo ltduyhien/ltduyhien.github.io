@@ -260,6 +260,18 @@ const DynamicImage: React.FC<{
 }> = ({ src, alt, className, style, isProjectThumbnail, onOpenLightbox, onCloseLightbox, caption }) => {
   const { slug } = useParams();
   const imageSrc = slug ? getImageUrl(slug, src) : src;
+  
+  // Debug logging for development
+  if (import.meta.env.DEV) {
+    console.log('🔍 DynamicImage path resolution:', { 
+      original: src, 
+      slug, 
+      resolved: imageSrc,
+      finalPath: imageSrc.startsWith('@private-content') 
+        ? imageSrc.replace('@private-content', '/private-content')
+        : imageSrc
+    });
+  }
 
   return (
     <ClickableImage
@@ -279,7 +291,7 @@ const DynamicImage: React.FC<{
 
 // Helper function to get image URL
 const getImageUrl = (slug: string, imageName: string): string => {
-  // Use submodule path for images
+  // Use submodule path for images - this will be resolved by ClickableImage
   return `@private-content/projects/${slug}/${imageName}`;
 };
 

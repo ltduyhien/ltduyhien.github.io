@@ -210,63 +210,37 @@ export class ContentWatermarking {
       depth++;
     }
     
-        // Add watermark overlay to image
-    img.appendChild(watermarkOverlay);
-    console.log('🔍 Watermark overlay added to image:', img.src);
-    
-    // Verify the watermark is in the DOM
-    const addedWatermark = img.querySelector('[data-watermark-overlay="true"]') as HTMLElement;
-    if (addedWatermark) {
-      console.log('✅ Watermark element verified in DOM:', addedWatermark);
-      console.log('✅ Watermark styles:', addedWatermark.style.cssText);
-      
-      // Force visibility with !important styles
-      addedWatermark.style.setProperty('display', 'block', 'important');
-      addedWatermark.style.setProperty('visibility', 'visible', 'important');
-      addedWatermark.style.setProperty('opacity', '1', 'important');
-      addedWatermark.style.setProperty('z-index', '999999', 'important');
-      
-      // Add a test watermark that's impossible to hide
-      const testWatermark = document.createElement('div');
-      testWatermark.textContent = 'TEST WATERMARK';
-      testWatermark.style.cssText = `
-        position: fixed !important;
-        top: 50px !important;
-        left: 50px !important;
-        background: #ff0000 !important;
-        color: #ffffff !important;
-        padding: 20px !important;
-        font-size: 24px !important;
-        font-weight: bold !important;
-        z-index: 9999999 !important;
-        border: 5px solid #ffff00 !important;
-      `;
-      document.body.appendChild(testWatermark);
-      
-      // Also add a fixed watermark overlay for this specific image
-      const fixedWatermark = document.createElement('div');
-      fixedWatermark.textContent = `IMAGE: ${img.alt || 'Unknown'}`;
-      fixedWatermark.style.cssText = `
-        position: fixed !important;
-        top: ${100 + index * 60}px !important;
-        left: 200px !important;
-        background: #00ff00 !important;
-        color: #000000 !important;
-        padding: 10px !important;
-        font-size: 16px !important;
-        font-weight: bold !important;
-        z-index: 9999999 !important;
-        border: 3px solid #000000 !important;
-        border-radius: 5px !important;
-      `;
-      document.body.appendChild(fixedWatermark);
-      
-      console.log('✅ Forced watermark visibility with !important styles');
-      console.log('✅ Added test watermark to body for debugging');
-      console.log('✅ Added fixed image watermark overlay');
-    } else {
-      console.error('❌ Watermark element not found in DOM after adding');
-    }
+                // Add watermark overlay to parent container (not to img tag)
+        if (parent) {
+          parent.appendChild(watermarkOverlay);
+          console.log('🔍 Watermark overlay added to parent container:', parent);
+          
+          // Verify the watermark is in the DOM
+          const addedWatermark = parent.querySelector('[data-watermark-overlay="true"]') as HTMLElement;
+          if (addedWatermark) {
+            console.log('✅ Watermark element verified in DOM (on parent):', addedWatermark);
+            console.log('✅ Watermark styles:', addedWatermark.style.cssText);
+            
+            // Force visibility with !important styles
+            addedWatermark.style.setProperty('display', 'block', 'important');
+            addedWatermark.style.setProperty('visibility', 'visible', 'important');
+            addedWatermark.style.setProperty('opacity', '1', 'important');
+            addedWatermark.style.setProperty('z-index', '999999', 'important');
+            
+            // Debug positioning context
+            console.log('🔍 Watermark positioning context:');
+            console.log('  - Parent element:', parent);
+            console.log('  - Parent computed styles:', getComputedStyle(parent));
+            console.log('  - Watermark computed styles:', getComputedStyle(addedWatermark));
+            console.log('  - Watermark bounding rect:', addedWatermark.getBoundingClientRect());
+            
+            console.log('✅ Forced watermark visibility with !important styles');
+          } else {
+            console.error('❌ Watermark element not found in DOM after adding to parent');
+          }
+        } else {
+          console.error('❌ No parent container found for image watermark');
+        }
     
     // For print: enhance watermark visibility
     img.addEventListener('beforeprint', () => {

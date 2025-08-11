@@ -9,48 +9,54 @@ const NotFound: React.FC = () => {
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
       <Sidebar />
       <main className="flex-1 flex flex-col">
-        <div className="flex-1 flex justify-center items-center px-4 py-8">
+        <div className="flex-1 flex justify-center items-start px-4 pt-28">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="text-left max-w-md"
           >
-            <div className="mb-8">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-                404
-              </h1>
-              <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-6">
-                Page Not Found
-              </h2>
+            <h1 className="text-lg font-bold mb-6 text-white leading-tight">
+              Sorry, the link you are looking for is not found!
+            </h1>
+            
+            <div className="text-gray-300 mb-6">
+              <p className="text-base mb-3">Possible reasons:</p>
+              <div className="space-y-2 ml-4">
+                <p className="flex items-start text-sm">
+                  <span className="mr-2">•</span>
+                  <span>Either the link is broken</span>
+                </p>
+                <p className="flex items-start text-sm">
+                  <span className="mr-2">•</span>
+                  <span>Or the page has moved</span>
+                </p>
+                <p className="flex items-start text-sm">
+                  <span className="mr-2">•</span>
+                  <span>Or maybe there could be typo in the URL</span>
+                </p>
+              </div>
             </div>
             
-            <div className="text-gray-600 dark:text-gray-400 mb-8">
-              <p className="text-lg mb-4">
-                Sorry, the page you're looking for doesn't exist.
-              </p>
-              <p className="text-base mb-6">
-                It might have been moved, deleted, or you entered the wrong URL.
-              </p>
+            <div className="text-gray-300 mb-4">
+              <p className="text-base">For now we can try to:</p>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-2 ml-4">
               <Link
                 to="/"
-                className="inline-block bg-teal-500 hover:bg-teal-600 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200"
+                className="flex items-start text-teal-400 hover:text-teal-300 transition-colors duration-200 text-sm"
               >
-                Back to Homepage
+                <span className="mr-2">•</span>
+                <span>Back to homepage</span>
               </Link>
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                or{' '}
-                <a
-                  href="mailto:letranduyhien@gmail.com"
-                  className="text-teal-500 hover:text-teal-600 underline"
-                >
-                  contact me
-                </a>
-                {' '}if you need help
-              </div>
+              <a
+                href="mailto:letranduyhien@gmail.com"
+                className="flex items-start text-teal-400 hover:text-teal-300 transition-colors duration-200 text-sm"
+              >
+                <span className="mr-2">•</span>
+                <span>Contact me for the content you are looking for</span>
+              </a>
             </div>
           </motion.div>
         </div>

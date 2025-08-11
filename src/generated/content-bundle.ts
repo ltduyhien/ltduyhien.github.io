@@ -87,7 +87,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "Design Patterns": "**Design Patterns & Interaction Guidelines**\n\n*Note: Detailed design patterns, interaction guidelines, and best practices are coming soon. This section will include common UI patterns, user interaction flows, accessibility patterns, and design principles for creating consistent and intuitive user experiences across the 3DMark ecosystem.*",
     "Implementation": "**Code Examples & Technical Implementation**\n\n*Note: Detailed implementation guidelines, code examples, and technical documentation are coming soon. This section will include component architecture patterns, design token implementation, accessibility best practices, and responsive design patterns for our multi-platform ecosystem.*",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.047Z",
+      "buildTime": "2025-08-11T17:51:09.737Z",
       "checksum": "-7c97680f",
       "version": "1.0.0"
     }
@@ -156,7 +156,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     ],
     "slug": "3dmark-ios-app",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.048Z",
+      "buildTime": "2025-08-11T17:51:09.738Z",
       "checksum": "2405970d",
       "version": "1.0.0"
     }
@@ -217,7 +217,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "partnerWithRivaAudio": "**OEM Partnership with Riva Audio**\n\nRiva Audio: <a href=\"https://www.rivaaudio.com/\" class=\"text-brand\" target=\"_blank\" rel=\"noopener noreferrer\">www.rivaaudio.com</a>\n\nBuilding on the success of the AllConnect platform, we developed a custom OEM (Original Equipment Manufacturer) mobile application specifically for Riva Audio's premium wireless speakers. This specialized version of AllConnect serves as the official control app for Riva Audio's product ecosystem, providing users with a seamless, purpose-built interface for managing their Riva Audio devices while maintaining the core AllConnect functionality that users love.\n\n**Enhanced Features for Riva Audio Users:**\n\n- **Custom Device Setup:** Multi-step progressive setup process guiding users through the configuration\n\n- **Advanced Speaker Controls:** Volume management with visual feedback, custom EQ presets and manual adjustment options, multiple listening modes including Party, Ambient, and Hi-Fi for different environments, seamless switching between Bluetooth, Aux-in, and WiFi connectivity options\n\n- **Voice Control Integration:** Amazon Alexa skill development for voice command functionality, natural language processing for intuitive voice interactions, seamless integration with existing Alexa smart home ecosystems\n- **Multi-Room Audio:** Synchronized playback across multiple Riva speakers in different rooms\n- **Firmware Updates:** Over-the-air updates to keep speakers current with latest features",
     "slug": "allconnect-app",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.048Z",
+      "buildTime": "2025-08-11T17:51:09.738Z",
       "checksum": "acc2d67",
       "version": "1.0.0"
     }
@@ -276,7 +276,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "aiFeatures": "Smart automation powers the CPQ platform, turning complex pricing challenges into revenue-generating opportunities. Our AI capabilities boost sales performance through intelligent product suggestions, dynamic pricing strategies, and proactive error detection.\n\n**Configuration Assistant:**\n- Suggests compatible products and services based on user selections\n- Validates configurations against business rules and requirements\n- Reduces configuration errors by providing guidance during quote building\n\n**Pricing Recommendations:**\n- Analyzes past deal outcomes and customer profiles\n- Suggests pricing strategies based on similar successful deals\n- Helps sales teams optimize pricing for better win rates\n\n**Error Prevention:**\n- Identifies potential configuration issues before submission\n- Uses business rules to validate quote completeness\n- Reduces quote rejection rates and speeds up approval processes\n\nThese features were designed with input from sales teams and pricing managers, ensuring they address real business needs.",
     "slug": "cpq-pricing-tool",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.049Z",
+      "buildTime": "2025-08-11T17:51:09.738Z",
       "checksum": "-1bd9b301",
       "version": "1.0.0"
     }
@@ -319,7 +319,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     ],
     "slug": "example-project",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.049Z",
+      "buildTime": "2025-08-11T17:51:09.738Z",
       "checksum": "c4d63d3",
       "version": "1.0.0"
     }
@@ -377,7 +377,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "constraints": "**Enterprise Integration & Compliance Requirements**\n\nThe Nokia Data Suite needed to integrate seamlessly with existing enterprise infrastructure while meeting strict compliance requirements for telecommunications data. The platform had to handle real-time processing of large-scale network data while maintaining security and performance standards.\n\n**Technical Constraints:**\n- Integration with legacy enterprise systems\n- Real-time data processing requirements\n- Security and compliance standards\n- Scalability across multiple deployment environments\n- Performance optimization for large datasets",
     "ideation": "**Research & Ideation Process**\n\nOur design process began with understanding the Services Engineer workflow and pain points:\n\n**User Research:**\n- Conducted interviews with Services Engineers to understand their daily workflows\n- Analyzed the customization process for different customers and identified bottlenecks\n- Mapped the journey from pre-sales support through deployment and maintenance\n- Identified team collaboration challenges and knowledge sharing gaps\n\n![Interviewing with users who are network operators, data analysts, and business managers](research-interview.png)\n\n**Technical Analysis:**\n- Evaluated existing use case creation and deployment processes\n- Analyzed the technical requirements for customer-specific customizations\n- Identified opportunities for standardization while maintaining flexibility\n- Assessed integration needs with existing customer environments\n\n![Technical analysis and architecture evaluation](technical-ideation.png)\n\n**Ideation Workshops:**\n- Facilitated sessions with Services Engineers to co-design the workflow\n- Brainstormed solutions for team collaboration and knowledge sharing\n- Explored low-code approaches to reduce technical barriers\n- Defined success metrics focused on workflow efficiency and team adoption\n\n![Ideation workshops with cross functional teams](ideation.png)",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.049Z",
+      "buildTime": "2025-08-11T17:51:09.738Z",
       "checksum": "1622e101",
       "version": "1.0.0"
     }
@@ -455,7 +455,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "aiDesignMethodology": "**AI Design Methodology & Data Collection Approach**\n\nOur AI features focused on practical performance optimization and user experience enhancement through intelligent automation and personalized recommendations. We prioritized user-friendly performance insights over complex machine learning, ensuring every feature directly improves the benchmarking experience.\n\n**Data Collection Strategy:**\n\n- **Performance Pattern Analysis:** Collected benchmark results, hardware configurations, and usage patterns to understand performance optimization preferences\n- **Hardware Performance Profiling:** Gathered system specifications, benchmark scores, and performance metrics to build optimization models\n- **User Behavior Correlation:** Integrated usage patterns and test selection data to correlate user preferences with performance outcomes\n- **Benchmark Enthusiast Workflow Analysis:** Studied how advanced users interact with performance tools and which features lead to higher satisfaction\n\n**AI Feature Design Process:**\n\n- **Smart Test Recommendations:** Implemented machine learning algorithms to suggest optimal benchmark combinations based on hardware type, use case, and user preferences\n- **Adaptive Performance Intelligence:** Developed dynamic algorithms that adjust benchmark recommendations based on system capabilities, user profile, and performance goals\n- **Intelligent Result Analysis:** Built smart systems that provide performance insights and optimization suggestions based on benchmark results\n- **Predictive Performance Modeling:** Established continuous feedback mechanisms with users to refine performance predictions and enhance accuracy\n\n**Validation & Testing:**\n\n- **Performance Accuracy Testing:** Validated AI recommendations through A/B testing with different hardware configurations and use cases\n- **User Satisfaction Monitoring:** Tracked test completion rates, result understanding, and overall user satisfaction to measure AI effectiveness and performance impact",
     "slug": "procyon-desktop-client",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.049Z",
+      "buildTime": "2025-08-11T17:51:09.739Z",
       "checksum": "-1e8cb94c",
       "version": "1.0.0"
     }
@@ -528,7 +528,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     ],
     "slug": "procyon-reinvention",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.050Z",
+      "buildTime": "2025-08-11T17:51:09.739Z",
       "checksum": "1eb9ae2",
       "version": "1.0.0"
     }
@@ -590,7 +590,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "aiDesignMethodology": "**AI Design Methodology & Data Collection Approach**\n\nOur AI features focused on practical audio optimization and user experience enhancement through intelligent automation and personalized recommendations. We prioritized user-friendly audio customization over complex machine learning, ensuring every feature directly improves the listening experience.\n\n**Data Collection Strategy:**\n\n- **Audio Preference Analysis:** Collected user EQ settings, listening patterns, and room acoustics data to understand audio customization preferences\n- **Speaker Performance Profiling:** Gathered speaker model specifications, firmware versions, and performance metrics to build optimization models\n- **User Behavior Correlation:** Integrated usage patterns and voice command data to correlate user preferences with speaker performance\n- **Audio Enthusiast Workflow Analysis:** Studied how advanced users interact with audio controls and which features lead to higher satisfaction\n\n**AI Feature Design Process:**\n\n- **Smart EQ Recommendations:** Implemented machine learning algorithms to suggest optimal EQ settings based on music genre, room acoustics, and user preferences\n- **Adaptive Audio Intelligence:** Developed dynamic algorithms that adjust audio recommendations based on speaker model, listening environment, and user profile\n- **Intelligent Setup Assistant:** Built smart systems that guide users through optimal speaker placement and configuration based on room analysis\n- **Voice Command Integration:** Established continuous feedback mechanisms with users to refine voice interactions and enhance command accuracy\n\n**Validation & Testing:**\n\n- **Audio Quality Testing:** Validated AI audio recommendations through A/B testing with different speaker models and room environments\n- **User Satisfaction Monitoring:** Tracked EQ adoption rates, voice command usage, and overall user satisfaction to measure AI effectiveness and audio impact",
     "slug": "riva-audio",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.050Z",
+      "buildTime": "2025-08-11T17:51:09.739Z",
       "checksum": "-23691fe9",
       "version": "1.0.0"
     }
@@ -659,7 +659,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "api": "To support enterprise IT administrators in managing SMB server configurations programmatically, we designed and documented a RESTful API that provides comprehensive access to server settings, user management, and monitoring capabilities. This enables organizations to integrate SMB administration directly into their existing IT management workflows, automation systems, and monitoring dashboards.\n\n**Key Features:**\n\n- **Secure Authentication:** API access via organization-level API keys with role-based permissions for different administrator levels\n- **Configuration Management:** Full CRUD operations for server settings, user accounts, and file sharing permissions\n- **Monitoring:** Endpoint access to server status, connection metrics, and performance data\n- **Bulk Operations:** Support for batch configuration updates and user management across multiple servers\n- **Webhook Integration:** Notifications for server events, configuration changes, and security alerts\n\n**Integration Capabilities:**\n\nThe API supports standard REST operations for server configuration management, including:\n\n- Retrieving current server configuration and status\n- Updating server settings with new share configurations\n- Managing user accounts and file sharing permissions\n- Monitoring server performance and health metrics\n- Setting up webhook notifications for server events\n\n**Enterprise Integration:**\n\nThe API was designed to integrate with existing enterprise infrastructure, including:\n\n- IT management workflows and automation systems\n- Monitoring dashboards and alerting systems\n- Configuration management tools and deployment pipelines\n- Security and compliance monitoring platforms",
     "slug": "smb-admin-panel",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.050Z",
+      "buildTime": "2025-08-11T17:51:09.739Z",
       "checksum": "-56497f65",
       "version": "1.0.0"
     }
@@ -732,7 +732,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "api": "To support enterprise IT administrators in managing performance data across their fleet, we designed and documented a RESTful API that exposes system telemetry, benchmark results, and configuration metadata from Test Driver Cloud. This enables organizations to integrate Test Driver insights directly into their own internal dashboards, asset management systems, or automation workflows.\n\n**Key Features:**\n\n- **Secure Access:** API authentication via organization-level API keys with role-based access controls\n- **Flexible Querying:** Support for filtering by device ID, user, time range, benchmark type, or performance threshold\n- **Webhook Support:** For notifications when test results exceed or fall below pre-defined thresholds\n- **Export Ready:** JSON and CSV response formats for compatibility with third-party tools (e.g., Power BI, Splunk)\n\n**Integration Capabilities:**\n\nThe API provides comprehensive access to benchmark data and system metrics, including:\n\n- Fetching benchmark results for individual devices or device groups\n- Filtering results by time range, benchmark type, or performance thresholds\n- Exporting data in multiple formats for external analysis\n- Setting up webhook notifications for performance alerts\n- Integrating with business intelligence and monitoring platforms\n\n**Enterprise Integration:**\n\nThe API was designed to integrate with existing enterprise infrastructure, including:\n\n- Asset management systems and device inventories\n- Performance monitoring and alerting platforms\n- Business intelligence and reporting tools\n- IT automation and workflow systems\n- Compliance and audit reporting systems",
     "slug": "test-driver-cloud",
     "_security": {
-      "buildTime": "2025-08-11T17:44:32.050Z",
+      "buildTime": "2025-08-11T17:51:09.740Z",
       "checksum": "20fbb417",
       "version": "1.0.0"
     }
@@ -874,9 +874,9 @@ export const PROJECTS_LIST = [
 
 // Security metadata
 export const CONTENT_METADATA = {
-  buildTime: '2025-08-11T17:44:32.051Z',
+  buildTime: '2025-08-11T17:51:09.740Z',
   totalProjects: 11,
-  checksum: '3dcd212',
+  checksum: '78bbf191',
   version: '1.0.0'
 };
 

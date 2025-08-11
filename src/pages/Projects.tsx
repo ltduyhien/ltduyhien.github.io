@@ -140,7 +140,7 @@ const Projects = () => {
           >
             <ProjectCard
               title={project.title}
-              subtitle={project.summary || ''}
+              subtitle={project.subtext || ''}
               tags={project.industries || []}
               imageUrl={project.imageUrl || ''}
             />
@@ -165,7 +165,7 @@ const Projects = () => {
           >
             <ProjectCard
               title={project.title}
-              subtitle={project.summary || ''}
+              subtitle={project.subtext || ''}
               tags={project.industries || []}
               imageUrl={project.imageUrl || ''}
             />
@@ -190,7 +190,7 @@ const Projects = () => {
           >
             <ProjectCard
               title={project.title}
-              subtitle={project.summary || ''}
+              subtitle={project.subtext || ''}
               tags={project.industries || []}
               imageUrl={project.imageUrl || ''}
             />
@@ -215,7 +215,7 @@ const Projects = () => {
           >
             <ProjectCard
               title={project.title}
-              subtitle={project.summary || ''}
+              subtitle={project.subtext || ''}
               tags={project.industries || []}
               imageUrl={project.imageUrl || ''}
             />

@@ -40,10 +40,15 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
     onCloseLightbox?.();
   };
 
+  // Handle submodule image paths
+  const imageSrc = src.startsWith('@private-content') 
+    ? src.replace('@private-content', '/private-content')
+    : src;
+
   return (
     <>
       <img
-        src={src}
+        src={imageSrc}
         alt={alt}
         className={`${className} ${isDesktop && !isProjectThumbnail ? 'cursor-pointer hover:opacity-90 transition-opacity' : ''}`}
         style={style}

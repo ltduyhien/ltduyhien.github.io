@@ -275,13 +275,12 @@ const DynamicImage: React.FC<{
   );
 };
 
-// Dynamic image imports using Vite glob
-const projectImages = import.meta.glob('./projects/*/*.{png,jpg,jpeg}', { eager: true });
+// Images are now loaded from submodules
 
 // Helper function to get image URL
 const getImageUrl = (slug: string, imageName: string): string => {
-  const key = `../projects/${slug}/${imageName}`;
-  return projectImages[key] ? (projectImages[key] as { default: string }).default : '';
+  // Use submodule path for images
+  return `@private-content/projects/${slug}/${imageName}`;
 };
 
 const ProjectSingle = () => {
@@ -340,7 +339,7 @@ const ProjectSingle = () => {
 
   useEffect(() => {
     if (!slug) return;
-            import(`./projects/${slug}/data.json`).then((mod) => {
+            import(`@private-content/projects/${slug}/data.json`).then((mod) => {
       setProject(mod.default || mod);
       setLoading(false);
       // Track project view

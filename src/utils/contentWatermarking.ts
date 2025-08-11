@@ -186,6 +186,14 @@ export class ContentWatermarking {
         zIndex: parentStyle.zIndex
       });
       
+      // CRITICAL FIX: Ensure parent has relative positioning for watermark positioning
+      if (parentStyle.position === 'static') {
+        parent.style.setProperty('position', 'relative', 'important');
+        console.log('🔧 CRITICAL FIX: Changed parent position to relative !important');
+      } else {
+        console.log('🔍 Parent already has positioning:', parentStyle.position);
+      }
+      
       // Check if parent has overflow hidden
       if (parentStyle.overflow === 'hidden' || parentStyle.overflow === 'clip') {
         console.log('⚠️  WARNING: Parent has overflow hidden - this will clip watermarks!');

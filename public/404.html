@@ -3,6 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>Hien Le - Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Load the main app assets before redirecting -->
+    <script type="module" crossorigin src="/assets/index-C15oTkIn.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-FMrqBOm1.css">
+    
     <script type="text/javascript">
       // Single Page Apps for GitHub Pages
       // MIT License
@@ -18,10 +24,11 @@
         l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
         l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
         (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
+        (l.hash ? '&' + l.hash.slice(1).replace(/&/g, '~and~') : '')
       );
     </script>
   </head>
   <body>
+    <div id="root"></div>
   </body>
 </html> 

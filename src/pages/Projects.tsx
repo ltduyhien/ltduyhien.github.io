@@ -42,13 +42,12 @@ const Projects = () => {
           screenshots: [],
           industries: [`Industry for ${proj.slug}`],
           banner: 'header.png',
-          // Add a placeholder image URL for testing
-          imageUrl: `https://via.placeholder.com/400x300/374151/FFFFFF?text=${encodeURIComponent(proj.slug)}`
+                       // Add a placeholder image URL for testing
+             imageUrl: `https://picsum.photos/400/300?random=${proj.slug}`
         };
     });
     
     const filtered = loaded.filter(Boolean);
-    console.log('Final projects array:', filtered);
     setProjects(filtered);
   }, []);
 

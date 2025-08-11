@@ -199,9 +199,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
         with React.js
       </div>
       <div className="absolute left-8 bottom-8 text-lg font-medium text-zinc-600 dark:text-zinc-400">
-        Hien Le © 2025
-        <br />
-        <span className="text-sm">MIT License</span>
+        Hien Le © 2025 | MIT License
       </div>
     </div>
   );
@@ -343,14 +341,10 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
         </div>
         <hr className="w-full border-zinc-200 dark:border-zinc-700" />
         <div className="absolute left-8 bottom-16 text-sm font-medium text-zinc-800 dark:text-zinc-400">
-          This site is developed
-          <br />
-          with React.js
+          Developed with React.js
         </div>
         <div className="absolute left-8 bottom-8 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-          Hien Le © 2025
-          <br />
-          <span className="text-xs">MIT License</span>
+          Hien Le © 2025 | MIT License
         </div>
       </div>
 

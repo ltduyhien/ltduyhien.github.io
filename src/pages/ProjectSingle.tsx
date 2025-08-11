@@ -58,6 +58,7 @@ export interface ProjectData {
   screenshots: Screenshot[];
   appendices?: Appendix[];
   banner?: string;
+  imageUrl?: string;
   timeSpent?: string;
   role?: string;
   industries?: string[];

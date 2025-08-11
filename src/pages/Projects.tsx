@@ -31,18 +31,20 @@ const Projects = () => {
     // For now, create empty project objects to test the UI
     const loaded = PROJECTS_ORDER.map((proj) => {
       console.log(`Creating project object for ${proj.slug}`);
-      return {
-        slug: proj.slug,
-        title: `Project: ${proj.slug}`,
-        summary: `Summary for ${proj.slug}`,
-        problem: `Problem for ${proj.slug}`,
-        constraints: `Constraints for ${proj.slug}`,
-        keyDecisions: [`Decision 1 for ${proj.slug}`],
-        outcomes: `Outcomes for ${proj.slug}`,
-        screenshots: [],
-        industries: [`Industry for ${proj.slug}`],
-        banner: 'header.png'
-      };
+              return {
+          slug: proj.slug,
+          title: `Project: ${proj.slug}`,
+          summary: `Summary for ${proj.slug}`,
+          problem: `Problem for ${proj.slug}`,
+          constraints: `Constraints for ${proj.slug}`,
+          keyDecisions: [`Decision 1 for ${proj.slug}`],
+          outcomes: `Outcomes for ${proj.slug}`,
+          screenshots: [],
+          industries: [`Industry for ${proj.slug}`],
+          banner: 'header.png',
+          // Add a placeholder image URL for testing
+          imageUrl: `https://via.placeholder.com/400x300/374151/FFFFFF?text=${encodeURIComponent(proj.slug)}`
+        };
     });
     
     const filtered = loaded.filter(Boolean);
@@ -118,9 +120,9 @@ const Projects = () => {
           >
             <ProjectCard
               title={project.title}
-              subtitle={project.subtext || ''}
+              subtitle={project.summary || ''}
               tags={project.industries || []}
-              imageUrl={getBannerUrl(project.slug || '', project.banner)}
+              imageUrl={project.imageUrl || ''}
             />
           </Link>
         ))}
@@ -143,9 +145,9 @@ const Projects = () => {
           >
             <ProjectCard
               title={project.title}
-              subtitle={project.subtext || ''}
+              subtitle={project.summary || ''}
               tags={project.industries || []}
-              imageUrl={getBannerUrl(project.slug || '', project.banner)}
+              imageUrl={project.imageUrl || ''}
             />
           </Link>
         ))}
@@ -168,9 +170,9 @@ const Projects = () => {
           >
             <ProjectCard
               title={project.title}
-              subtitle={project.subtext || ''}
+              subtitle={project.summary || ''}
               tags={project.industries || []}
-              imageUrl={getBannerUrl(project.slug || '', project.banner)}
+              imageUrl={project.imageUrl || ''}
             />
           </Link>
         ))}
@@ -193,9 +195,9 @@ const Projects = () => {
           >
             <ProjectCard
               title={project.title}
-              subtitle={project.subtext || ''}
+              subtitle={project.summary || ''}
               tags={project.industries || []}
-              imageUrl={getBannerUrl(project.slug || '', project.banner)}
+              imageUrl={project.imageUrl || ''}
             />
           </Link>
         ))}

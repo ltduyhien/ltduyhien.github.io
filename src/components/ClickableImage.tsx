@@ -47,7 +47,21 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
     
   // Debug logging for development
   if (import.meta.env.DEV) {
-    console.log('🔍 ClickableImage path resolution:', { original: src, resolved: imageSrc });
+    console.log('🔍 ClickableImage path resolution:', { 
+      original: src, 
+      resolved: imageSrc,
+      finalPath: imageSrc.startsWith('@private-content') 
+        ? imageSrc.replace('@private-content', '/private-content')
+        : imageSrc
+    });
+    
+    // Log individual values for clarity
+    console.log('🔍 Original src:', src);
+    console.log('🔍 Resolved imageSrc:', imageSrc);
+    console.log('🔍 Final path:', imageSrc.startsWith('@private-content') 
+      ? imageSrc.replace('@private-content', '/private-content')
+      : imageSrc
+    );
   }
 
   return (
@@ -58,6 +72,17 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
         className={`${className} ${isDesktop && !isProjectThumbnail ? 'cursor-pointer hover:opacity-90 transition-opacity' : ''}`}
         style={style}
         onClick={handleImageClick}
+        onLoad={() => {
+          if (import.meta.env.DEV) {
+            console.log('✅ Image loaded successfully:', imageSrc);
+          }
+        }}
+        onError={(e) => {
+          if (import.meta.env.DEV) {
+            console.error('❌ Image failed to load:', imageSrc);
+            console.error('❌ Error details:', e);
+          }
+        }}
       />
       <Lightbox
         isOpen={isLightboxOpen}

@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { trackPageView, testCustomDimensions } from './utils/analytics';
+import { useScrollToTop } from './hooks/useScrollToTop';
 
 import Sidebar from './components/Sidebar';
 import MobileHeader from './components/MobileHeader';
@@ -97,6 +98,13 @@ const App = () => {
 
 function ContentWithFade() {
   const location = useLocation();
+  
+  // Global smooth scroll to top on route change
+  useScrollToTop({
+    autoScroll: true,
+    behavior: 'smooth',
+    delay: 50 // Quick delay for global navigation
+  });
   
   // Track page views for Google Analytics
   useEffect(() => {

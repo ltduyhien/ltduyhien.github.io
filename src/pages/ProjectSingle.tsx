@@ -7,6 +7,8 @@ import { visit } from 'unist-util-visit';
 import { Node } from 'unist';
 import rehypeRaw from 'rehype-raw';
 import hljs from 'highlight.js';
+import { usePageEngagement } from '../hooks/usePageEngagement';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 import { 
   trackProjectView, 
   trackCollapseAll, 
@@ -320,6 +322,13 @@ const ProjectSingle = () => {
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [interactionCount, setInteractionCount] = useState<number>(0);
   const [scrollDepth, setScrollDepth] = useState<number>(0);
+
+  // Smooth scroll to top when navigating to project page
+  useScrollToTop({
+    autoScroll: true,
+    behavior: 'smooth',
+    delay: 150 // Longer delay for project pages to ensure content loads
+  });
 
   const handleSectionToggle = useCallback((key: string, open: boolean) => {
     setOpenSections((prev) => ({ ...prev, [key]: open }));

@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const githubProjects = [
   {
@@ -14,8 +15,16 @@ const githubProjects = [
   },
 ];
 
-const Github = () => (
-  <div className="container-custom px-8 pt-24 pb-16 md:pt-8 md:pb-16 max-w-2xl mx-auto">
+const Github = () => {
+  // Smooth scroll to top when navigating to Github page
+  useScrollToTop({
+    autoScroll: true,
+    behavior: 'smooth',
+    delay: 100
+  });
+
+  return (
+    <div className="container-custom px-8 pt-24 pb-16 md:pt-8 md:pb-16 max-w-2xl mx-auto">
     <h2 className="text-xl font-bold mb-2 text-zinc-900 dark:text-white">Github: ltduyhien</h2>
     <p className="mb-4 text-base font-medium text-zinc-700 dark:text-zinc-200 leading-relaxed">
       I specialize in front-end and mobile development, with skills in React, TypeScript, and modern web technologies. I also have sufficient experience in backend development and DevOps practices. For mobile development, I work with native Android development, creating apps that deliver smooth user experiences across different devices and screen sizes.
@@ -61,5 +70,6 @@ const Github = () => (
       <Footer />
     </div>
   );
+};
 
 export default Github;

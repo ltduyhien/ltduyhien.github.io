@@ -13,6 +13,7 @@ import ExperienceCard from '../components/ExperienceCard';
 import Footer from '../components/Footer';
 import { usePageEngagement } from '../hooks/usePageEngagement';
 import { trackCollapseAll, trackSectionToggle } from '../utils/analytics';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 import type { ProjectData } from './ProjectSingle';
 import { HOMEPAGE_PROJECTS } from './projectsOrder';
@@ -48,6 +49,13 @@ const Home = () => {
   ];
 
   const [projects, setProjects] = useState<ProjectData[]>([]);
+
+  // Smooth scroll to top when navigating to Home page
+  useScrollToTop({
+    autoScroll: true,
+    behavior: 'smooth',
+    delay: 100
+  });
 
   const handleSectionToggle = useCallback((key: string, open: boolean) => {
     setOpenSections((prev) => ({ ...prev, [key]: open }));

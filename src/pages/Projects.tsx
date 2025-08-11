@@ -5,6 +5,7 @@ import ProjectCard from '../components/ProjectCard';
 import Footer from '../components/Footer';
 import { usePageEngagement } from '../hooks/usePageEngagement';
 import { setProjectCategory } from '../utils/analytics';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 import type { ProjectData } from './ProjectSingle';
 import { PROJECTS_ORDER } from './projectsOrder';
@@ -19,6 +20,13 @@ const Projects = () => {
   const { trackInteraction } = usePageEngagement({
     trackInteractions: true,
     trackScroll: true
+  });
+
+  // Smooth scroll to top when navigating to Projects page
+  useScrollToTop({
+    autoScroll: true,
+    behavior: 'smooth',
+    delay: 100
   });
 
   useEffect(() => {

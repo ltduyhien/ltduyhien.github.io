@@ -12,6 +12,7 @@ import {
   setInteractionDepth
 } from '../utils/analytics';
 import { usePageEngagement } from '../hooks/usePageEngagement';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const About = () => {
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({});
@@ -26,10 +27,12 @@ const About = () => {
     trackSections: true
   });
 
-  // Ensure page starts at top when navigating to About page
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // Smooth scroll to top when navigating to About page
+  useScrollToTop({
+    autoScroll: true,
+    behavior: 'smooth',
+    delay: 150 // Slightly longer delay to ensure content is rendered
+  });
 
   const handleSectionToggle = useCallback((key: string, isOpen: boolean) => {
     setOpenSections(prev => ({ ...prev, [key]: isOpen }));

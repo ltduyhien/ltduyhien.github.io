@@ -1,7 +1,16 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
-const CV = () => (
+const CV = () => {
+  // Smooth scroll to top when navigating to CV page
+  useScrollToTop({
+    autoScroll: true,
+    behavior: 'smooth',
+    delay: 100
+  });
+
+  return (
   <div className="container-custom px-8 pt-24 pb-16 md:py-16 max-w-2xl mx-auto">
     <h2 className="text-xl font-semibold mb-4 text-zinc-900 dark:text-white">
       Looking to learn more about my work and experience?
@@ -35,5 +44,6 @@ const CV = () => (
     <Footer />
   </div>
 );
+};
 
 export default CV;

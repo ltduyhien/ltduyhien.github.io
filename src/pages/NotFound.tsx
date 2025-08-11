@@ -3,8 +3,16 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 const NotFound: React.FC = () => {
+  // Smooth scroll to top when navigating to 404 page
+  useScrollToTop({
+    autoScroll: true,
+    behavior: 'smooth',
+    delay: 100
+  });
+
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
       <Sidebar />

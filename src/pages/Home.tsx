@@ -17,8 +17,8 @@ import { trackCollapseAll, trackSectionToggle } from '../utils/analytics';
 import type { ProjectData } from './ProjectSingle';
 import { HOMEPAGE_PROJECTS } from './projectsOrder';
 
-// Vite dynamic image import
-const projectImages = import.meta.glob('../projects/*/*', {
+// Vite dynamic image import from private content submodule
+const projectImages = import.meta.glob('../../private-content/projects/*/*', {
   eager: true,
   query: '?url',
   import: 'default',
@@ -82,7 +82,7 @@ const Home = () => {
       const loaded = await Promise.all(
         HOMEPAGE_PROJECTS.map(async (proj) => {
           try {
-            const mod = await import(`../projects/${proj.slug}/data.json`);
+            const mod = await import(`../../private-content/projects/${proj.slug}/data.json`);
             return { ...mod.default, slug: proj.slug };
           } catch {
             return null;

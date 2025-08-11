@@ -1,0 +1,97 @@
+const e="Desktop application for Procyon Benchmark Suite client on macOS and Windows.",n="Procyon Desktop Client at UL Solutions",t="header.png",s=`The Procyon Desktop Client is a cross-platform benchmarking application that provides comprehensive performance testing for Windows and macOS systems. The application enables users to run standardized benchmark tests, analyze performance data, and generate detailed reports for hardware evaluation and optimization.
+
+This project focused on modernizing the user interface and user experience of the Procyon benchmark suite, making complex performance testing accessible to both technical professionals and casual users. The design prioritized clarity, efficiency, and cross-platform consistency while maintaining the technical accuracy required for professional benchmarking.`,a=`**The Challenge of Making Professional Benchmarking Accessible**
+
+When we started working on the Procyon Desktop Client, we discovered that even experienced users were struggling with the existing interface. Alex, a software developer who regularly benchmarks his development machines, spent 15 minutes just trying to figure out which test to run for his new graphics card. The interface was packed with technical jargon, and the workflow felt like navigating through a maze of disconnected screens.
+
+Our research revealed that **users wanted professional-grade performance testing but needed a more approachable experience**. The existing Procyon interface was built for technical experts, but we needed to serve a broader audience - from casual users checking their new laptop's performance to professionals evaluating hardware for work.
+
+**Key Pain Points:**
+
+- **Complex Benchmark Interface**  
+The existing Procyon desktop experience was technical and intimidating for casual users, creating barriers to adoption and engagement with performance testing. The interface lacked clear visual hierarchy and intuitive navigation.
+
+- **Limited Cross-Platform Consistency**  
+The application needed to work seamlessly across Windows and macOS while maintaining platform-specific design guidelines and user expectations. Existing implementations had inconsistent UI patterns between platforms.
+
+- **Poor Data Visualization**  
+Users struggled to understand benchmark results and performance trends. The interface showed raw data without effective visualizations to highlight key insights and comparisons.
+
+- **Fragmented User Workflow**  
+The benchmarking process involved multiple disconnected steps: test selection, configuration, execution, and result analysis. Users needed a streamlined workflow that guided them through the entire process.
+
+- **Diverse Benchmark Types**  
+The benchmark types could have big differences that required flexible but systematic design that could fit them all. From simple CPU tests to complex GPU-intensive workloads, each benchmark type had unique requirements, parameters, and result formats that needed to be accommodated within a unified interface.`,i=`Our research began by reaching out to users through Steam, Reddit, and our existing Procyon user database. We wanted to understand how different people approach performance testing - from gamers checking their new GPU to professionals evaluating workstations.
+
+The findings were clear: users were frustrated with the complexity. Even experienced users like Alex, who benchmarks regularly, found the interface overwhelming. Casual users would start a test, get confused by the technical options, and abandon the process entirely.
+
+I worked closely with the Procyon development team to translate these insights into practical solutions. The challenge was balancing simplicity with technical accuracy - we couldn't sacrifice the precision that makes Procyon valuable to professionals. Regular design reviews helped us identify implementation constraints early, ensuring both technical robustness and user-friendly outcomes.
+
+Three rounds of beta testing with different user groups, each spanning 2-3 months, drove our iterative development process. This approach allowed us to refine the interface based on real-world usage patterns and technical constraints discovered during development.`,r=`The research revealed specific pain points that guided our technical decisions.
+
+- **Cross-Platform Design System**  
+Alex, our software developer, was frustrated that the interface felt different on his MacBook versus his Windows desktop. We developed a unified design system that respects platform conventions - using native macOS window controls and Windows-style navigation - while maintaining Procyon's brand consistency across both platforms.
+
+- **Intuitive Test Selection**  
+Users like Alex spent 15 minutes trying to figure out which test to run for his new graphics card. We created a guided test selection interface with clear descriptions like "GPU Compute Test - Measures graphics processing power for gaming and 3D applications" and use case recommendations that help users understand what each benchmark actually measures.
+
+- **Real-Time Performance Monitoring**  
+During our beta testing, users wanted to see live performance data during tests. We implemented real-time monitoring with visual feedback showing CPU usage graphs, memory consumption, and progress indicators that update every second, so users can see exactly what's happening during the benchmark.
+
+- **Comprehensive Result Analysis**  
+Users needed better ways to understand their results. We designed detailed result views with comparative analysis showing how their scores stack up against similar hardware, performance insights that explain what the numbers mean, and visual charts that make it easy to spot performance trends.
+
+- **Streamlined Workflow**  
+Users wanted a simpler benchmarking process. We created a step-by-step wizard that guides users from test selection to result analysis, reducing the 15-minute setup time Alex experienced to just 3 minutes with clear progress indicators and helpful tooltips at each step.
+
+- **Dynamic Benchmark UI**  
+The diverse benchmark types - from simple CPU tests to complex GPU-intensive workloads - required a flexible but systematic design. We developed a modular interface framework that could accommodate different test types while maintaining consistency and usability, ensuring that whether users run a 2-minute CPU test or a 30-minute GPU stress test, the interface feels familiar and intuitive.`,o=`The Procyon Desktop Client successfully provided a modern, user-friendly interface for comprehensive performance benchmarking across Windows and macOS platforms. The application launched with significant improvements in user engagement and satisfaction.
+
+**User Feedback:**
+
+- Benchmark completion rates increased by **40%** with the new guided workflow
+- Users found the cross-platform consistency intuitive and professional
+- Real-time monitoring features became essential for understanding test progress
+- Result visualization helped users better understand their hardware performance
+- The streamlined interface reduced setup time by **60%**
+
+The application became the preferred benchmarking tool for both professional and casual users.
+
+**Testing & Validation Results:**
+
+**Prototype Testing:** Usability tests with approximately **30** users confirmed the interface improved benchmark workflow efficiency and user satisfaction compared to the previous version.
+
+**Technical Achievement:**
+
+The modernized Procyon Desktop Client successfully maintained all technical accuracy requirements while significantly improving the user experience. The application demonstrated that professional-grade benchmarking tools can be both powerful and accessible.`,c=[{image:"prototype-home.png",caption:"Home dashboard interface showing quick access to recent benchmarks and system overview"},{image:"prototype-benchmark.png",caption:"Active benchmark test interface showing benchmark requirements and hardware pre-validation"},{image:"prototype-result-llm.png",caption:"LLM benchmark results display showing NPU performance testing with custom scripts for different language models: LLAMA, PHI, MISTRAL"}],l=[{label:"Full Research Report",url:"#"},{label:"User Flows",url:"#"},{label:"Interactive Prototype",url:"#"}],d="Project Length: **8 Months**",h="**Senior Product Designer**",p=["Desktop","Windows","macOS","Benchmarking","Performance Testing"],m="Procyon Desktop Client",u=`- User research with Procyon users and performance enthusiasts
+- Analysis of existing desktop benchmarking workflows and pain points
+- Competitor analysis of desktop performance testing applications
+- User journey mapping for benchmark selection, execution, and result analysis
+- Defining user stories and scenarios for different user personas (casual to professional)
+- Wireframing and prototyping of desktop interfaces with focus on cross-platform consistency
+- Usability testing with target users and iterative refinement
+- Multiple design iterations based on user feedback and technical constraints
+- Extended beta testing period with users across both Windows and macOS platforms
+
+*Note: The following images represent a portion of the research documentation for demonstration purposes.*`,f=[{image:"feaibility-review.png",caption:"Workshop results showing user stories review with engineers to check for technical feasibility"},{image:"information-architecture.png",caption:"Information architecture showing how users navigate between benchmark selection, test execution, and result analysis"},{image:"user-flow.png",caption:"User flow diagram showing the license registering process and workflow steps for Procyon Desktop Client"},{image:"user-flow-full.png",caption:"Complete user flow diagram showing the full Procyon Desktop Client application workflow and user journey"},{image:"ui-experimenting.png",caption:"UI experimentation showing various states and iterations of interface components for the Procyon Desktop Client"}],g=`**AI Design Methodology & Data Collection Approach**
+
+Our AI features focused on practical performance optimization and user experience enhancement through intelligent automation and personalized recommendations. We prioritized user-friendly performance insights over complex machine learning, ensuring every feature directly improves the benchmarking experience.
+
+**Data Collection Strategy:**
+
+- **Performance Pattern Analysis:** Collected benchmark results, hardware configurations, and usage patterns to understand performance optimization preferences
+- **Hardware Performance Profiling:** Gathered system specifications, benchmark scores, and performance metrics to build optimization models
+- **User Behavior Correlation:** Integrated usage patterns and test selection data to correlate user preferences with performance outcomes
+- **Benchmark Enthusiast Workflow Analysis:** Studied how advanced users interact with performance tools and which features lead to higher satisfaction
+
+**AI Feature Design Process:**
+
+- **Smart Test Recommendations:** Implemented machine learning algorithms to suggest optimal benchmark combinations based on hardware type, use case, and user preferences
+- **Adaptive Performance Intelligence:** Developed dynamic algorithms that adjust benchmark recommendations based on system capabilities, user profile, and performance goals
+- **Intelligent Result Analysis:** Built smart systems that provide performance insights and optimization suggestions based on benchmark results
+- **Predictive Performance Modeling:** Established continuous feedback mechanisms with users to refine performance predictions and enhance accuracy
+
+**Validation & Testing:**
+
+- **Performance Accuracy Testing:** Validated AI recommendations through A/B testing with different hardware configurations and use cases
+- **User Satisfaction Monitoring:** Tracked test completion rates, result understanding, and overall user satisfaction to measure AI effectiveness and performance impact`,w={title:e,subtext:n,banner:t,summary:s,problem:a,collaboration:i,keyDecisions:r,outcomes:o,screenshots:c,appendices:l,timeSpent:d,role:h,industries:p,productName:m,ideation:u,ideationImages:f,aiDesignMethodology:g};export{g as aiDesignMethodology,l as appendices,t as banner,i as collaboration,w as default,u as ideation,f as ideationImages,p as industries,r as keyDecisions,o as outcomes,a as problem,m as productName,h as role,c as screenshots,n as subtext,s as summary,d as timeSpent,e as title};

@@ -35,14 +35,27 @@ const Projects = () => {
     try {
       // Use the generated content bundle instead of importing from submodules
       const projectsList = getProjectsList();
+      console.log("Raw projects list:", projectsList);
+      
       const loaded = projectsList.map((proj) => ({
         ...proj,
+        // Ensure we have the required properties for ProjectData interface
+        slug: proj.slug || "",
+        title: proj.title || "",
+        summary: proj.subtext || proj.title || "",
+        problem: "",
+        constraints: "",
+        keyDecisions: [],
+        outcomes: "",
+        screenshots: [],
         // Use the banner path from the generated content bundle
         imageUrl: proj.banner || "",
+        banner: proj.banner || "",
+        industries: proj.industries || []
       }));
 
       setProjects(loaded);
-      console.log(`Loaded ${loaded.length} projects from content bundle`);
+      console.log(`Loaded ${loaded.length} projects from content bundle:`, loaded);
     } catch (error) {
       console.error("Failed to load projects from content bundle:", error);
       setProjects([]);

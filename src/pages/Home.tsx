@@ -92,16 +92,17 @@ const Home = () => {
         // Filter to only show homepage projects
         const loaded = HOMEPAGE_PROJECTS.map((proj) => {
           const projectData = allProjects.find((p) => p.slug === proj.slug);
+          
           if (projectData) {
             return {
               ...projectData,
               slug: proj.slug,
               // Use the banner path from the content bundle
               imageUrl: projectData.banner || "",
-            };
+            } as ProjectData;
           }
           return null;
-        }).filter(Boolean);
+        }).filter((project): project is ProjectData => project !== null);
 
         setProjects(loaded);
         console.log(

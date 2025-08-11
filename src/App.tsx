@@ -25,6 +25,7 @@ import Github from "./pages/Github";
 import NotFound from "./pages/NotFound";
 import SecurityDashboard from "./components/SecurityDashboard";
 import WatermarkingDashboard from "./components/WatermarkingDashboard";
+import EnhancedTextWatermarking from "./utils/enhancedTextWatermarking";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -42,6 +43,28 @@ const App = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
+
+  // Initialize enhanced text watermarking for content protection
+  useEffect(() => {
+    const textWatermarking = new EnhancedTextWatermarking({
+      enabled: true,
+      text: '© 2025 Hien Le',
+      opacity: 0.15,
+      fontSize: 14,
+      color: 'rgba(0, 0, 0, 0.15)',
+      rotation: -12,
+      spacing: 150,
+      disableTextSelection: true,
+      disableRightClick: true,
+      disableCopy: false,
+      invisibleWatermarks: true
+    });
+
+    // Cleanup on unmount
+    return () => {
+      textWatermarking.destroy();
+    };
+  }, []);
 
   // Close menu when resizing to desktop
   useEffect(() => {

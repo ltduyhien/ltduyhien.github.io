@@ -11,7 +11,7 @@ node_modules
 ENVIRONMENT_SETUP.md
 env.production
 
-# Hide submodule folders from repository listing (they still work for builds)
+# Private repositories (available locally for development, not committed)
 private-content/
 private-styling/
 

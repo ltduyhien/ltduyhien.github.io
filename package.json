@@ -6,12 +6,14 @@
   "license": "GPL-3.0",
   "copyright": "Copyright (c) 2025 Hien Le",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/fetch-private-repos.js && npm run build:content && vite",
     "build:content": "node scripts/build-content.js",
     "prebuild": "npm run build:content",
     "build": "npm run build:content && vite build",
-    "postbuild": "node scripts/update-404-assets.js",
     "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
+    "postbuild": "node scripts/update-404-assets.js",
     "security:validate": "node scripts/validate-content.js"
   },
   "dependencies": {

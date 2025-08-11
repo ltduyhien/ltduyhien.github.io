@@ -2,7 +2,7 @@
 
 A modern, secure portfolio website built with React, TypeScript, and Tailwind CSS. Features a comprehensive project showcase with advanced security measures and content protection.
 
-## 🚀 Features
+## Features
 
 - **Modern Tech Stack**: React 18, TypeScript, Vite, Tailwind CSS
 - **Project Showcase**: 11+ detailed project case studies with high-quality visuals
@@ -13,7 +13,7 @@ A modern, secure portfolio website built with React, TypeScript, and Tailwind CS
 
 
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 github-portfolio/
@@ -28,7 +28,7 @@ github-portfolio/
 └── .github/workflows/     # CI/CD deployment workflows
 ```
 
-## 🛠️ Development
+## Development
 
 ### Prerequisites
 - Node.js 18+ 
@@ -59,13 +59,13 @@ npm run preview
 
 
 
-## 📝 License
+## License
 
 **Copyright (c) 2025 Hien Le. Licensed under GPL v3.**
 
 This project is open source software licensed under the GNU General Public License v3.0.
 
-## 🔗 Links
+## Links
 
 - **Live Site**: [https://ltduyhien.github.io](https://ltduyhien.github.io)
 - **Main Repository**: [https://github.com/ltduyhien/ltduyhien.github.io](https://github.com/ltduyhien/ltduyhien.github.io)

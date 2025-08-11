@@ -16,8 +16,9 @@ import { trackCollapseAll, trackSectionToggle } from '../utils/analytics';
 
 import type { ProjectData } from './ProjectSingle';
 import { HOMEPAGE_PROJECTS } from './projectsOrder';
+import { getProjectsList } from '../generated/content-bundle';
 
-// Images are now loaded from submodules
+// Images are now loaded from the generated content bundle
 
 const Home = () => {
   // Page engagement tracking
@@ -73,33 +74,36 @@ const Home = () => {
   }, [updateButtonPosition]);
 
   useEffect(() => {
-    async function loadProjects() {
-      const loaded = await Promise.all(
-        HOMEPAGE_PROJECTS.map(async (proj) => {
-          try {
-            const mod = await import(`@private-content/projects/${proj.slug}/data.json`);
-            return { 
-              ...mod.default, 
+    function loadProjects() {
+      try {
+        // Use the generated content bundle instead of importing from submodules
+        const allProjects = getProjectsList();
+        
+        // Filter to only show homepage projects
+        const loaded = HOMEPAGE_PROJECTS.map(proj => {
+          const projectData = allProjects.find(p => p.slug === proj.slug);
+          if (projectData) {
+            return {
+              ...projectData,
               slug: proj.slug,
-              // Use real project banner image from submodule
-              imageUrl: `@private-content/projects/${proj.slug}/${mod.default.banner || 'header.png'}`
+              // Use the banner path from the content bundle
+              imageUrl: projectData.banner || ''
             };
-          } catch (error) {
-            console.error(`Failed to load ${proj.slug}:`, error);
-            return null;
           }
-        }),
-      );
-      setProjects(loaded.filter(Boolean));
+          return null;
+        }).filter(Boolean);
+        
+        setProjects(loaded);
+        console.log(`Loaded ${loaded.length} homepage projects from content bundle`);
+      } catch (error) {
+        console.error('Failed to load projects from content bundle:', error);
+        setProjects([]);
+      }
     }
     loadProjects();
   }, []);
 
-  function getBannerUrl(slug: string, banner?: string): string {
-    if (!banner) return '';
-    // Use submodule path for images
-    return `@private-content/projects/${slug}/${banner}`;
-  }
+
 
   return (
     <div className="container-custom px-8 pt-24 pb-16 md:pt-8 md:pb-16" ref={containerRef}>

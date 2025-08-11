@@ -70,6 +70,4 @@ This project is open source software licensed under the GNU General Public Licen
 - **Live Site**: [https://ltduyhien.github.io](https://ltduyhien.github.io)
 - **Main Repository**: [https://github.com/ltduyhien/ltduyhien.github.io](https://github.com/ltduyhien/ltduyhien.github.io)
 
----
 
-*Built with ❤️ and modern web technologies*

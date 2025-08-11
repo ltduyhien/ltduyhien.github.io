@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "author": "Hien Le",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "copyright": "Copyright (c) 2025 Hien Le",
   "scripts": {
     "dev": "vite",

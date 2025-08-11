@@ -46,7 +46,8 @@ const Footer = () => {
       </p>
       <div className="mt-8 pt-4 border-t border-zinc-200 dark:border-zinc-700">
         <p className="text-sm text-zinc-500 dark:text-zinc-400 text-left">
-          © 2025 Hien Le. All rights reserved. This portfolio is licensed under the MIT License.
+          © 2025 Hien Le. All rights reserved. This portfolio is licensed under the{' '}
+          <a href="/LICENSE" target="_blank" className="text-brand hover:underline">GPL v3</a>.
         </p>
       </div>
     </div>

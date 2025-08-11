@@ -17,12 +17,7 @@ import { trackCollapseAll, trackSectionToggle } from '../utils/analytics';
 import type { ProjectData } from './ProjectSingle';
 import { HOMEPAGE_PROJECTS } from './projectsOrder';
 
-// Vite dynamic image import from projects directory
-const projectImages = import.meta.glob('./projects/*/*', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-});
+// Images are now loaded from submodules
 
 const Home = () => {
   // Page engagement tracking
@@ -82,9 +77,15 @@ const Home = () => {
       const loaded = await Promise.all(
         HOMEPAGE_PROJECTS.map(async (proj) => {
           try {
-            const mod = await import(`./projects/${proj.slug}/data.json`);
-            return { ...mod.default, slug: proj.slug };
-          } catch {
+            const mod = await import(`@private-content/projects/${proj.slug}/data.json`);
+            return { 
+              ...mod.default, 
+              slug: proj.slug,
+              // Add placeholder image URL for homepage projects
+              imageUrl: `https://picsum.photos/400/300?random=${proj.slug}`
+            };
+          } catch (error) {
+            console.error(`Failed to load ${proj.slug}:`, error);
             return null;
           }
         }),
@@ -96,9 +97,8 @@ const Home = () => {
 
   function getBannerUrl(slug: string, banner?: string): string {
     if (!banner) return '';
-    const key = `../projects/${slug}/${banner}`;
-    const url = projectImages[key];
-    return typeof url === 'string' ? url : '';
+    // Use submodule path for images
+    return `@private-content/projects/${slug}/${banner}`;
   }
 
   return (
@@ -133,7 +133,7 @@ const Home = () => {
               title={project.title}
               subtitle={project.subtext || ''}
               tags={project.industries || []}
-              imageUrl={getBannerUrl(String(project.slug || ''), String(project.banner || ''))}
+              imageUrl={project.imageUrl || ''}
             />
           </Link>
         ))}

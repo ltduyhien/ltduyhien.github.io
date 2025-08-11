@@ -53,6 +53,4 @@ temp
 # Development tracking (not for public repository)
 DEVELOPMENT_LOG.md
 
-# Hide submodule folders from repository listing (they still work for builds)
-private-content/
-private-styling/
+

@@ -203,6 +203,7 @@ const markdownComponents = {
         src={imageSrc}
         alt={alt || ''}
         className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+        style={{ boxSizing: 'border-box' }}
         {...rest}
       />
     );
@@ -502,15 +503,16 @@ const ProjectSingle = () => {
               img: ({ src, alt }) => (
                 <figure className="my-8">
                   <DynamicImage
-                    src={src}
-                    alt={alt}
+                    src={src || ''}
+                    alt={alt || ''}
                     className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                    style={{ boxSizing: 'border-box' }}
                     onOpenLightbox={handleLightboxOpen}
                     onCloseLightbox={handleLightboxClose}
-                    caption={alt}
+                    caption={alt || ''}
                   />
                   <figcaption className="text-sm text-zinc-500 dark:text-zinc-400 text-center">
-                    {alt}
+                    {alt || ''}
                   </figcaption>
                 </figure>
               )
@@ -526,6 +528,7 @@ const ProjectSingle = () => {
                     src={img.image}
                     alt={img.caption}
                     className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                    style={{ boxSizing: 'border-box' }}
                     onOpenLightbox={handleLightboxOpen}
                     onCloseLightbox={handleLightboxClose}
                     caption={img.caption}
@@ -572,6 +575,7 @@ const ProjectSingle = () => {
                 src="prototype4.png"
                 alt="3DMark Interactive Mode prototype"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="The Interactive Mode allows users to explore graphics settings and see real-time changes in rendering quality, helping them understand the relationship between hardware and visual performance"
@@ -648,6 +652,7 @@ const ProjectSingle = () => {
                       src={shot.image}
                       alt={shot.caption}
                       className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                      style={{ boxSizing: 'border-box' }}
                       onOpenLightbox={handleLightboxOpen}
                       onCloseLightbox={handleLightboxClose}
                       caption={shot.caption}
@@ -681,6 +686,7 @@ const ProjectSingle = () => {
                 src="prototype-riva.png"
                 alt="Light theme: Custom AllConnect interface designed specifically for managing Riva Audio speakers with advanced audio settings and voice features"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="Light theme: Custom AllConnect interface designed specifically for managing Riva Audio speakers with advanced audio settings and voice features"
@@ -694,6 +700,7 @@ const ProjectSingle = () => {
                 src="prototype-riva-dark.png"
                 alt="Riva Audio UI with dark mode and enhanced visual contrast for optimal user experience"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="Riva Audio UI with dark mode and enhanced visual contrast for optimal user experience"
@@ -727,6 +734,7 @@ const ProjectSingle = () => {
                     src={img.image}
                     alt={img.caption}
                     className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                    style={{ boxSizing: 'border-box' }}
                     onOpenLightbox={handleLightboxOpen}
                     onCloseLightbox={handleLightboxClose}
                     caption={img.caption}
@@ -762,6 +770,7 @@ const ProjectSingle = () => {
                     src={img.image}
                     alt={img.caption}
                     className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                    style={{ boxSizing: 'border-box' }}
                     onOpenLightbox={handleLightboxOpen}
                     onCloseLightbox={handleLightboxClose}
                     caption={img.caption}
@@ -834,6 +843,7 @@ const ProjectSingle = () => {
                 src="color-light.png"
                 alt="Light theme color palette with brand colors and semantic variations"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="Light theme color palette with brand colors and semantic variations"
@@ -847,6 +857,7 @@ const ProjectSingle = () => {
                 src="color-dark.png"
                 alt="Dark theme color palette optimized for readability and visual hierarchy"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="Dark theme color palette optimized for readability and visual hierarchy"
@@ -878,6 +889,7 @@ const ProjectSingle = () => {
                 src="typography-light.png"
                 alt="Light theme typography hierarchy and font system"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="Light theme typography hierarchy and font system"
@@ -891,6 +903,7 @@ const ProjectSingle = () => {
                 src="typography-dark.png"
                 alt="Dark theme typography with optimized contrast and readability"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="Dark theme typography with optimized contrast and readability"
@@ -922,6 +935,7 @@ const ProjectSingle = () => {
                 src="button-light.png"
                 alt="Light theme button variants and states"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="Light theme button variants and states"
@@ -935,6 +949,7 @@ const ProjectSingle = () => {
                 src="button-dark.png"
                 alt="Dark theme button variants with optimized contrast"
                 className="w-full [border-radius:6px_/_6px] object-cover mb-2 border-2 border-zinc-200 dark:border-zinc-700"
+                style={{ boxSizing: 'border-box' }}
                 onOpenLightbox={handleLightboxOpen}
                 onCloseLightbox={handleLightboxClose}
                 caption="Dark theme button variants with optimized contrast"
@@ -1046,7 +1061,7 @@ const ProjectSingle = () => {
               src={project.banner}
               alt="Project banner"
               className="w-full h-full object-contain md:object-cover [border-radius:6px_/_6px] md:border-2 md:border-zinc-200 md:dark:border-zinc-700"
-              style={{ minHeight: 'auto' }}
+              style={{ boxSizing: 'border-box', minHeight: 'auto' }}
               isProjectThumbnail={true}
               onOpenLightbox={handleLightboxOpen}
             />
@@ -1069,6 +1084,7 @@ const ProjectSingle = () => {
           src="explaination.png"
           alt="Explanation diagram"
           className="w-full max-w-3xl mx-auto rounded border-2 border-zinc-200 dark:border-zinc-700"
+          style={{ boxSizing: 'border-box' }}
           onOpenLightbox={handleLightboxOpen}
           caption={
             slug === 'nokia-data-suite'

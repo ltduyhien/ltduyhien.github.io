@@ -21,6 +21,7 @@ const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
             }
             alt="Project preview"
             className="w-full h-auto [border-radius:6px_/_6px] md:border-2 md:border-zinc-200 md:dark:border-zinc-700"
+            style={{ boxSizing: 'border-box' }}
           />
         ) : (
           <span className="text-zinc-400 dark:text-zinc-300 text-sm md:text-base">Project preview</span>

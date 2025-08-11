@@ -95,6 +95,7 @@ const About = () => {
             src="/profile.jpg"
             alt="Hien Le - Senior Product Designer"
             className="max-w-48 rounded-lg border border-zinc-200 dark:border-zinc-700"
+            style={{ boxSizing: 'border-box' }}
           />
         </div>
         <div className="flex-1">

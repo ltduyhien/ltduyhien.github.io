@@ -4,6 +4,17 @@
  * @license MIT
  */
 
+// Extend Window interface for watermark debugging
+declare global {
+  interface Window {
+    watermarkDebugBorders?: Array<{
+      element: HTMLElement;
+      parent: HTMLElement;
+      type: string;
+    }>;
+  }
+}
+
 export interface WatermarkConfig {
   enableTextWatermarking: boolean;
   enableImageWatermarking: boolean;
@@ -33,12 +44,12 @@ export class ContentWatermarking {
   constructor(config: Partial<WatermarkConfig> = {}) {
     this.config = {
       enableTextWatermarking: true,
-      enableImageWatermarking: true,
+      enableImageWatermarking: false, // Disabled by default - enable when needed
       enableMetadataWatermarking: true,
-      watermarkOpacity: 0, // Completely invisible
+      watermarkOpacity: 0.15, // Very subtle opacity
       watermarkSize: 1, // Minimal size
       watermarkText: '© Hien Le 2025',
-      watermarkColor: 'transparent', // Transparent color
+      watermarkColor: 'rgba(255, 255, 255, 0.15)', // Very subtle white
       enableTracking: true,
       ...config
     };
@@ -128,29 +139,9 @@ export class ContentWatermarking {
     img.setAttribute('data-watermark-text', this.config.watermarkText);
     img.setAttribute('data-watermark-timestamp', Date.now().toString());
     
-    // Create a visible watermark overlay
+    // Create a visible watermark overlay (will be styled after parent is defined)
     const watermarkOverlay = document.createElement('div');
     watermarkOverlay.textContent = `${this.config.watermarkText} [${index + 1}]`;
-    watermarkOverlay.style.cssText = `
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      font-size: 14px;
-      font-weight: bold;
-      color: #ffffff;
-      background: #ff0000;
-      padding: 6px 10px;
-      border-radius: 6px;
-      pointer-events: none;
-      user-select: none;
-      z-index: 999999;
-      font-family: Arial, sans-serif;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-      border: 2px solid #ffffff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-      min-width: 80px;
-      text-align: center;
-    `;
     watermarkOverlay.setAttribute('data-watermark-overlay', 'true');
     
     // Ensure image container has relative positioning
@@ -186,15 +177,229 @@ export class ContentWatermarking {
         zIndex: parentStyle.zIndex
       });
       
-      // CRITICAL FIX: Ensure parent has relative positioning for watermark positioning
-      if (parentStyle.position === 'static') {
-        parent.style.setProperty('position', 'relative', 'important');
-        console.log('🔧 CRITICAL FIX: Changed parent position to relative !important');
-      } else {
-        console.log('🔍 Parent already has positioning:', parentStyle.position);
-      }
+          // CRITICAL FIX: Ensure parent has relative positioning for watermark positioning
+    if (parentStyle.position === 'static') {
+      parent.style.setProperty('position', 'relative', 'important');
+      console.log('🔧 CRITICAL FIX: Changed parent position to relative !important');
+    } else {
+      console.log('🔍 Parent already has positioning:', parentStyle.position);
+    }
+    
+    // Create repeating watermark pattern using multiple DOM elements
+    
+    // Calculate watermark dimensions and spacing for repeating pattern
+    const watermarkSize = Math.min(60, Math.min(img.offsetWidth, img.offsetHeight) * 0.08); // Reduced from 0.12 to 0.08
+    const fontSize = Math.max(6, watermarkSize * 0.25); // Reduced from 0.4 to 0.25 for smaller text
+    const spacing = watermarkSize * 2.5; // Increased from 1.5 to 2.5 for more spacing
+    
+    // Clear the overlay and create multiple watermark elements
+    watermarkOverlay.innerHTML = '';
+    
+    // Get the actual image dimensions and position within the parent
+    
+    // VISUAL INSPECTION APPROACH: Find the actual image boundaries by looking at the image itself
+    const imgTop = img.offsetTop;
+    const imgLeft = img.offsetLeft;
+    
+    // Get the actual rendered dimensions from the image element
+    const imgRect = img.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+    
+    // Use the actual rendered dimensions, but cap them to prevent extreme values
+    let finalWidth = imgRect.width;
+    let finalHeight = imgRect.height;
+    
+    // If the dimensions seem unreasonable, try to find the actual content area
+    if (finalWidth > 2000 || finalHeight > 2000) {
+      console.log('⚠️  WARNING: Image dimensions seem too large, trying alternative method');
       
-      // Check if parent has overflow hidden
+      // Look for the actual image content by checking if it's an img tag with src
+      if (img.src && img.src !== '') {
+        // Try to get dimensions from the actual image file
+        const tempImg = new Image();
+        tempImg.onload = () => {
+          console.log('🔍 Actual image file dimensions:', {
+            naturalWidth: tempImg.naturalWidth,
+            naturalHeight: tempImg.naturalHeight
+          });
+        };
+        tempImg.src = img.src;
+        
+        // Use natural dimensions if available
+        if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+          finalWidth = img.naturalWidth;
+          finalHeight = img.naturalHeight;
+          console.log('✅ Using natural dimensions from image file');
+        }
+      }
+    }
+    
+    // Cap dimensions to reasonable values
+    const maxReasonableSize = 1500;
+    finalWidth = Math.min(finalWidth, maxReasonableSize);
+    finalHeight = Math.min(finalHeight, maxReasonableSize);
+    
+    console.log('🔍 VISUAL INSPECTION DEBUG - Final dimensions:', {
+      imgElement: img,
+      imgSrc: img.src,
+      imgAlt: img.alt,
+      imgRect: {
+        width: imgRect.width,
+        height: imgRect.height,
+        x: imgRect.x,
+        y: imgRect.y
+      },
+      parentRect: {
+        width: parentRect.width,
+        height: parentRect.height,
+        x: parentRect.x,
+        y: parentRect.y
+      },
+      finalDimensions: {
+        width: finalWidth,
+        height: finalHeight
+      },
+      position: {
+        top: imgTop,
+        left: imgLeft
+      }
+    });
+    
+
+    
+    // Set the overlay to match the image dimensions exactly, accounting for borders
+    // Get computed border width to ensure watermarks don't extend beyond visual boundaries
+    const computedStyle = getComputedStyle(img);
+    const borderTopWidth = parseInt(computedStyle.borderTopWidth) || 0;
+    const borderLeftWidth = parseInt(computedStyle.borderLeftWidth) || 0;
+    const borderRightWidth = parseInt(computedStyle.borderRightWidth) || 0;
+    const borderBottomWidth = parseInt(computedStyle.borderBottomWidth) || 0;
+    
+    // Position overlay to account for borders - watermarks should be within visual boundaries
+    const overlayTop = imgTop + borderTopWidth;
+    const overlayLeft = imgLeft + borderLeftWidth;
+    const overlayWidth = finalWidth - borderLeftWidth - borderRightWidth;
+    const overlayHeight = finalHeight - borderTopWidth - borderBottomWidth;
+    
+    watermarkOverlay.style.cssText = `
+      position: absolute;
+      top: ${overlayTop}px;
+      left: ${overlayLeft}px;
+      width: ${overlayWidth}px;
+      height: ${overlayHeight}px;
+      pointer-events: none;
+      user-select: none;
+      z-index: 999999;
+      overflow: hidden;
+    `;
+    
+    // Force the overlay to be visible and properly sized
+    watermarkOverlay.style.setProperty('display', 'block', 'important');
+    watermarkOverlay.style.setProperty('visibility', 'visible', 'important');
+    watermarkOverlay.style.setProperty('opacity', '1', 'important');
+    
+    // Add padding to keep watermarks away from image borders
+    const borderPadding = Math.max(25, fontSize * 3); // Increased from 2x to 3x font size for better spacing
+    
+    // Create a grid of watermarks only within the overlay boundaries (with padding)
+    const availableWidth = overlayWidth - (borderPadding * 2);
+    const availableHeight = overlayHeight - (borderPadding * 2);
+    const cols = Math.ceil(availableWidth / spacing);
+    const rows = Math.ceil(availableHeight / spacing);
+    
+    // Debug: Log the positioning values
+    console.log('🔍 Watermark positioning debug:', {
+      imgTop, imgLeft, finalWidth, finalHeight,
+      borderPadding, availableWidth, availableHeight,
+      cols, rows, spacing,
+      naturalWidth: img.naturalWidth,
+      naturalHeight: img.naturalHeight,
+      offsetWidth: img.offsetWidth,
+      offsetHeight: img.offsetHeight
+    });
+    
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const watermarkElement = document.createElement('div');
+        watermarkElement.textContent = this.config.watermarkText;
+        
+        // Calculate position relative to the overlay (which is already positioned at the image)
+        const watermarkTop = borderPadding + (row * spacing);
+        const watermarkLeft = borderPadding + (col * spacing);
+        
+        watermarkElement.style.cssText = `
+          position: absolute;
+          top: ${watermarkTop}px;
+          left: ${watermarkLeft}px;
+          font-size: ${fontSize}px;
+          font-weight: 200;
+          color: rgba(255, 255, 255, 0.15);
+          font-family: 'Arial', sans-serif;
+          transform: rotate(-12deg);
+          pointer-events: none;
+          user-select: none;
+          white-space: nowrap;
+          -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.2);
+          text-stroke: 0.5px rgba(0, 0, 0, 0.2);
+        `;
+        
+        // Debug: Log each watermark position
+        console.log(`🔍 Watermark [${row},${col}] position:`, {
+          top: watermarkTop,
+          left: watermarkLeft,
+          absoluteTop: imgTop + watermarkTop,
+          absoluteLeft: imgLeft + watermarkLeft
+        });
+        
+                watermarkOverlay.appendChild(watermarkElement);
+      }
+    }
+    
+    // Add a debug border to show the watermark area (development only)
+    if (import.meta.env.DEV) {
+
+      
+      // Debug border for the actual image element - REMOVED BLUE BORDER
+      // const imageDebugBorder = document.createElement('div');
+      // imageDebugBorder.style.cssText = `
+      //   position: absolute;
+      //   top: ${imgTop}px;
+      //   left: ${imgLeft}px;
+      //   width: ${finalWidth}px;
+      //   height: ${finalHeight}px;
+      //   border: 3px solid blue;
+      //   pointer-events: none;
+      //   z-index: 999997;
+      //   background: rgba(0, 0, 255, 0.05);
+      // `;
+      // imageDebugBorder.setAttribute('data-watermark-debug', 'true');
+      // parent.appendChild(imageDebugBorder);
+      
+
+      
+      console.log('🔍 Watermark positioning completed:', {
+        watermarkArea: {
+          top: overlayTop + borderPadding,
+          left: overlayLeft + borderPadding,
+          width: availableWidth,
+          height: availableHeight
+        },
+        overlayElement: {
+          top: overlayTop,
+          left: overlayLeft,
+          width: overlayWidth,
+          height: overlayHeight
+        },
+        imageElement: {
+          top: imgTop,
+          left: imgLeft,
+          width: finalWidth,
+          height: finalHeight
+        }
+      });
+    }
+    
+    // Check if parent has overflow hidden
       if (parentStyle.overflow === 'hidden' || parentStyle.overflow === 'clip') {
         console.log('⚠️  WARNING: Parent has overflow hidden - this will clip watermarks!');
         
@@ -547,7 +752,28 @@ export class ContentWatermarking {
     this.addCSSWatermarks();
     this.addJavaScriptProtection();
 
+    // Ensure debug borders are properly layered on top
+    this.ensureDebugBordersOnTop();
+
     console.log('🔒 All watermarks applied successfully');
+  }
+
+  // Ensure debug borders are on top of all watermarks
+  private ensureDebugBordersOnTop(): void {
+    if (!import.meta.env.DEV || !window.watermarkDebugBorders) return;
+    
+    console.log('🔍 Ensuring debug borders are on top...');
+    
+    window.watermarkDebugBorders.forEach((borderData, index) => {
+      const { element, parent, type } = borderData;
+      
+      // Remove and re-add to ensure it's at the end of the DOM (highest z-index)
+      if (parent && parent.contains(element)) {
+        parent.removeChild(element);
+        parent.appendChild(element);
+        console.log(`🔍 Re-layered ${type} border ${index}`);
+      }
+    });
   }
 
   // Remove all watermarks
@@ -562,6 +788,9 @@ export class ContentWatermarking {
     // Remove image watermark overlays
     const imageWatermarks = document.querySelectorAll('[data-watermark-overlay="true"]');
     imageWatermarks.forEach(watermark => watermark.remove());
+    
+    // Remove debug elements
+    document.querySelectorAll('[data-watermark-debug="true"]').forEach(el => el.remove());
 
     // Remove watermark classes
     document.body.classList.remove('watermark-overlay');
@@ -572,6 +801,11 @@ export class ContentWatermarking {
         style.remove();
       }
     });
+
+    // Clear global debug borders array
+    if (window.watermarkDebugBorders) {
+      window.watermarkDebugBorders = [];
+    }
 
     console.log('🔒 All watermarks removed');
   }

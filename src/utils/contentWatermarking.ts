@@ -1,7 +1,13 @@
 /**
  * @fileoverview Content watermarking system for portfolio protection
  * @copyright Copyright (c) 2025 Hien Le. All rights reserved.
- * @license MIT
+ * @license GPL v3
+ * 
+ * PRODUCTION CONFIGURATION:
+ * - Text watermarking: ENABLED (invisible protection)
+ * - Image watermarking: DISABLED (no visual interference)
+ * - Metadata protection: ENABLED (hidden watermark data)
+ * - Anti-scraping: ENABLED (rate limiting and protection)
  */
 
 // Extend Window interface for watermark debugging
@@ -44,7 +50,7 @@ export class ContentWatermarking {
   constructor(config: Partial<WatermarkConfig> = {}) {
     this.config = {
       enableTextWatermarking: true,
-      enableImageWatermarking: false, // Disabled by default - enable when needed
+      enableImageWatermarking: false, // DISABLED FOR PRODUCTION - no image watermarks
       enableMetadataWatermarking: true,
       watermarkOpacity: 0.15, // Very subtle opacity
       watermarkSize: 1, // Minimal size
@@ -112,20 +118,11 @@ export class ContentWatermarking {
     element.appendChild(watermarkSpan);
   }
 
-  // Add invisible watermark to images
+  // Add invisible watermark to images - DISABLED FOR PRODUCTION
   addImageWatermarks(): void {
-    if (!this.config.enableImageWatermarking) return;
-
-    const images = document.querySelectorAll('img');
-    
-    console.log('🔍 Found', images.length, 'images to watermark');
-    
-    images.forEach((img, index) => {
-      console.log('🔍 Processing image', index, ':', img.src, img.alt);
-      this.addImageWatermark(img as HTMLImageElement, index);
-    });
-
-    console.log('🔒 Image watermarks applied to', images.length, 'images');
+    // Image watermarking is disabled for production to avoid visual interference
+    console.log('🔒 Image watermarking is disabled for production');
+    return;
   }
 
   // Add subtle watermark to image
@@ -747,7 +744,7 @@ export class ContentWatermarking {
     console.log('🔒 Applying content watermarks...');
     
     this.addTextWatermarks();
-    this.addImageWatermarks();
+    this.addImageWatermarks(); // DISABLED FOR PRODUCTION - no visual interference
     this.addMetadataWatermarks();
     this.addCSSWatermarks();
     this.addJavaScriptProtection();
@@ -887,15 +884,15 @@ export class ContentWatermarking {
   }
 }
 
-// Create global watermarking instance
+// Create global watermarking instance - PRODUCTION CONFIG
 export const contentWatermarking = new ContentWatermarking({
   enableTextWatermarking: true,
-  enableImageWatermarking: true,
+  enableImageWatermarking: false, // DISABLED FOR PRODUCTION
   enableMetadataWatermarking: true,
-  watermarkOpacity: 0.1,
-  watermarkSize: 12,
+  watermarkOpacity: 0.15,
+  watermarkSize: 1,
   watermarkText: '© Hien Le 2025',
-  watermarkColor: '#000000',
+  watermarkColor: 'rgba(255, 255, 255, 0.15)',
   enableTracking: true
 });
 

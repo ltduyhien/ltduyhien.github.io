@@ -32,15 +32,30 @@
     <!-- <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HVEX9KVCN3"></script>
+    <!-- Security Headers (Browser-Compatible) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; media-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), encrypted-media=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), web-share=()">
+    <meta name="X-Powered-By" content="Hien Le Portfolio">
+    
+    <!-- Google tag (gtag.js) - Will be injected by Vite based on environment variables -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      
+      // GA ID will be injected by Vite during build
+      if (window.GA_MEASUREMENT_ID) {
+        gtag('config', window.GA_MEASUREMENT_ID);
+      }
     </script>
-    <script type="module" crossorigin src="/assets/index-_V5L5nWf.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C3u4zbn2.css">
+    <script type="module" crossorigin src="/assets/index-CBGvG7lD.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-BKU87Gzz.js">
+    <link rel="modulepreload" crossorigin href="/assets/router-CYCp3OQn.js">
+    <link rel="modulepreload" crossorigin href="/assets/utils-BPC-4UTZ.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-DZyAs4W5.css">
   </head>
   <body class="antialiased font-sans bg-[#F5F5F5] dark:bg-zinc-850">
     <script>

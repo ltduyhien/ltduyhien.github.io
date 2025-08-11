@@ -81,8 +81,8 @@ const Home = () => {
             return { 
               ...mod.default, 
               slug: proj.slug,
-              // Add placeholder image URL for homepage projects
-              imageUrl: `https://picsum.photos/400/300?random=${proj.slug}`
+              // Use real project banner image from submodule
+              imageUrl: `@private-content/projects/${proj.slug}/${mod.default.banner || 'header.png'}`
             };
           } catch (error) {
             console.error(`Failed to load ${proj.slug}:`, error);

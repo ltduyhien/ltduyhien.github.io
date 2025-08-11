@@ -1,3 +1,5 @@
+import { ANALYTICS_CONFIG } from './config';
+
 // Google Analytics utility functions
 declare global {
   interface Window {
@@ -6,13 +8,18 @@ declare global {
 }
 
 export const trackPageView = (path: string, title?: string) => {
+  // Only track if analytics is enabled and configured
+  if (!ANALYTICS_CONFIG.enabled || !ANALYTICS_CONFIG.measurementId) {
+    return;
+  }
+  
   if (typeof window !== 'undefined' && window.gtag) {
     console.log('Tracking page view:', path, title || document.title);
     console.log('Full URL:', window.location.origin + path);
     
     // For SPAs, use config with page_path to track individual page views
     // This is the recommended method for GA4 SPAs
-    window.gtag('config', 'G-HVEX9KVCN3', {
+    window.gtag('config', ANALYTICS_CONFIG.measurementId, {
       page_path: path,
       page_title: title || document.title,
       page_location: window.location.origin + path
@@ -171,8 +178,12 @@ export const trackPageInteraction = (pagePath: string, interactionType: string, 
 
 // Custom Dimensions & Metrics
 export const setUserType = (userType: 'recruiter' | 'designer' | 'developer' | 'other') => {
+  if (!ANALYTICS_CONFIG.enabled || !ANALYTICS_CONFIG.measurementId) {
+    return;
+  }
+  
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', 'G-HVEX9KVCN3', {
+    window.gtag('config', ANALYTICS_CONFIG.measurementId, {
       custom_map: {
         'custom_dimension1': 'user_type'
       },
@@ -182,8 +193,12 @@ export const setUserType = (userType: 'recruiter' | 'designer' | 'developer' | '
 };
 
 export const setProjectCategory = (category: string) => {
+  if (!ANALYTICS_CONFIG.enabled || !ANALYTICS_CONFIG.measurementId) {
+    return;
+  }
+  
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', 'G-HVEX9KVCN3', {
+    window.gtag('config', ANALYTICS_CONFIG.measurementId, {
       custom_map: {
         'custom_dimension2': 'project_category'
       },
@@ -193,8 +208,12 @@ export const setProjectCategory = (category: string) => {
 };
 
 export const setInteractionDepth = (depth: number) => {
+  if (!ANALYTICS_CONFIG.enabled || !ANALYTICS_CONFIG.measurementId) {
+    return;
+  }
+  
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', 'G-HVEX9KVCN3', {
+    window.gtag('config', ANALYTICS_CONFIG.measurementId, {
       custom_map: {
         'custom_metric1': 'interaction_depth'
       },
@@ -213,8 +232,12 @@ export const setUserProperties = (properties: {
   time_of_day?: 'morning' | 'afternoon' | 'evening' | 'night';
   day_of_week?: 'weekday' | 'weekend';
 }) => {
+  if (!ANALYTICS_CONFIG.enabled || !ANALYTICS_CONFIG.measurementId) {
+    return;
+  }
+  
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', 'G-HVEX9KVCN3', {
+    window.gtag('config', ANALYTICS_CONFIG.measurementId, {
       custom_map: {
         'custom_dimension1': 'user_type',
         'custom_dimension2': 'project_category', 

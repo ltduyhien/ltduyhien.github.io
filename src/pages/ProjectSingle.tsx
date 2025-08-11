@@ -294,7 +294,9 @@ const DynamicImage: React.FC<{
 // Helper function to get image URL
 const getImageUrl = (slug: string, imageName: string): string => {
   // Use the build output path for images
-  return `/project-images/${slug}/${imageName}`;
+  const fullPath = `/project-images/${slug}/${imageName}`;
+  console.log(`🔍 getImageUrl: ${slug}/${imageName} → ${fullPath}`);
+  return fullPath;
 };
 
 const ProjectSingle = () => {
@@ -366,6 +368,11 @@ const ProjectSingle = () => {
         setStartTime(Date.now());
         setInteractionCount(0);
         setScrollDepth(0);
+        
+        // Debug image paths
+        console.log(`🔍 Project loaded: ${slug}`);
+        console.log(`🔍 Banner path: ${projectData.banner}`);
+        console.log(`🔍 Explanation image: ${getImageUrl(slug, 'explaination.png')}`);
       } else {
         console.error(`Project not found: ${slug}`);
         setLoading(false);

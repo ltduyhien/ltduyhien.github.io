@@ -232,25 +232,49 @@ export class ContentWatermarking {
             console.log('  - Parent element:', parent);
             console.log('  - Parent tag:', parent.tagName);
             console.log('  - Parent classes:', parent.className);
-            console.log('  - Parent computed styles:', {
-              position: getComputedStyle(parent).position,
-              overflow: getComputedStyle(parent).overflow,
-              display: getComputedStyle(parent).display,
-              width: getComputedStyle(parent).width,
-              height: getComputedStyle(parent).height,
-              zIndex: getComputedStyle(parent).zIndex
-            });
-            console.log('  - Watermark computed styles:', {
-              position: getComputedStyle(addedWatermark).position,
-              bottom: getComputedStyle(addedWatermark).bottom,
-              right: getComputedStyle(addedWatermark).right,
-              zIndex: getComputedStyle(addedWatermark).zIndex,
-              display: getComputedStyle(addedWatermark).display,
-              visibility: getComputedStyle(addedWatermark).visibility,
-              opacity: getComputedStyle(addedWatermark).opacity
-            });
-            console.log('  - Watermark bounding rect:', addedWatermark.getBoundingClientRect());
-            console.log('  - Parent bounding rect:', parent.getBoundingClientRect());
+            
+            const parentStyle = getComputedStyle(parent);
+            console.log('  - Parent computed styles:');
+            console.log('    position:', parentStyle.position);
+            console.log('    overflow:', parentStyle.overflow);
+            console.log('    display:', parentStyle.display);
+            console.log('    width:', parentStyle.width);
+            console.log('    height:', parentStyle.height);
+            console.log('    zIndex:', parentStyle.zIndex);
+            console.log('    transform:', parentStyle.transform);
+            console.log('    clipPath:', parentStyle.clipPath);
+            
+            const watermarkStyle = getComputedStyle(addedWatermark);
+            console.log('  - Watermark computed styles:');
+            console.log('    position:', watermarkStyle.position);
+            console.log('    bottom:', watermarkStyle.bottom);
+            console.log('    right:', watermarkStyle.right);
+            console.log('    zIndex:', watermarkStyle.zIndex);
+            console.log('    display:', watermarkStyle.display);
+            console.log('    visibility:', watermarkStyle.visibility);
+            console.log('    opacity:', watermarkStyle.opacity);
+            
+            const watermarkRect = addedWatermark.getBoundingClientRect();
+            console.log('  - Watermark bounding rect:');
+            console.log('    x:', watermarkRect.x);
+            console.log('    y:', watermarkRect.y);
+            console.log('    width:', watermarkRect.width);
+            console.log('    height:', watermarkRect.height);
+            console.log('    top:', watermarkRect.top);
+            console.log('    left:', watermarkRect.left);
+            console.log('    bottom:', watermarkRect.bottom);
+            console.log('    right:', watermarkRect.right);
+            
+            const parentRect = parent.getBoundingClientRect();
+            console.log('  - Parent bounding rect:');
+            console.log('    x:', parentRect.x);
+            console.log('    y:', parentRect.y);
+            console.log('    width:', parentRect.width);
+            console.log('    height:', parentRect.height);
+            console.log('    top:', parentRect.top);
+            console.log('    left:', parentRect.left);
+            console.log('    bottom:', parentRect.bottom);
+            console.log('    right:', parentRect.right);
             
             console.log('✅ Forced watermark visibility with !important styles');
           } else {

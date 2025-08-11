@@ -35,10 +35,10 @@ export class ContentWatermarking {
       enableTextWatermarking: true,
       enableImageWatermarking: true,
       enableMetadataWatermarking: true,
-      watermarkOpacity: 0.1,
-      watermarkSize: 12,
+      watermarkOpacity: 0, // Completely invisible
+      watermarkSize: 1, // Minimal size
       watermarkText: '© Hien Le 2025',
-      watermarkColor: '#000000',
+      watermarkColor: 'transparent', // Transparent color
       enableTracking: true,
       ...config
     };
@@ -80,18 +80,24 @@ export class ContentWatermarking {
       position: absolute;
       left: -9999px;
       top: -9999px;
-      opacity: ${this.config.watermarkOpacity};
-      font-size: ${this.config.watermarkSize}px;
-      color: ${this.config.watermarkColor};
+      opacity: 0;
+      font-size: 1px;
+      color: transparent;
       pointer-events: none;
       user-select: none;
       z-index: -1;
+      width: 0;
+      height: 0;
+      overflow: hidden;
     `;
     watermarkSpan.setAttribute('data-watermark', 'true');
     watermarkSpan.setAttribute('data-watermark-id', this.watermarkId);
     watermarkSpan.setAttribute('data-element-index', index.toString());
 
-    element.style.position = 'relative';
+    // Only add position: relative if element doesn't already have positioning
+    if (getComputedStyle(element).position === 'static') {
+      element.style.position = 'relative';
+    }
     element.appendChild(watermarkSpan);
   }
 
@@ -110,42 +116,48 @@ export class ContentWatermarking {
 
   // Add invisible watermark to image
   private addImageWatermark(img: HTMLImageElement, index: number): void {
-    // Create canvas watermark
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    if (!ctx) return;
-
-    // Set canvas size to image size
-    canvas.width = img.naturalWidth || img.width;
-    canvas.height = img.naturalHeight || img.height;
-
-    // Create watermark text
-    ctx.font = `${this.config.watermarkSize}px Arial`;
-    ctx.fillStyle = this.config.watermarkColor;
-    ctx.globalAlpha = this.config.watermarkOpacity;
-
-    // Add watermark text
-    const watermarkText = this.config.watermarkText;
-    const textWidth = ctx.measureText(watermarkText).width;
-    const x = (canvas.width - textWidth) / 2;
-    const y = canvas.height - 20;
-
-    ctx.fillText(watermarkText, x, y);
-
-    // Convert canvas to data URL and add as background
-    const watermarkDataUrl = canvas.toDataURL();
-    
-    // Add watermark as CSS background
-    img.style.backgroundImage = `url(${watermarkDataUrl})`;
-    img.style.backgroundSize = 'cover';
-    img.style.backgroundPosition = 'center';
-    img.style.backgroundRepeat = 'no-repeat';
-
-    // Add watermark metadata
+    // Add watermark metadata only - no visual changes
     img.setAttribute('data-watermark', 'true');
     img.setAttribute('data-watermark-id', this.watermarkId);
     img.setAttribute('data-element-index', index.toString());
+    
+    // Add invisible watermark data attribute for tracking
+    img.setAttribute('data-watermark-text', this.config.watermarkText);
+    img.setAttribute('data-watermark-timestamp', Date.now().toString());
+    
+    // For print only: add watermark overlay
+    img.addEventListener('beforeprint', () => {
+      if (img.style.position === 'static' || !img.style.position) {
+        img.style.position = 'relative';
+      }
+      
+      const printWatermark = document.createElement('div');
+      printWatermark.textContent = this.config.watermarkText;
+      printWatermark.style.cssText = `
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        font-size: 10px;
+        color: #000;
+        opacity: 0.5;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 2px 4px;
+        border-radius: 2px;
+        pointer-events: none;
+        z-index: 1;
+      `;
+      printWatermark.setAttribute('data-print-watermark', 'true');
+      
+      img.appendChild(printWatermark);
+    });
+    
+    // Remove print watermark after print
+    img.addEventListener('afterprint', () => {
+      const printWatermark = img.querySelector('[data-print-watermark="true"]');
+      if (printWatermark) {
+        printWatermark.remove();
+      }
+    });
   }
 
   // Add metadata watermarks to HTML
@@ -176,41 +188,46 @@ export class ContentWatermarking {
   addCSSWatermarks(): void {
     const style = document.createElement('style');
     style.textContent = `
-      /* Invisible watermark overlay */
+      /* Non-intrusive watermark overlay - positioned off-screen */
       .watermark-overlay::before {
         content: "${this.config.watermarkText}";
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-45deg);
-        font-size: ${this.config.watermarkSize * 2}px;
+        top: -9999px;
+        left: -9999px;
+        font-size: ${this.config.watermarkSize}px;
         color: ${this.config.watermarkColor};
-        opacity: ${this.config.watermarkOpacity};
+        opacity: 0;
         pointer-events: none;
         user-select: none;
-        z-index: 9999;
+        z-index: -1;
         white-space: nowrap;
       }
 
-      /* Watermark on text selection */
+      /* Subtle watermark on text selection - doesn't affect layout */
       ::selection {
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.05);
       }
-      ::selection::after {
-        content: "${this.config.watermarkText}";
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: 10px;
-        color: ${this.config.watermarkColor};
-        opacity: 0.5;
+      
+      /* Hidden watermark for print only */
+      @media print {
+        .watermark-overlay::before {
+          content: "${this.config.watermarkText}";
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(-45deg);
+          font-size: 24px;
+          color: #000;
+          opacity: 0.3;
+          z-index: 9999;
+        }
       }
     `;
 
     document.head.appendChild(style);
     document.body.classList.add('watermark-overlay');
 
-    console.log('🔒 CSS watermarks applied');
+    console.log('🔒 CSS watermarks applied (non-intrusive)');
   }
 
   // Add JavaScript-based protection

@@ -10,7 +10,7 @@ import type { ProjectData } from './ProjectSingle';
 import { PROJECTS_ORDER } from './projectsOrder';
 
 // Vite dynamic image import
-const projectImages: Record<string, string> = import.meta.glob('@private-content/projects/*/*', {
+const projectImages: Record<string, string> = import.meta.glob('../../private-content/projects/*/*', {
   eager: true,
   query: '?url',
   import: 'default',
@@ -30,7 +30,7 @@ const Projects = () => {
       const loaded = await Promise.all(
         PROJECTS_ORDER.map(async (proj) => {
           try {
-            const mod = await import(`@private-content/projects/${proj.slug}/data.json`);
+            const mod = await import(`../../private-content/projects/${proj.slug}/data.json`);
             return { ...mod.default, slug: proj.slug };
           } catch {
             return null;

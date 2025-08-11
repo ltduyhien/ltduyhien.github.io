@@ -13,7 +13,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "title": "Comprehensive design system for 3DMark ecosystem across web, mobile, and desktop platforms.",
     "subtext": "3DMark Design System at UL Solutions",
     "slug": "3dmark-design-system",
-    "banner": "header.png",
+    "banner": "/project-images/3dmark-design-system/header.png",
     "screenshots": [
       {
         "image": "principles.png",
@@ -87,15 +87,15 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "Design Patterns": "**Design Patterns & Interaction Guidelines**\n\n*Note: Detailed design patterns, interaction guidelines, and best practices are coming soon. This section will include common UI patterns, user interaction flows, accessibility patterns, and design principles for creating consistent and intuitive user experiences across the 3DMark ecosystem.*",
     "Implementation": "**Code Examples & Technical Implementation**\n\n*Note: Detailed implementation guidelines, code examples, and technical documentation are coming soon. This section will include component architecture patterns, design token implementation, accessibility best practices, and responsive design patterns for our multi-platform ecosystem.*",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.737Z",
-      "checksum": "-7c97680f",
+      "buildTime": "2025-08-11T18:14:04.522Z",
+      "checksum": "-125dcf3d",
       "version": "1.0.0"
     }
   },
   "3dmark-ios-app": {
     "title": "Mobile experience reinvention for 3DMark iOS application with new ecosystem services.",
     "subtext": "3DMark iOS App at UL Solutions",
-    "banner": "header.png",
+    "banner": "/project-images/3dmark-ios-app/header.png",
     "summary": "3DMark iOS App is a mobile benchmarking application that helps users evaluate their device's graphics and gaming performance. The project focused on redesigning the mobile experience to make complex hardware performance testing accessible to a broader audience while expanding the 3DMark ecosystem with new services and features.",
     "problem": "- **Complex Benchmark Interface**  \nThe existing 3DMark mobile experience was technical and intimidating for casual users, creating barriers to adoption and engagement with performance testing\n- **Limited Mobile-First Design**  \nThe application lacked mobile-optimized workflows and touch-friendly interactions, making it difficult to use on iOS devices\n- **Fragmented Ecosystem Services**  \nUsers had to navigate multiple applications and services to get comprehensive performance insights, creating a disconnected experience\n- **Score Interpretation Challenges**  \nUsers struggled to understand what benchmark scores meant for their specific device and use cases, leading to confusion and reduced engagement",
     "collaboration": "Collaboration involved working closely with the 3DMark development team to understand the technical requirements and benchmark specifications. We conducted user research with both power users and casual users to identify pain points and opportunities for improvement.\n\nTo reach our target users, we contacted them through multiple channels including Steam, Reddit, and our existing user database. This multi-channel approach allowed us to gather insights from diverse user segments - from hardcore gaming enthusiasts on Steam to casual users on Reddit, and existing 3DMark users in our database.\n\nThroughout the project, we maintained close communication with iOS developers to ensure the designs could be effectively implemented while maintaining the technical accuracy required for benchmark testing. Regular design reviews and technical feasibility sessions helped bridge the gap between user experience goals and technical implementation constraints.",
@@ -156,15 +156,15 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     ],
     "slug": "3dmark-ios-app",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.738Z",
-      "checksum": "2405970d",
+      "buildTime": "2025-08-11T18:14:04.528Z",
+      "checksum": "-6377f038",
       "version": "1.0.0"
     }
   },
   "allconnect-app": {
     "title": "Mobile app for managing connected devices and streaming content to wireless speakers and smart TVs.",
     "subtext": "AllConnect App at Tuxera",
-    "banner": "header.png",
+    "banner": "/project-images/allconnect-app/header.png",
     "summary": "AllConnect App solves the fragmentation problem in home entertainment systems. Users had to manage separate apps for each device - one for speakers, another for smart TV, and different apps for music libraries. The solution unified device discovery, connection management, and content streaming into a single interface.\n\nThe platform supports multiple wireless protocols and streaming standards. The app achieved 4.5+ star rating across app stores and received the CES 2017 Honoree Award for its approach to device connectivity and user experience.",
     "problem": "- **Device Fragmentation**  \nUsers had to manage separate apps for each device - one for speakers, another for smart TV, and different apps for music libraries. Maria, a 42-year-old marketing manager, spent 30 minutes trying to connect her new wireless speaker. She had to download the manufacturer's app, create an account, and navigate through confusing setup screens. When she tried to stream music from her phone, she discovered the speaker app couldn't access her music library, each with its own confusing setup process. Maria gave up entirely on connecting her devices after multiple failed attempts.\n\nThese were not isolated incidents. Our research revealed a universal truth: **people love their connected devices but hate managing them**.\n\n- **Fragmented User Experience**  \nUsers had to constantly switch between different device apps and music services\n- **Limited Device Management**  \nOnce connected, users had no intuitive way to manage, organize, or control their growing ecosystem of devices\n- **Technical Complexity Barrier**  \nComplex setup processes created an invisible wall between users and their technology, leaving many devices unused",
     "collaboration": "Our research began by connecting with users through relevant channels and trusted connections. The findings were clear: people struggled with device fragmentation. Users spent 15-25 minutes trying to pair Bluetooth speakers, gave up on smart TV connections, and juggled separate apps for every device.\n\nCollaboration with mobile developers focused on translating these insights into practical solutions. The challenge was supporting multiple wireless protocols while maintaining interface simplicity. Regular design reviews ensured technical feasibility and user-friendly outcomes.\n\nThree rounds of beta testing with different user groups, each spanning 2-3 months, drove our iterative development process. This approach allowed us to refine the interface based on real-world usage patterns and technical constraints.",
@@ -217,15 +217,15 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "partnerWithRivaAudio": "**OEM Partnership with Riva Audio**\n\nRiva Audio: <a href=\"https://www.rivaaudio.com/\" class=\"text-brand\" target=\"_blank\" rel=\"noopener noreferrer\">www.rivaaudio.com</a>\n\nBuilding on the success of the AllConnect platform, we developed a custom OEM (Original Equipment Manufacturer) mobile application specifically for Riva Audio's premium wireless speakers. This specialized version of AllConnect serves as the official control app for Riva Audio's product ecosystem, providing users with a seamless, purpose-built interface for managing their Riva Audio devices while maintaining the core AllConnect functionality that users love.\n\n**Enhanced Features for Riva Audio Users:**\n\n- **Custom Device Setup:** Multi-step progressive setup process guiding users through the configuration\n\n- **Advanced Speaker Controls:** Volume management with visual feedback, custom EQ presets and manual adjustment options, multiple listening modes including Party, Ambient, and Hi-Fi for different environments, seamless switching between Bluetooth, Aux-in, and WiFi connectivity options\n\n- **Voice Control Integration:** Amazon Alexa skill development for voice command functionality, natural language processing for intuitive voice interactions, seamless integration with existing Alexa smart home ecosystems\n- **Multi-Room Audio:** Synchronized playback across multiple Riva speakers in different rooms\n- **Firmware Updates:** Over-the-air updates to keep speakers current with latest features",
     "slug": "allconnect-app",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.738Z",
-      "checksum": "acc2d67",
+      "buildTime": "2025-08-11T18:14:04.532Z",
+      "checksum": "26fbe669",
       "version": "1.0.0"
     }
   },
   "cpq-pricing-tool": {
     "title": "Cloud-based CPQ platform for automated pricing and quote generation in enterprise sales.",
     "subtext": "CPQ Pricing Tool at Nokia",
-    "banner": "header.png",
+    "banner": "/project-images/cpq-pricing-tool/header.png",
     "summary": "Nokia, a global leader in telecommunications and networking, partnered with Elisa, a major Finnish telecom operator, to deliver advanced subscription-based solutions. As Elisa expanded its enterprise services, managing complex pricing structures and generating accurate invoices became increasingly challenging. Manual workflows were error-prone and time-consuming, leading to billing disputes and delayed revenue recognition.\n\nNokia launched a pricing tool project to automate pricing and streamline invoicing. The solution brought clarity, speed, and scalability to billing operations, strengthening Nokia's value to clients like Elisa through a more efficient and transparent experience.",
     "problem": "- **Complex Product Configurations & Frequent Data Updates**  \nNokia's telecom offerings include highly interdependent components (e.g., radio units, basebands, licensing models). Product catalogs, pricing tiers, and discount rules change frequently, requiring the CPQ system to adapt rapidly and maintain accuracy.\n\n- **Limited Visualization and Insights**  \nExisting systems showed raw pricing data without visuals to highlight trends or anomalies, making quick interpretation tough. While the CPQ platform collects rich data, it lacks analysis and recommendations, a clear future enhancement opportunity.\n\n- **Manual and Error-Prone Workflows**  \nPrior to this solution, invoice generation relied on spreadsheets and fragmented processes, leading to delays, billing inaccuracies, and time-consuming dispute resolution.\n\n- **Compliance and Auditability**  \nInvoices needed to meet strict legal, tax, and auditing standards across different countries, requiring features like traceable calculation logic, version control, and PDF exports with precise formatting.\n\n- **Demand for Automation and Integration**  \nSales teams wanted integration with existing CRM and ERP systems to enable automation of quote generation and order processing. Without proper integration, seamless workflows and extensibility were limited.",
     "collaboration": "- **Work in Designer Team of** 3  \nCollaborated closely with the Design System team to ensure consistency and scalability across the platform. Regular design reviews and shared component libraries enabled rapid iteration while maintaining visual coherence.\n\n- **Regular Sync and workshop with Software Architect and project manager**  \nMaintained regular syncs and workshops with the Software Architect, Engineers, and Project Manager to ensure technical feasibility and business alignment. This collaborative approach fostered shared understanding and accelerated decision-making processes.\n\n- **User research and feedback integration**  \nConducted extensive user research with Nokia's sales teams and Sale Managers to understand their pricing workflows and pain points. Regular user testing sessions and feedback loops ensured the solution addressed real user needs and improved adoption rates.",
@@ -276,14 +276,14 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "aiFeatures": "Smart automation powers the CPQ platform, turning complex pricing challenges into revenue-generating opportunities. Our AI capabilities boost sales performance through intelligent product suggestions, dynamic pricing strategies, and proactive error detection.\n\n**Configuration Assistant:**\n- Suggests compatible products and services based on user selections\n- Validates configurations against business rules and requirements\n- Reduces configuration errors by providing guidance during quote building\n\n**Pricing Recommendations:**\n- Analyzes past deal outcomes and customer profiles\n- Suggests pricing strategies based on similar successful deals\n- Helps sales teams optimize pricing for better win rates\n\n**Error Prevention:**\n- Identifies potential configuration issues before submission\n- Uses business rules to validate quote completeness\n- Reduces quote rejection rates and speeds up approval processes\n\nThese features were designed with input from sales teams and pricing managers, ensuring they address real business needs.",
     "slug": "cpq-pricing-tool",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.738Z",
-      "checksum": "-1bd9b301",
+      "buildTime": "2025-08-11T18:14:04.535Z",
+      "checksum": "664d5ed6",
       "version": "1.0.0"
     }
   },
   "example-project": {
     "title": "This Project Title",
-    "banner": "main.jpg",
+    "banner": "/project-images/example-project/main.jpg",
     "summary": "With over 13 years of experience in UX and product design, I have led design work on SaaS platforms, AI benchmarking tools, and enterprise analytics systems used across desktop, web, and mobile.",
     "problem": "The challenge was to streamline complex CPQ logic interfaces for enterprise users, making them intuitive and efficient to use.",
     "collaboration": "Tight timeline, legacy tech stack, distributed team, and highly technical user base.",
@@ -319,8 +319,8 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     ],
     "slug": "example-project",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.738Z",
-      "checksum": "c4d63d3",
+      "buildTime": "2025-08-11T18:14:04.537Z",
+      "checksum": "1248846",
       "version": "1.0.0"
     }
   },
@@ -328,7 +328,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "title": "Enterprise data analytics platform for network operators and service providers.",
     "subtext": "Nokia Data Suite at Nokia",
     "slug": "nokia-data-suite",
-    "banner": "header.png",
+    "banner": "/project-images/nokia-data-suite/header.png",
     "screenshots": [
       {
         "image": "prototype-use-cases-management.png",
@@ -377,15 +377,15 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "constraints": "**Enterprise Integration & Compliance Requirements**\n\nThe Nokia Data Suite needed to integrate seamlessly with existing enterprise infrastructure while meeting strict compliance requirements for telecommunications data. The platform had to handle real-time processing of large-scale network data while maintaining security and performance standards.\n\n**Technical Constraints:**\n- Integration with legacy enterprise systems\n- Real-time data processing requirements\n- Security and compliance standards\n- Scalability across multiple deployment environments\n- Performance optimization for large datasets",
     "ideation": "**Research & Ideation Process**\n\nOur design process began with understanding the Services Engineer workflow and pain points:\n\n**User Research:**\n- Conducted interviews with Services Engineers to understand their daily workflows\n- Analyzed the customization process for different customers and identified bottlenecks\n- Mapped the journey from pre-sales support through deployment and maintenance\n- Identified team collaboration challenges and knowledge sharing gaps\n\n![Interviewing with users who are network operators, data analysts, and business managers](research-interview.png)\n\n**Technical Analysis:**\n- Evaluated existing use case creation and deployment processes\n- Analyzed the technical requirements for customer-specific customizations\n- Identified opportunities for standardization while maintaining flexibility\n- Assessed integration needs with existing customer environments\n\n![Technical analysis and architecture evaluation](technical-ideation.png)\n\n**Ideation Workshops:**\n- Facilitated sessions with Services Engineers to co-design the workflow\n- Brainstormed solutions for team collaboration and knowledge sharing\n- Explored low-code approaches to reduce technical barriers\n- Defined success metrics focused on workflow efficiency and team adoption\n\n![Ideation workshops with cross functional teams](ideation.png)",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.738Z",
-      "checksum": "1622e101",
+      "buildTime": "2025-08-11T18:14:04.538Z",
+      "checksum": "4bdab348",
       "version": "1.0.0"
     }
   },
   "procyon-desktop-client": {
     "title": "Desktop application for Procyon Benchmark Suite client on macOS and Windows.",
     "subtext": "Procyon Desktop Client at UL Solutions",
-    "banner": "header.png",
+    "banner": "/project-images/procyon-desktop-client/header.png",
     "summary": "The Procyon Desktop Client is a cross-platform benchmarking application that provides comprehensive performance testing for Windows and macOS systems. The application enables users to run standardized benchmark tests, analyze performance data, and generate detailed reports for hardware evaluation and optimization.\n\nThis project focused on modernizing the user interface and user experience of the Procyon benchmark suite, making complex performance testing accessible to both technical professionals and casual users. The design prioritized clarity, efficiency, and cross-platform consistency while maintaining the technical accuracy required for professional benchmarking.",
     "problem": "**The Challenge of Making Professional Benchmarking Accessible**\n\nWhen we started working on the Procyon Desktop Client, we discovered that even experienced users were struggling with the existing interface. Alex, a software developer who regularly benchmarks his development machines, spent 15 minutes just trying to figure out which test to run for his new graphics card. The interface was packed with technical jargon, and the workflow felt like navigating through a maze of disconnected screens.\n\nOur research revealed that **users wanted professional-grade performance testing but needed a more approachable experience**. The existing Procyon interface was built for technical experts, but we needed to serve a broader audience - from casual users checking their new laptop's performance to professionals evaluating hardware for work.\n\n**Key Pain Points:**\n\n- **Complex Benchmark Interface**  \nThe existing Procyon desktop experience was technical and intimidating for casual users, creating barriers to adoption and engagement with performance testing. The interface lacked clear visual hierarchy and intuitive navigation.\n\n- **Limited Cross-Platform Consistency**  \nThe application needed to work seamlessly across Windows and macOS while maintaining platform-specific design guidelines and user expectations. Existing implementations had inconsistent UI patterns between platforms.\n\n- **Poor Data Visualization**  \nUsers struggled to understand benchmark results and performance trends. The interface showed raw data without effective visualizations to highlight key insights and comparisons.\n\n- **Fragmented User Workflow**  \nThe benchmarking process involved multiple disconnected steps: test selection, configuration, execution, and result analysis. Users needed a streamlined workflow that guided them through the entire process.\n\n- **Diverse Benchmark Types**  \nThe benchmark types could have big differences that required flexible but systematic design that could fit them all. From simple CPU tests to complex GPU-intensive workloads, each benchmark type had unique requirements, parameters, and result formats that needed to be accommodated within a unified interface.",
     "collaboration": "Our research began by reaching out to users through Steam, Reddit, and our existing Procyon user database. We wanted to understand how different people approach performance testing - from gamers checking their new GPU to professionals evaluating workstations.\n\nThe findings were clear: users were frustrated with the complexity. Even experienced users like Alex, who benchmarks regularly, found the interface overwhelming. Casual users would start a test, get confused by the technical options, and abandon the process entirely.\n\nI worked closely with the Procyon development team to translate these insights into practical solutions. The challenge was balancing simplicity with technical accuracy - we couldn't sacrifice the precision that makes Procyon valuable to professionals. Regular design reviews helped us identify implementation constraints early, ensuring both technical robustness and user-friendly outcomes.\n\nThree rounds of beta testing with different user groups, each spanning 2-3 months, drove our iterative development process. This approach allowed us to refine the interface based on real-world usage patterns and technical constraints discovered during development.",
@@ -455,8 +455,8 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "aiDesignMethodology": "**AI Design Methodology & Data Collection Approach**\n\nOur AI features focused on practical performance optimization and user experience enhancement through intelligent automation and personalized recommendations. We prioritized user-friendly performance insights over complex machine learning, ensuring every feature directly improves the benchmarking experience.\n\n**Data Collection Strategy:**\n\n- **Performance Pattern Analysis:** Collected benchmark results, hardware configurations, and usage patterns to understand performance optimization preferences\n- **Hardware Performance Profiling:** Gathered system specifications, benchmark scores, and performance metrics to build optimization models\n- **User Behavior Correlation:** Integrated usage patterns and test selection data to correlate user preferences with performance outcomes\n- **Benchmark Enthusiast Workflow Analysis:** Studied how advanced users interact with performance tools and which features lead to higher satisfaction\n\n**AI Feature Design Process:**\n\n- **Smart Test Recommendations:** Implemented machine learning algorithms to suggest optimal benchmark combinations based on hardware type, use case, and user preferences\n- **Adaptive Performance Intelligence:** Developed dynamic algorithms that adjust benchmark recommendations based on system capabilities, user profile, and performance goals\n- **Intelligent Result Analysis:** Built smart systems that provide performance insights and optimization suggestions based on benchmark results\n- **Predictive Performance Modeling:** Established continuous feedback mechanisms with users to refine performance predictions and enhance accuracy\n\n**Validation & Testing:**\n\n- **Performance Accuracy Testing:** Validated AI recommendations through A/B testing with different hardware configurations and use cases\n- **User Satisfaction Monitoring:** Tracked test completion rates, result understanding, and overall user satisfaction to measure AI effectiveness and performance impact",
     "slug": "procyon-desktop-client",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.739Z",
-      "checksum": "-1e8cb94c",
+      "buildTime": "2025-08-11T18:14:04.540Z",
+      "checksum": "-26918988",
       "version": "1.0.0"
     }
   },
@@ -464,7 +464,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "title": "Procyon Windows Client Reinvention",
     "subtext": "Procyon Windows Client at UL Solutions",
     "path": "/projects/procyon-reinvention",
-    "banner": "header.png",
+    "banner": "/project-images/procyon-reinvention/header.png",
     "description": "Led the reinvention of the Procyon Windows client from a complex multi-technology stack to a modern, unified architecture. The project focused on improving development velocity, application performance, and maintainability while preserving all existing functionality.",
     "problem": "- **Complex Multi-Technology Architecture**  \nThe existing Procyon Windows client used a hybrid approach with Chromium UI wrapping a Java backend server and RiotJS frontend, creating significant development bottlenecks and performance issues.\n\n- **Slow Development Velocity**  \nThe complex technology stack required developers to work across multiple languages and frameworks, leading to longer development cycles and increased debugging complexity.\n\n- **Performance Bottlenecks**  \nThe hybrid architecture with multiple technology layers resulted in slow application startup times, memory overhead, and poor user experience during benchmark execution.\n\n- **Maintenance Challenges**  \nMaintaining and updating the application required coordination across multiple technology stacks, making bug fixes and feature additions time-consuming and error-prone.",
     "solution": "- **Technology Stack Evaluation**  \nConducted comprehensive analysis of modern desktop application frameworks, evaluating ElectronJS and Flutter as potential replacements for the existing architecture.\n\n- **Architecture Modernization**  \nProposed unified technology stack approach to eliminate the complexity of managing multiple technologies and improve development efficiency.\n\n- **Performance Optimization Strategy**  \nDesigned new architecture focused on reducing startup times, memory usage, and improving overall application responsiveness.\n\n- **Migration Planning**  \nDeveloped phased migration strategy to ensure seamless transition while maintaining all existing Procyon benchmark functionality and user workflows.",
@@ -528,15 +528,15 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     ],
     "slug": "procyon-reinvention",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.739Z",
-      "checksum": "1eb9ae2",
+      "buildTime": "2025-08-11T18:14:04.542Z",
+      "checksum": "-2820fe11",
       "version": "1.0.0"
     }
   },
   "riva-audio": {
     "title": "Mobile app for Riva Audio speaker management and configuration.",
     "subtext": "Riva Audio App at Tuxera",
-    "banner": "header.png",
+    "banner": "/project-images/riva-audio/header.png",
     "summary": "The Riva Audio mobile app provides comprehensive management and configuration for <a href=\"https://www.rivaaudio.com/\" class=\"text-brand\" target=\"_blank\" rel=\"noopener noreferrer\">Riva Audio</a> wireless speakers. The app enables step-by-step speaker setup, firmware updates, EQ settings customization, audio mode selection, battery monitoring, and voice command integration.\n\nThis project was a collaboration between Tuxera and Riva Audio, combining Tuxera's mobile development expertise with Riva Audio's premium speaker technology.\n\nThe platform supports multiple Riva Audio speaker models and provides an intuitive interface for both novice and advanced users. The app achieved high user satisfaction scores and became the official control application for Riva Audio's premium speaker ecosystem.",
     "problem": "**The Challenge of Making Premium Audio Accessible**\n\nWhen we started working on the Riva Audio mobile app, we discovered that even premium speaker owners were struggling with basic setup and configuration. Sarah, a 35-year-old music enthusiast who had just purchased her first Riva Turbo X speaker, spent 30 minutes trying to get it working. She navigated through confusing setup screens, manually entered network credentials multiple times, and struggled with firmware updates. When she finally got it connected, she realized the speaker wasn't optimized for her room acoustics.\n\nOur research revealed that **users wanted professional-grade audio control but needed simplified setup processes**. The existing Riva Audio experience was built for audio professionals, but we needed to serve a broader audience - from casual listeners setting up their first premium speaker to audiophiles managing complex multi-room setups.\n\n**Key Pain Points:**\n\n- **Complex Speaker Setup Process**  \nUsers struggled with the initial setup of Riva Audio speakers, often spending 15-20 minutes trying to pair devices and configure basic settings. Sarah, a 35-year-old music enthusiast, spent 30 minutes trying to set up her new Riva Turbo X speaker. She had to navigate through confusing setup screens, manually enter network credentials, and struggled with firmware updates. When she finally got it working, she discovered the speaker wasn't optimized for her room acoustics.\n\nThese were not isolated incidents. Our research revealed that **users wanted professional-grade audio control but needed simplified setup processes**.\n\n- **Limited Audio Customization**  \nUsers had no intuitive way to adjust EQ settings, treble, bass, or audio modes for different listening environments\n- **Poor Device Management**  \nOnce connected, users had difficulty monitoring battery levels, updating firmware, or managing multiple speakers\n- **Voice Control Complexity**  \nAdvanced users wanted voice command functionality but found existing solutions too complex to configure",
     "collaboration": "Our research began by tapping into our comprehensive users and customers database to understand Riva Audio speaker setup and usage patterns. We wanted to see how different people approached premium audio - from first-time buyers setting up their first Riva speaker to audiophiles managing complex multi-room systems.\n\nThe findings were clear: users were frustrated with the complexity. Even experienced users like Sarah, who had purchased premium audio equipment before, found the setup process overwhelming. Casual users would start the setup, get confused by the technical options, and either give up or call customer support.\n\nI worked closely with mobile developers and Riva Audio's engineering team to translate these insights into practical solutions. The challenge was balancing simplicity with advanced audio features - we couldn't sacrifice the quality that makes Riva Audio premium. Weekly design reviews helped us identify implementation constraints early, ensuring both technical robustness and user-friendly outcomes.\n\nThree rounds of beta testing with different user groups, each spanning 2-3 months, drove our iterative development process. This approach allowed us to refine the interface based on real-world usage patterns and technical constraints discovered during development.",
@@ -590,15 +590,15 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "aiDesignMethodology": "**AI Design Methodology & Data Collection Approach**\n\nOur AI features focused on practical audio optimization and user experience enhancement through intelligent automation and personalized recommendations. We prioritized user-friendly audio customization over complex machine learning, ensuring every feature directly improves the listening experience.\n\n**Data Collection Strategy:**\n\n- **Audio Preference Analysis:** Collected user EQ settings, listening patterns, and room acoustics data to understand audio customization preferences\n- **Speaker Performance Profiling:** Gathered speaker model specifications, firmware versions, and performance metrics to build optimization models\n- **User Behavior Correlation:** Integrated usage patterns and voice command data to correlate user preferences with speaker performance\n- **Audio Enthusiast Workflow Analysis:** Studied how advanced users interact with audio controls and which features lead to higher satisfaction\n\n**AI Feature Design Process:**\n\n- **Smart EQ Recommendations:** Implemented machine learning algorithms to suggest optimal EQ settings based on music genre, room acoustics, and user preferences\n- **Adaptive Audio Intelligence:** Developed dynamic algorithms that adjust audio recommendations based on speaker model, listening environment, and user profile\n- **Intelligent Setup Assistant:** Built smart systems that guide users through optimal speaker placement and configuration based on room analysis\n- **Voice Command Integration:** Established continuous feedback mechanisms with users to refine voice interactions and enhance command accuracy\n\n**Validation & Testing:**\n\n- **Audio Quality Testing:** Validated AI audio recommendations through A/B testing with different speaker models and room environments\n- **User Satisfaction Monitoring:** Tracked EQ adoption rates, voice command usage, and overall user satisfaction to measure AI effectiveness and audio impact",
     "slug": "riva-audio",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.739Z",
-      "checksum": "-23691fe9",
+      "buildTime": "2025-08-11T18:14:04.542Z",
+      "checksum": "67ea9683",
       "version": "1.0.0"
     }
   },
   "smb-admin-panel": {
     "title": "Admin dashboard for configuring SMB server with advanced file sharing capabilities.",
     "subtext": "SMB Admin Panel at Tuxera",
-    "banner": "header.png",
+    "banner": "/project-images/smb-admin-panel/header.png",
     "summary": "Tuxera, a leading provider of file system technology, needed an intuitive admin dashboard for their enhanced SMB (Server Message Block) server configuration. The SMB Admin Panel was designed to simplify the complex process of configuring Fusion File Share, enabling IT administrators to manage file sharing, permissions, and server settings through a modern, user-friendly interface.\n\nThis project focused on transforming technical server configuration into an accessible visual experience, reducing setup time and minimizing configuration errors for enterprise IT teams.",
     "problem": "- **Complex Share and Volume Management**  \nConfiguring and managing share volumes, folders, and permissions required command-line expertise and deep technical knowledge, creating barriers for IT administrators who needed to quickly deploy and manage file sharing solutions.\n\n- **Fragmented Configuration and Security Management**  \nServer settings were scattered across multiple configuration files and interfaces, making it difficult to maintain consistency, implement security policies, and troubleshoot issues effectively.\n\n- **Limited Performance Monitoring and Visual Feedback**  \nAdministrators had no visual representation of server status, active connections, performance metrics, or configuration changes, leading to uncertainty about system health and performance.\n\n- **Error-Prone Manual Configuration and Log Management**  \nManual editing of configuration files led to syntax errors and misconfigurations that could cause service disruptions, while log analysis required specialized knowledge to identify and resolve issues.",
     "collaboration": "Collaboration began with in-depth sessions with the SMB engineer team to understand the technical implementation and feature set of the Tuxera SMB server. We conducted interviews with IT administrators responsible for configuring SMB servers to learn about their workflows, pain points, and real-world use cases. Insights from these interviews shaped our design approach. Throughout the project, we worked closely with the dashboard application engineering team to review the feasibility of proposed solutions, ensuring that our designs could be effectively implemented and integrated with backend systems.",
@@ -659,8 +659,8 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "api": "To support enterprise IT administrators in managing SMB server configurations programmatically, we designed and documented a RESTful API that provides comprehensive access to server settings, user management, and monitoring capabilities. This enables organizations to integrate SMB administration directly into their existing IT management workflows, automation systems, and monitoring dashboards.\n\n**Key Features:**\n\n- **Secure Authentication:** API access via organization-level API keys with role-based permissions for different administrator levels\n- **Configuration Management:** Full CRUD operations for server settings, user accounts, and file sharing permissions\n- **Monitoring:** Endpoint access to server status, connection metrics, and performance data\n- **Bulk Operations:** Support for batch configuration updates and user management across multiple servers\n- **Webhook Integration:** Notifications for server events, configuration changes, and security alerts\n\n**Integration Capabilities:**\n\nThe API supports standard REST operations for server configuration management, including:\n\n- Retrieving current server configuration and status\n- Updating server settings with new share configurations\n- Managing user accounts and file sharing permissions\n- Monitoring server performance and health metrics\n- Setting up webhook notifications for server events\n\n**Enterprise Integration:**\n\nThe API was designed to integrate with existing enterprise infrastructure, including:\n\n- IT management workflows and automation systems\n- Monitoring dashboards and alerting systems\n- Configuration management tools and deployment pipelines\n- Security and compliance monitoring platforms",
     "slug": "smb-admin-panel",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.739Z",
-      "checksum": "-56497f65",
+      "buildTime": "2025-08-11T18:14:04.549Z",
+      "checksum": "-44e3fb23",
       "version": "1.0.0"
     }
   },
@@ -668,7 +668,7 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "title": "Cloud-based platform for automated PC performance testing and monitoring.",
     "subtext": "Test Driver Cloud at UL Solutions (Former Futuremark)",
     "path": "/projects/test-driver-cloud",
-    "banner": "header.png",
+    "banner": "/project-images/test-driver-cloud/header.png",
     "summary": "UL Solutions, a global leader in safety science and testing, provides trusted benchmarks and performance standards that help organizations make informed decisions about technology investments. Their benchmark tools, including PCMark and 3DMark, are industry standards used by millions of users worldwide to evaluate system performance and reliability.\n\nTest Driver Cloud (TDC) is a B2B SaaS platform designed for enterprise IT administrators to run and manage benchmark tests remotely. It streamlines performance monitoring across large device fleets by automating test execution and result collection through the cloud. The platform helps organizations boost operational efficiency, reduce manual overhead, and gain deeper visibility into system health at scale.",
     "problem": "- **Complex Hardware Performance Monitoring**  \nEnterprise IT teams needed to monitor performance across hundreds of devices with different hardware configurations, operating systems, and usage patterns. Manual benchmarking processes were time-consuming and error-prone, requiring significant technical expertise.\n\n- **Limited Visualization and Insights**  \nExisting benchmarking systems showed raw benchmark scores without visuals to highlight trends or anomalies, making quick interpretation tough. While TDC collects rich data, it lacks analysis and recommendations, a clear future enhancement opportunity.\n\n- **Manual and Fragmented Workflow**  \nBenchmarking involves many manual steps: configuring tests, managing schedules, collecting results, and analyzing data. This fragmented approach created bottlenecks and made it difficult to scale across large device fleets.\n\n- **Limited Integration and Automation**  \nIT teams wanted integration with existing monitoring and reporting systems to enable automated workflows and centralized result retrieval. Without API access, seamless integration and extensibility were limited.",
     "collaboration": "**Onboarding new joiners while maintaining delivery speed**  \nThe TDC team was composed of a designer, back-end developer, front-end developer, and product manager. While the team had strong domain knowledge in SaaS and benchmarking, a few members were newly onboarded. Ensuring they ramped up quickly without slowing progress required focused knowledge transfer, clear communication, and tight collaboration from the start.",
@@ -732,8 +732,8 @@ export const PROJECTS_DATA: Record<string, ProjectData> = {
     "api": "To support enterprise IT administrators in managing performance data across their fleet, we designed and documented a RESTful API that exposes system telemetry, benchmark results, and configuration metadata from Test Driver Cloud. This enables organizations to integrate Test Driver insights directly into their own internal dashboards, asset management systems, or automation workflows.\n\n**Key Features:**\n\n- **Secure Access:** API authentication via organization-level API keys with role-based access controls\n- **Flexible Querying:** Support for filtering by device ID, user, time range, benchmark type, or performance threshold\n- **Webhook Support:** For notifications when test results exceed or fall below pre-defined thresholds\n- **Export Ready:** JSON and CSV response formats for compatibility with third-party tools (e.g., Power BI, Splunk)\n\n**Integration Capabilities:**\n\nThe API provides comprehensive access to benchmark data and system metrics, including:\n\n- Fetching benchmark results for individual devices or device groups\n- Filtering results by time range, benchmark type, or performance thresholds\n- Exporting data in multiple formats for external analysis\n- Setting up webhook notifications for performance alerts\n- Integrating with business intelligence and monitoring platforms\n\n**Enterprise Integration:**\n\nThe API was designed to integrate with existing enterprise infrastructure, including:\n\n- Asset management systems and device inventories\n- Performance monitoring and alerting platforms\n- Business intelligence and reporting tools\n- IT automation and workflow systems\n- Compliance and audit reporting systems",
     "slug": "test-driver-cloud",
     "_security": {
-      "buildTime": "2025-08-11T17:51:09.740Z",
-      "checksum": "20fbb417",
+      "buildTime": "2025-08-11T18:14:04.551Z",
+      "checksum": "-772d8941",
       "version": "1.0.0"
     }
   }
@@ -750,7 +750,7 @@ export const PROJECTS_LIST = [
       "3D",
       "Component Libraries"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/3dmark-design-system/header.png"
   },
   {
     "slug": "3dmark-ios-app",
@@ -762,7 +762,7 @@ export const PROJECTS_LIST = [
       "Hardware",
       "Gaming"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/3dmark-ios-app/header.png"
   },
   {
     "slug": "allconnect-app",
@@ -774,7 +774,7 @@ export const PROJECTS_LIST = [
       "IoT",
       "CES Award"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/allconnect-app/header.png"
   },
   {
     "slug": "cpq-pricing-tool",
@@ -787,13 +787,13 @@ export const PROJECTS_LIST = [
       "AI",
       "SaaS"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/cpq-pricing-tool/header.png"
   },
   {
     "slug": "example-project",
     "title": "This Project Title",
     "industries": [],
-    "banner": "main.jpg"
+    "banner": "/project-images/example-project/main.jpg"
   },
   {
     "slug": "nokia-data-suite",
@@ -805,7 +805,7 @@ export const PROJECTS_LIST = [
       "5G",
       "SaaS"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/nokia-data-suite/header.png"
   },
   {
     "slug": "procyon-desktop-client",
@@ -818,7 +818,7 @@ export const PROJECTS_LIST = [
       "Benchmarking",
       "Performance Testing"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/procyon-desktop-client/header.png"
   },
   {
     "slug": "procyon-reinvention",
@@ -830,7 +830,7 @@ export const PROJECTS_LIST = [
       "Performance",
       "Architecture"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/procyon-reinvention/header.png"
   },
   {
     "slug": "riva-audio",
@@ -843,7 +843,7 @@ export const PROJECTS_LIST = [
       "Audio",
       "Voice Control"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/riva-audio/header.png"
   },
   {
     "slug": "smb-admin-panel",
@@ -855,7 +855,7 @@ export const PROJECTS_LIST = [
       "SMB",
       "File System"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/smb-admin-panel/header.png"
   },
   {
     "slug": "test-driver-cloud",
@@ -868,15 +868,15 @@ export const PROJECTS_LIST = [
       "AI",
       "SaaS"
     ],
-    "banner": "header.png"
+    "banner": "/project-images/test-driver-cloud/header.png"
   }
 ];
 
 // Security metadata
 export const CONTENT_METADATA = {
-  buildTime: '2025-08-11T17:51:09.740Z',
+  buildTime: '2025-08-11T18:14:04.557Z',
   totalProjects: 11,
-  checksum: '78bbf191',
+  checksum: '7c1ba7e0',
   version: '1.0.0'
 };
 

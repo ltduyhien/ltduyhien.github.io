@@ -16,15 +16,21 @@ const __dirname = path.dirname(__filename);
 // Configuration
 const CONTENT_SOURCE = path.resolve(__dirname, '../private-content/projects');
 const OUTPUT_DIR = path.resolve(__dirname, '../src/generated');
+const IMAGES_OUTPUT_DIR = path.resolve(__dirname, '../public/project-images');
 const TEMPLATE_FILE = path.resolve(__dirname, '../src/templates/content-template.ts');
 
 console.log('🔒 Building secure content bundle...');
 console.log(`📁 Source: ${CONTENT_SOURCE}`);
 console.log(`📁 Output: ${OUTPUT_DIR}`);
+console.log(`🖼️  Images Output: ${IMAGES_OUTPUT_DIR}`);
 
-// Ensure output directory exists
+// Ensure output directories exist
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+}
+
+if (!fs.existsSync(IMAGES_OUTPUT_DIR)) {
+  fs.mkdirSync(IMAGES_OUTPUT_DIR, { recursive: true });
 }
 
 // Read all project directories
@@ -52,13 +58,19 @@ function processProjectData(slug) {
   try {
     const data = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
     
+    // Update image paths to point to build output
+    const updatedData = { ...data };
+    if (updatedData.banner) {
+      updatedData.banner = `/project-images/${slug}/${updatedData.banner}`;
+    }
+    
     // Add security metadata
     const secureData = {
-      ...data,
+      ...updatedData,
       slug,
       _security: {
         buildTime: new Date().toISOString(),
-        checksum: generateChecksum(JSON.stringify(data)),
+        checksum: generateChecksum(JSON.stringify(updatedData)),
         version: process.env.npm_package_version || '1.0.0'
       }
     };
@@ -81,11 +93,45 @@ function generateChecksum(str) {
   return hash.toString(16);
 }
 
+// Copy project images to build output
+function copyProjectImages(slug) {
+  const projectPath = path.join(CONTENT_SOURCE, slug);
+  const projectImagesDir = path.join(IMAGES_OUTPUT_DIR, slug);
+  
+  // Create project images directory
+  if (!fs.existsSync(projectImagesDir)) {
+    fs.mkdirSync(projectImagesDir, { recursive: true });
+  }
+  
+  // Copy all image files from project directory
+  try {
+    const files = fs.readdirSync(projectPath);
+    const imageFiles = files.filter(file => 
+      /\.(png|jpg|jpeg|gif|svg|webp)$/i.test(file)
+    );
+    
+    for (const imageFile of imageFiles) {
+      const sourcePath = path.join(projectPath, imageFile);
+      const destPath = path.join(projectImagesDir, imageFile);
+      
+      // Copy image file
+      fs.copyFileSync(sourcePath, destPath);
+      console.log(`📸 Copied: ${slug}/${imageFile}`);
+    }
+    
+    return imageFiles.length;
+  } catch (error) {
+    console.warn(`⚠️  Could not copy images for ${slug}:`, error.message);
+    return 0;
+  }
+}
+
 // Generate content bundle
 function generateContentBundle() {
   const projectSlugs = getProjectSlugs();
   const projects = {};
   const projectList = [];
+  let totalImages = 0;
   
   console.log(`📋 Processing ${projectSlugs.length} projects...`);
   
@@ -101,6 +147,10 @@ function generateContentBundle() {
         banner: projectData.banner
       });
       console.log(`✅ Processed: ${slug}`);
+      
+      // Copy project images
+      const imageCount = copyProjectImages(slug);
+      totalImages += imageCount;
     }
   }
   
@@ -163,6 +213,7 @@ function generateChecksum(str: string): string {
   
   return {
     totalProjects: projectList.length,
+    totalImages,
     outputFile,
     checksum: generateChecksum(JSON.stringify(projects))
   };
@@ -173,6 +224,7 @@ try {
   const result = generateContentBundle();
   console.log('\n🎉 Content bundle build completed successfully!');
   console.log(`📊 Total projects: ${result.totalProjects}`);
+  console.log(`📸 Total images copied: ${result.totalImages}`);
   console.log(`🔐 Content checksum: ${result.checksum}`);
   console.log(`📁 Output file: ${result.outputFile}`);
 } catch (error) {

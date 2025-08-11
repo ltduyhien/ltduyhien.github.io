@@ -4,10 +4,11 @@
  * @license MIT
  */
 
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { trackLogoClick, trackMobileMenuToggle } from '../utils/analytics';
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import { trackLogoClick, trackMobileMenuToggle } from "../utils/analytics";
 
 interface MobileHeaderProps {
   menuOpen: boolean;
@@ -22,8 +23,8 @@ const MobileHeader = ({ menuOpen, toggleMenu, show }: MobileHeaderProps) => {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleLogoClick = (e: React.MouseEvent) => {
@@ -32,10 +33,10 @@ const MobileHeader = ({ menuOpen, toggleMenu, show }: MobileHeaderProps) => {
     if (menuOpen) {
       toggleMenu();
       setTimeout(() => {
-        navigate('/');
+        navigate("/");
       }, 300); // match slide-out duration
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
   return (
@@ -45,14 +46,14 @@ const MobileHeader = ({ menuOpen, toggleMenu, show }: MobileHeaderProps) => {
           initial={{ y: -64, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -64, opacity: 0 }}
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
-          className={`md:hidden flex justify-between items-center pr-8 py-6 z-50 fixed top-0 left-0 w-full text-black dark:text-white ${menuOpen ? 'bg-transparent' : 'bg-[#F5F5F5] dark:bg-zinc-850'}${scrolled ? ' shadow-md' : ''}`}
+          transition={{ duration: 0.25, ease: "easeInOut" }}
+          className={`md:hidden flex justify-between items-center pr-8 py-6 z-50 fixed top-0 left-0 w-full text-black dark:text-white ${menuOpen ? "bg-transparent" : "bg-[#F5F5F5] dark:bg-zinc-850"}${scrolled ? " shadow-md" : ""}`}
         >
           <div className="relative flex items-center">
-            {location.pathname === '/' && (
+            {location.pathname === "/" && (
               <span className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand" />
             )}
-            <div style={{ paddingLeft: '2rem' }}>
+            <div style={{ paddingLeft: "2rem" }}>
               <a
                 href="/"
                 onClick={handleLogoClick}
@@ -65,10 +66,13 @@ const MobileHeader = ({ menuOpen, toggleMenu, show }: MobileHeaderProps) => {
               </div>
             </div>
           </div>
-          <button onClick={() => {
-            trackMobileMenuToggle(!menuOpen);
-            toggleMenu();
-          }} className="p-3">
+          <button
+            onClick={() => {
+              trackMobileMenuToggle(!menuOpen);
+              toggleMenu();
+            }}
+            className="p-3"
+          >
             {menuOpen ? (
               <svg
                 width="28"

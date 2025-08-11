@@ -6,8 +6,12 @@
 
 // Portfolio Settings
 export const PORTFOLIO_CONFIG = {
-  title: import.meta.env.VITE_PORTFOLIO_TITLE || "Hien Le | Product Designer Portfolio",
-  description: import.meta.env.VITE_PORTFOLIO_DESCRIPTION || "Senior/Lead Product Designer based in Espoo, Finland",
+  title:
+    import.meta.env.VITE_PORTFOLIO_TITLE ||
+    "Hien Le | Product Designer Portfolio",
+  description:
+    import.meta.env.VITE_PORTFOLIO_DESCRIPTION ||
+    "Senior/Lead Product Designer based in Espoo, Finland",
   location: import.meta.env.VITE_PORTFOLIO_LOCATION || "Espoo, Finland",
   company: import.meta.env.VITE_PORTFOLIO_COMPANY || "UL Solutions",
 } as const;
@@ -29,7 +33,10 @@ export const FEATURE_FLAGS = {
 export const SECURITY_CONFIG = {
   contentSource: import.meta.env.VITE_CONTENT_SOURCE || "submodule",
   stylingSource: import.meta.env.VITE_STYLING_SOURCE || "submodule",
-  maxProjectsPerPage: parseInt(import.meta.env.VITE_MAX_PROJECTS_PER_PAGE || "20", 10),
+  maxProjectsPerPage: parseInt(
+    import.meta.env.VITE_MAX_PROJECTS_PER_PAGE || "20",
+    10,
+  ),
 } as const;
 
 // Development Settings
@@ -42,17 +49,19 @@ export const DEV_CONFIG = {
 // Environment validation
 export const validateEnvironment = (): void => {
   const requiredVars = [
-    'VITE_PORTFOLIO_TITLE',
-    'VITE_PORTFOLIO_DESCRIPTION',
-    'VITE_PORTFOLIO_LOCATION',
-    'VITE_PORTFOLIO_COMPANY'
+    "VITE_PORTFOLIO_TITLE",
+    "VITE_PORTFOLIO_DESCRIPTION",
+    "VITE_PORTFOLIO_LOCATION",
+    "VITE_PORTFOLIO_COMPANY",
   ];
 
-  const missingVars = requiredVars.filter(varName => !import.meta.env[varName]);
-  
+  const missingVars = requiredVars.filter(
+    (varName) => !import.meta.env[varName],
+  );
+
   if (missingVars.length > 0 && DEV_CONFIG.debugLogging) {
-    console.warn('Missing environment variables:', missingVars);
-    console.warn('Using fallback values. Create a .env file for production.');
+    console.warn("Missing environment variables:", missingVars);
+    console.warn("Using fallback values. Create a .env file for production.");
   }
 };
 

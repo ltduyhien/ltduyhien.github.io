@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useMediaQuery } from '../hooks/useMediaQuery';
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
-import Lightbox from './Lightbox';
+import Lightbox from "./Lightbox";
 
 interface ClickableImageProps {
   src: string;
@@ -18,7 +18,7 @@ interface ClickableImageProps {
 const ClickableImage: React.FC<ClickableImageProps> = ({
   src,
   alt,
-  className = '',
+  className = "",
   style,
   isProjectThumbnail = false,
   onOpenLightbox,
@@ -26,7 +26,7 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
   caption,
 }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const handleImageClick = () => {
     if (isDesktop && !isProjectThumbnail) {
@@ -41,26 +41,28 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
   };
 
   // Handle submodule image paths
-  const imageSrc = src.startsWith('@private-content') 
-    ? src.replace('@private-content', '/private-content')
+  const imageSrc = src.startsWith("@private-content")
+    ? src.replace("@private-content", "/private-content")
     : src;
-    
+
   // Debug logging for development
   if (import.meta.env.DEV) {
-    console.log('🔍 ClickableImage path resolution:', { 
-      original: src, 
+    console.log("🔍 ClickableImage path resolution:", {
+      original: src,
       resolved: imageSrc,
-      finalPath: imageSrc.startsWith('@private-content') 
-        ? imageSrc.replace('@private-content', '/private-content')
-        : imageSrc
+      finalPath: imageSrc.startsWith("@private-content")
+        ? imageSrc.replace("@private-content", "/private-content")
+        : imageSrc,
     });
-    
+
     // Log individual values for clarity
-    console.log('🔍 Original src:', src);
-    console.log('🔍 Resolved imageSrc:', imageSrc);
-    console.log('🔍 Final path:', imageSrc.startsWith('@private-content') 
-      ? imageSrc.replace('@private-content', '/private-content')
-      : imageSrc
+    console.log("🔍 Original src:", src);
+    console.log("🔍 Resolved imageSrc:", imageSrc);
+    console.log(
+      "🔍 Final path:",
+      imageSrc.startsWith("@private-content")
+        ? imageSrc.replace("@private-content", "/private-content")
+        : imageSrc,
     );
   }
 
@@ -69,18 +71,18 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
       <img
         src={imageSrc}
         alt={alt}
-        className={`${className} ${isDesktop && !isProjectThumbnail ? 'cursor-pointer hover:opacity-90 transition-opacity' : ''}`}
+        className={`${className} ${isDesktop && !isProjectThumbnail ? "cursor-pointer hover:opacity-90 transition-opacity" : ""}`}
         style={style}
         onClick={handleImageClick}
         onLoad={() => {
           if (import.meta.env.DEV) {
-            console.log('✅ Image loaded successfully:', imageSrc);
+            console.log("✅ Image loaded successfully:", imageSrc);
           }
         }}
         onError={(e) => {
           if (import.meta.env.DEV) {
-            console.error('❌ Image failed to load:', imageSrc);
-            console.error('❌ Error details:', e);
+            console.error("❌ Image failed to load:", imageSrc);
+            console.error("❌ Error details:", e);
           }
         }}
       />

@@ -1,5 +1,5 @@
-import React, { useState, useId, useRef, useLayoutEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useId, useRef, useLayoutEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CollapsibleSectionProps {
   title: string;
@@ -21,7 +21,11 @@ const CollapsibleSection = ({
   expandLock = false,
 }: CollapsibleSectionProps) => {
   const [internalOpen, setInternalOpen] = useState(false);
-  const isOpen = expandLock ? true : controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const isOpen = expandLock
+    ? true
+    : controlledOpen !== undefined
+      ? controlledOpen
+      : internalOpen;
   const sectionId = useId();
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState(0);
@@ -47,7 +51,7 @@ const CollapsibleSection = ({
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (expandLock) return;
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleToggle();
     }
@@ -59,7 +63,7 @@ const CollapsibleSection = ({
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         className={`w-full flex justify-between items-center py-4 text-left transition-colors duration-200 ${
-          expandLock ? '' : 'hover:bg-[var(--color-hover-bg)]'
+          expandLock ? "" : "hover:bg-[var(--color-hover-bg)]"
         }`}
         aria-expanded={isOpen}
         aria-controls={sectionId}
@@ -70,7 +74,7 @@ const CollapsibleSection = ({
         <div className="flex flex-col flex-1">
           <h2
             className="text-lg font-semibold mb-0 text-zinc-900 dark:text-zinc-100"
-            style={{ fontSize: '1.0625rem' }}
+            style={{ fontSize: "1.0625rem" }}
           >
             {title}
           </h2>
@@ -81,16 +85,24 @@ const CollapsibleSection = ({
           )}
         </div>
         {!expandLock && (
-          <motion.div animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
+          <motion.div
+            animate={{ rotate: isOpen ? 90 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="rgb(var(--color-brand))"
-              style={{ color: 'rgb(var(--color-brand))' }}
+              style={{ color: "rgb(var(--color-brand))" }}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </motion.div>
         )}
@@ -102,7 +114,7 @@ const CollapsibleSection = ({
             initial={{ opacity: 0, maxHeight: 0 }}
             animate={{ opacity: 1, maxHeight: contentHeight }}
             exit={{ opacity: 0, maxHeight: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
             <div ref={contentRef} className={`pt-4 pb-8`}>

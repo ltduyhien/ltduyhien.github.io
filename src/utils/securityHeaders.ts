@@ -32,7 +32,7 @@ export class SecurityHeadersManager {
       enableXSSProtection: true,
       enableContentTypeOptions: true,
       enableDNSPrefetch: false,
-      ...config
+      ...config,
     };
   }
 
@@ -51,34 +51,34 @@ export class SecurityHeadersManager {
       "base-uri 'self'",
       "form-action 'self'",
       "frame-ancestors 'none'",
-      "upgrade-insecure-requests"
+      "upgrade-insecure-requests",
     ];
 
-    return cspDirectives.join('; ');
+    return cspDirectives.join("; ");
   }
 
   // Generate Permissions Policy
   private generatePermissionsPolicy(): string {
     const permissions = [
-      'camera=()',
-      'microphone=()',
-      'geolocation=()',
-      'payment=()',
-      'usb=()',
-      'magnetometer=()',
-      'gyroscope=()',
-      'accelerometer=()',
-      'ambient-light-sensor=()',
-      'autoplay=()',
-      'encrypted-media=()',
-      'picture-in-picture=()',
-      'publickey-credentials-get=()',
-      'screen-wake-lock=()',
-      'sync-xhr=()',
-      'web-share=()'
+      "camera=()",
+      "microphone=()",
+      "geolocation=()",
+      "payment=()",
+      "usb=()",
+      "magnetometer=()",
+      "gyroscope=()",
+      "accelerometer=()",
+      "ambient-light-sensor=()",
+      "autoplay=()",
+      "encrypted-media=()",
+      "picture-in-picture=()",
+      "publickey-credentials-get=()",
+      "screen-wake-lock=()",
+      "sync-xhr=()",
+      "web-share=()",
     ];
 
-    return permissions.join(', ');
+    return permissions.join(", ");
   }
 
   // Get all security headers
@@ -87,50 +87,51 @@ export class SecurityHeadersManager {
 
     // Content Security Policy
     if (this.config.enableCSP) {
-      headers['Content-Security-Policy'] = this.generateCSP();
+      headers["Content-Security-Policy"] = this.generateCSP();
     }
 
     // HTTP Strict Transport Security
     if (this.config.enableHSTS) {
-      headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload';
+      headers["Strict-Transport-Security"] =
+        "max-age=31536000; includeSubDomains; preload";
     }
 
     // X-Frame-Options
     if (this.config.enableFrameOptions) {
-      headers['X-Frame-Options'] = 'DENY';
+      headers["X-Frame-Options"] = "DENY";
     }
 
     // X-Content-Type-Options
     if (this.config.enableContentTypeOptions) {
-      headers['X-Content-Type-Options'] = 'nosniff';
+      headers["X-Content-Type-Options"] = "nosniff";
     }
 
     // X-XSS-Protection
     if (this.config.enableXSSProtection) {
-      headers['X-XSS-Protection'] = '1; mode=block';
+      headers["X-XSS-Protection"] = "1; mode=block";
     }
 
     // Referrer Policy
     if (this.config.enableReferrerPolicy) {
-      headers['Referrer-Policy'] = 'strict-origin-when-cross-origin';
+      headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
     }
 
     // Permissions Policy
     if (this.config.enablePermissionsPolicy) {
-      headers['Permissions-Policy'] = this.generatePermissionsPolicy();
+      headers["Permissions-Policy"] = this.generatePermissionsPolicy();
     }
 
     // DNS Prefetch Control
     if (this.config.enableDNSPrefetch) {
-      headers['X-DNS-Prefetch-Control'] = 'on';
+      headers["X-DNS-Prefetch-Control"] = "on";
     } else {
-      headers['X-DNS-Prefetch-Control'] = 'off';
+      headers["X-DNS-Prefetch-Control"] = "off";
     }
 
     // Additional security headers
-    headers['X-Permitted-Cross-Domain-Policies'] = 'none';
-    headers['X-Download-Options'] = 'noopen';
-    headers['X-Powered-By'] = 'Hien Le Portfolio';
+    headers["X-Permitted-Cross-Domain-Policies"] = "none";
+    headers["X-Download-Options"] = "noopen";
+    headers["X-Powered-By"] = "Hien Le Portfolio";
 
     return headers;
   }
@@ -141,25 +142,35 @@ export class SecurityHeadersManager {
     const headers = this.getHeaders();
 
     // Convert CSP to meta tag
-    if (headers['Content-Security-Policy']) {
-      metaTags.push(`<meta http-equiv="Content-Security-Policy" content="${headers['Content-Security-Policy']}">`);
+    if (headers["Content-Security-Policy"]) {
+      metaTags.push(
+        `<meta http-equiv="Content-Security-Policy" content="${headers["Content-Security-Policy"]}">`,
+      );
     }
 
     // Convert other security headers to meta tags
-    if (headers['X-Frame-Options']) {
-      metaTags.push(`<meta http-equiv="X-Frame-Options" content="${headers['X-Frame-Options']}">`);
+    if (headers["X-Frame-Options"]) {
+      metaTags.push(
+        `<meta http-equiv="X-Frame-Options" content="${headers["X-Frame-Options"]}">`,
+      );
     }
 
-    if (headers['X-Content-Type-Options']) {
-      metaTags.push(`<meta http-equiv="X-Content-Type-Options" content="${headers['X-Content-Type-Options']}">`);
+    if (headers["X-Content-Type-Options"]) {
+      metaTags.push(
+        `<meta http-equiv="X-Content-Type-Options" content="${headers["X-Content-Type-Options"]}">`,
+      );
     }
 
-    if (headers['X-XSS-Protection']) {
-      metaTags.push(`<meta http-equiv="X-XSS-Protection" content="${headers['X-XSS-Protection']}">`);
+    if (headers["X-XSS-Protection"]) {
+      metaTags.push(
+        `<meta http-equiv="X-XSS-Protection" content="${headers["X-XSS-Protection"]}">`,
+      );
     }
 
-    if (headers['Referrer-Policy']) {
-      metaTags.push(`<meta name="referrer" content="${headers['Referrer-Policy']}">`);
+    if (headers["Referrer-Policy"]) {
+      metaTags.push(
+        `<meta name="referrer" content="${headers["Referrer-Policy"]}">`,
+      );
     }
 
     return metaTags;
@@ -170,26 +181,28 @@ export class SecurityHeadersManager {
     const errors: string[] = [];
 
     if (this.config.enableHSTS && !this.config.enableCSP) {
-      errors.push('HSTS should be enabled with CSP for maximum security');
+      errors.push("HSTS should be enabled with CSP for maximum security");
     }
 
     if (this.config.enableCSP && !this.config.enableFrameOptions) {
-      errors.push('CSP should be enabled with X-Frame-Options for frame protection');
+      errors.push(
+        "CSP should be enabled with X-Frame-Options for frame protection",
+      );
     }
 
     return {
       valid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
   // Update configuration
   updateConfig(newConfig: Partial<SecurityConfig>): void {
     this.config = { ...this.config, ...newConfig };
-    
+
     const validation = this.validateConfig();
     if (!validation.valid) {
-      console.warn('Security configuration warnings:', validation.errors);
+      console.warn("Security configuration warnings:", validation.errors);
     }
   }
 
@@ -208,7 +221,7 @@ export const securityHeaders = new SecurityHeadersManager({
   enablePermissionsPolicy: true,
   enableXSSProtection: true,
   enableContentTypeOptions: true,
-  enableDNSPrefetch: false
+  enableDNSPrefetch: false,
 });
 
 export default securityHeaders;

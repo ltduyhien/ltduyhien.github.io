@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import CollapsibleSection from './CollapsibleSection';
+import CollapsibleSection from "./CollapsibleSection";
 
 interface ExperienceCardProps {
   title: string;
@@ -11,11 +11,18 @@ interface ExperienceCardProps {
   onToggle?: (open: boolean) => void;
 }
 
-const ExperienceCard = ({ title, date, children, expandLock = false, isOpen, onToggle }: ExperienceCardProps) => {
+const ExperienceCard = ({
+  title,
+  date,
+  children,
+  expandLock = false,
+  isOpen,
+  onToggle,
+}: ExperienceCardProps) => {
   return (
-    <CollapsibleSection 
-      title={title} 
-      subtext={date} 
+    <CollapsibleSection
+      title={title}
+      subtext={date}
       expandLock={expandLock}
       isOpen={isOpen}
       onToggle={onToggle}

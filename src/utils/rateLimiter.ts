@@ -29,36 +29,51 @@ class RateLimiter {
       windowMs: 15 * 60 * 1000, // 15 minutes
       maxRequests: 100, // Max requests per window
       blockDuration: 60 * 60 * 1000, // 1 hour block
-      whitelist: ['localhost', '127.0.0.1'],
+      whitelist: ["localhost", "127.0.0.1"],
       blacklist: [],
-      ...config
+      ...config,
     };
   }
 
   // Get client identifier
   private getClientId(req: Request): string {
     // In a real implementation, you'd get this from headers, IP, etc.
-    const userAgent = req.headers.get('user-agent') || 'unknown';
-    const forwarded = req.headers.get('x-forwarded-for');
-    const realIp = req.headers.get('x-real-ip');
-    
+    const userAgent = req.headers.get("user-agent") || "unknown";
+    const forwarded = req.headers.get("x-forwarded-for");
+    const realIp = req.headers.get("x-real-ip");
+
     // Use a combination of identifiers for better accuracy
-    return `${forwarded || realIp || 'unknown'}-${userAgent}`;
+    return `${forwarded || realIp || "unknown"}-${userAgent}`;
   }
 
   // Check if request should be allowed
-  checkLimit(req: Request): { allowed: boolean; remaining: number; resetTime: number; blocked: boolean } {
+  checkLimit(req: Request): {
+    allowed: boolean;
+    remaining: number;
+    resetTime: number;
+    blocked: boolean;
+  } {
     const clientId = this.getClientId(req);
     const now = Date.now();
 
     // Check whitelist
-    if (this.config.whitelist.some(ip => clientId.includes(ip))) {
-      return { allowed: true, remaining: this.config.maxRequests, resetTime: now + this.config.windowMs, blocked: false };
+    if (this.config.whitelist.some((ip) => clientId.includes(ip))) {
+      return {
+        allowed: true,
+        remaining: this.config.maxRequests,
+        resetTime: now + this.config.windowMs,
+        blocked: false,
+      };
     }
 
     // Check blacklist
-    if (this.config.blacklist.some(ip => clientId.includes(ip))) {
-      return { allowed: false, remaining: 0, resetTime: now + this.config.blockDuration, blocked: true };
+    if (this.config.blacklist.some((ip) => clientId.includes(ip))) {
+      return {
+        allowed: false,
+        remaining: 0,
+        resetTime: now + this.config.blockDuration,
+        blocked: true,
+      };
     }
 
     // Get or create rate limit entry
@@ -68,13 +83,18 @@ class RateLimiter {
         count: 0,
         resetTime: now + this.config.windowMs,
         blocked: false,
-        blockExpiry: 0
+        blockExpiry: 0,
       };
     }
 
     // Check if currently blocked
     if (entry.blocked && now < entry.blockExpiry) {
-      return { allowed: false, remaining: 0, resetTime: entry.blockExpiry, blocked: true };
+      return {
+        allowed: false,
+        remaining: 0,
+        resetTime: entry.blockExpiry,
+        blocked: true,
+      };
     }
 
     // Reset block if expired
@@ -89,8 +109,13 @@ class RateLimiter {
       entry.blocked = true;
       entry.blockExpiry = now + this.config.blockDuration;
       this.store.set(clientId, entry);
-      
-      return { allowed: false, remaining: 0, resetTime: entry.blockExpiry, blocked: true };
+
+      return {
+        allowed: false,
+        remaining: 0,
+        resetTime: entry.blockExpiry,
+        blocked: true,
+      };
     }
 
     // Increment counter
@@ -101,7 +126,7 @@ class RateLimiter {
       allowed: true,
       remaining: this.config.maxRequests - entry.count,
       resetTime: entry.resetTime,
-      blocked: false
+      blocked: false,
     };
   }
 
@@ -114,20 +139,24 @@ class RateLimiter {
 
   // Remove IP from blacklist
   whitelistIP(ip: string): void {
-    this.config.blacklist = this.config.blacklist.filter(b => b !== ip);
+    this.config.blacklist = this.config.blacklist.filter((b) => b !== ip);
   }
 
   // Get statistics
-  getStats(): { totalClients: number; blockedClients: number; storeSize: number } {
+  getStats(): {
+    totalClients: number;
+    blockedClients: number;
+    storeSize: number;
+  } {
     let blockedCount = 0;
-    this.store.forEach(entry => {
+    this.store.forEach((entry) => {
       if (entry.blocked) blockedCount++;
     });
 
     return {
       totalClients: this.store.size,
       blockedClients: blockedCount,
-      storeSize: this.store.size
+      storeSize: this.store.size,
     };
   }
 
@@ -147,8 +176,8 @@ export const rateLimiter = new RateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
   maxRequests: 150, // 150 requests per 15 minutes
   blockDuration: 60 * 60 * 1000, // 1 hour block
-  whitelist: ['localhost', '127.0.0.1', '::1'],
-  blacklist: []
+  whitelist: ["localhost", "127.0.0.1", "::1"],
+  blacklist: [],
 });
 
 // Clean up expired entries every 5 minutes

@@ -1,16 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import Sidebar from '../components/Sidebar';
-import Footer from '../components/Footer';
-import { useScrollToTop } from '../hooks/useScrollToTop';
+import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+import Sidebar from "../components/Sidebar";
+import Footer from "../components/Footer";
+import { useScrollToTop } from "../hooks/useScrollToTop";
 
 const NotFound: React.FC = () => {
   // Smooth scroll to top when navigating to 404 page
   useScrollToTop({
     autoScroll: true,
-    behavior: 'smooth',
-    delay: 100
+    behavior: "smooth",
+    delay: 100,
   });
 
   return (
@@ -27,7 +28,7 @@ const NotFound: React.FC = () => {
             <h1 className="text-lg font-bold mb-6 text-white leading-tight">
               Sorry, the link you are looking for is not found!
             </h1>
-            
+
             <div className="text-gray-300 mb-6">
               <p className="text-base mb-3">Possible reasons:</p>
               <div className="space-y-2 ml-4">
@@ -45,11 +46,11 @@ const NotFound: React.FC = () => {
                 </p>
               </div>
             </div>
-            
+
             <div className="text-gray-300 mb-4">
               <p className="text-base">For now we can try to:</p>
             </div>
-            
+
             <div className="space-y-2 ml-4">
               <Link
                 to="/"

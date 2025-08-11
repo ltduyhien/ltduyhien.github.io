@@ -35,12 +35,15 @@ export default defineConfig(({ mode }) => {
     
     // Build configuration
     build: {
+      chunkSizeWarningLimit: 1000, // Increase from default 500kb
       rollupOptions: {
         output: {
           manualChunks: {
             vendor: ['react', 'react-dom'],
             router: ['react-router-dom'],
             utils: ['framer-motion'],
+            highlight: ['highlight.js', 'rehype-highlight'],
+            markdown: ['react-markdown', 'rehype-raw', 'remark-gfm'],
           },
         },
       },

@@ -4,37 +4,42 @@
  * @license MIT
  */
 
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { trackPageView, testCustomDimensions } from './utils/analytics';
-import { useScrollToTop } from './hooks/useScrollToTop';
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
-import Sidebar from './components/Sidebar';
-import MobileHeader from './components/MobileHeader';
-import Home from './pages/Home';
-import Projects from './pages/Projects';
-import About from './pages/About';
-import ProjectSingle from './pages/ProjectSingle';
-import Github from './pages/Github';
-import NotFound from './pages/NotFound';
-import SecurityDashboard from './components/SecurityDashboard';
-import WatermarkingDashboard from './components/WatermarkingDashboard';
+import { trackPageView, testCustomDimensions } from "./utils/analytics";
+import { useScrollToTop } from "./hooks/useScrollToTop";
+import Sidebar from "./components/Sidebar";
+import MobileHeader from "./components/MobileHeader";
+import Home from "./pages/Home";
+import Projects from "./pages/Projects";
+import About from "./pages/About";
+import ProjectSingle from "./pages/ProjectSingle";
+import Github from "./pages/Github";
+import NotFound from "./pages/NotFound";
+import SecurityDashboard from "./components/SecurityDashboard";
+import WatermarkingDashboard from "./components/WatermarkingDashboard";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem('darkMode');
+    const savedMode = localStorage.getItem("darkMode");
     return savedMode ? JSON.parse(savedMode) : false;
   });
   const [menuOpen, setMenuOpen] = useState(false);
   const [showMobileHeader, setShowMobileHeader] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
     if (darkMode) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
 
@@ -45,8 +50,8 @@ const App = () => {
         setMenuOpen(false);
       }
     }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -66,11 +71,11 @@ const App = () => {
       }
       lastScrollY = window.scrollY;
     }
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, []);
 
@@ -98,29 +103,29 @@ const App = () => {
 
 function ContentWithFade() {
   const location = useLocation();
-  
+
   // Global smooth scroll to top on route change
   useScrollToTop({
     autoScroll: true,
-    behavior: 'smooth',
-    delay: 50 // Quick delay for global navigation
+    behavior: "smooth",
+    delay: 50, // Quick delay for global navigation
   });
-  
+
   // Track page views for Google Analytics
   useEffect(() => {
-    console.log('Route changed to:', location.pathname);
+    console.log("Route changed to:", location.pathname);
     trackPageView(location.pathname);
     // Test custom dimensions on first load
-    if (location.pathname === '/') {
+    if (location.pathname === "/") {
       testCustomDimensions();
     }
   }, [location.pathname]);
-  
+
   // Special handling for 404 page
-  if (location.pathname === '/404' || location.pathname === '*') {
+  if (location.pathname === "/404" || location.pathname === "*") {
     return <NotFound />;
   }
-  
+
   return (
     <div className="md:ml-72 min-h-screen pt-8 md:pt-12">
       <AnimatePresence mode="wait">
@@ -129,7 +134,7 @@ function ContentWithFade() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <Routes location={location}>
             <Route path="/" element={<Home />} />

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import hljs from 'highlight.js';
+import React, { useEffect, useRef } from "react";
+import hljs from "highlight.js";
 
 interface ConsoleBlockProps {
   code: string;
@@ -11,8 +11,8 @@ interface ConsoleBlockProps {
 const ConsoleBlock: React.FC<ConsoleBlockProps> = ({
   code,
   response,
-  codeLang = '',
-  responseLang = '',
+  codeLang = "",
+  responseLang = "",
 }) => {
   const codeRef = useRef<HTMLElement>(null);
   const responseRef = useRef<HTMLElement>(null);
@@ -21,11 +21,11 @@ const ConsoleBlock: React.FC<ConsoleBlockProps> = ({
     if (codeRef.current) {
       hljs.highlightElement(codeRef.current);
       // Fallback: force re-highlighting
-      codeRef.current.classList.add('hljs');
+      codeRef.current.classList.add("hljs");
     }
     if (responseRef.current) {
       hljs.highlightElement(responseRef.current);
-      responseRef.current.classList.add('hljs');
+      responseRef.current.classList.add("hljs");
     }
   }, [code, response, codeLang, responseLang]);
 
@@ -40,8 +40,8 @@ const ConsoleBlock: React.FC<ConsoleBlockProps> = ({
           <code
             ref={codeRef}
             className={
-              (codeLang ? `language-${codeLang}` : '') +
-              ' bg-white text-zinc-800 dark:bg-zinc-900 dark:text-inherit p-4 text-sm block whitespace-pre font-medium'
+              (codeLang ? `language-${codeLang}` : "") +
+              " bg-white text-zinc-800 dark:bg-zinc-900 dark:text-inherit p-4 text-sm block whitespace-pre font-medium"
             }
             style={{ borderRadius: 0 }}
           >
@@ -59,8 +59,8 @@ const ConsoleBlock: React.FC<ConsoleBlockProps> = ({
           <code
             ref={responseRef}
             className={
-              (responseLang ? `language-${responseLang}` : '') +
-              ' bg-white text-zinc-800 dark:bg-zinc-900 dark:text-inherit p-4 text-sm block whitespace-pre font-medium'
+              (responseLang ? `language-${responseLang}` : "") +
+              " bg-white text-zinc-800 dark:bg-zinc-900 dark:text-inherit p-4 text-sm block whitespace-pre font-medium"
             }
             style={{ borderRadius: 0 }}
           >

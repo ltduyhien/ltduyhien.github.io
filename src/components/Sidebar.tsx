@@ -4,12 +4,13 @@
  * @license MIT
  */
 
-import React, { useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
-import Toggle from './Toggle';
-import { trackNavigation, trackDarkModeToggle } from '../utils/analytics';
+import { trackNavigation, trackDarkModeToggle } from "../utils/analytics";
+
+import Toggle from "./Toggle";
 
 interface SidebarProps {
   darkMode: boolean;
@@ -18,17 +19,22 @@ interface SidebarProps {
   onCloseMenu?: () => void;
 }
 
-const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarProps) => {
+const Sidebar = ({
+  darkMode,
+  toggleDarkMode,
+  menuOpen,
+  onCloseMenu,
+}: SidebarProps) => {
   const location = useLocation();
   const pathname = location.pathname;
   const navigate = useNavigate();
 
   // Helper to close menu on mobile
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const handleMenuItemClick = (target: string) => (e: React.MouseEvent) => {
     // Track navigation
     trackNavigation(target);
-    
+
     if (isMobile && onCloseMenu) {
       e.preventDefault();
       onCloseMenu();
@@ -41,20 +47,20 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
   useEffect(() => {
     // Only lock body scroll on mobile when menu is open
     if (menuOpen && window.innerWidth < 768) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
 
     // Cleanup function
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [menuOpen]);
 
   const mobileVariants = {
     open: { x: 0, opacity: 1 },
-    closed: { x: '-100%', opacity: 0 },
+    closed: { x: "-100%", opacity: 0 },
   };
 
   const sidebarContent = (
@@ -62,14 +68,17 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
       {/* Separator for mobile - separates MobileHeader brand from sidebar menu */}
       <hr className="w-full border-zinc-200 dark:border-zinc-700 md:hidden" />
       <div className="relative hidden md:block">
-        {pathname === '/' && (
-          <span className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10" style={{ transform: 'translate3d(0, 0, 0)' }} />
+        {pathname === "/" && (
+          <span
+            className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10"
+            style={{ transform: "translate3d(0, 0, 0)" }}
+          />
         )}
         <div className="pl-8 mb-8">
           <Link
             to="/"
-            onClick={handleMenuItemClick('/')}
-            className={`font-extrabold text-2xl uppercase ${pathname === '/' ? 'text-brand' : ''}`}
+            onClick={handleMenuItemClick("/")}
+            className={`font-extrabold text-2xl uppercase ${pathname === "/" ? "text-brand" : ""}`}
           >
             HIEN LE
           </Link>
@@ -82,7 +91,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
       <nav className="flex flex-col gap-4 font-medium mb-8 mt-8">
         {/* Projects */}
         <div className="relative flex">
-          {pathname.startsWith('/projects') && (
+          {pathname.startsWith("/projects") && (
             <AnimatePresence>
               <motion.div
                 key="selector-projects"
@@ -91,15 +100,15 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
                 className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10"
-                style={{ transform: 'translate3d(0, 0, 0)' }}
+                style={{ transform: "translate3d(0, 0, 0)" }}
               />
             </AnimatePresence>
           )}
           <div className="pl-8">
             <Link
               to="/projects"
-              className={`font-semibold text-xl ${pathname.startsWith('/projects') ? 'text-brand' : ''} hover:text-brand`}
-              onClick={handleMenuItemClick('/projects')}
+              className={`font-semibold text-xl ${pathname.startsWith("/projects") ? "text-brand" : ""} hover:text-brand`}
+              onClick={handleMenuItemClick("/projects")}
             >
               Projects
             </Link>
@@ -110,7 +119,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
         </div>
         {/* Github */}
         <div className="relative flex">
-          {pathname === '/github' && (
+          {pathname === "/github" && (
             <AnimatePresence>
               <motion.div
                 key="selector-github"
@@ -119,19 +128,21 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
                 className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10"
-                style={{ transform: 'translate3d(0, 0, 0)' }}
+                style={{ transform: "translate3d(0, 0, 0)" }}
               />
             </AnimatePresence>
           )}
           <div className="pl-8">
             <Link
               to="/github"
-              className={`font-bold text-xl ${pathname === '/github' ? 'text-brand' : ''} hover:text-brand`}
-              onClick={handleMenuItemClick('/github')}
+              className={`font-bold text-xl ${pathname === "/github" ? "text-brand" : ""} hover:text-brand`}
+              onClick={handleMenuItemClick("/github")}
             >
               Github
             </Link>
-            <div className="text-base text-zinc-600 dark:text-zinc-400">Codebase & tools</div>
+            <div className="text-base text-zinc-600 dark:text-zinc-400">
+              Codebase & tools
+            </div>
           </div>
         </div>
         {/* Github */}
@@ -161,7 +172,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
         </div> */}
         {/* About */}
         <div className="relative flex">
-          {pathname === '/about' && (
+          {pathname === "/about" && (
             <AnimatePresence>
               <motion.div
                 key="selector-about"
@@ -170,15 +181,15 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
                 className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10"
-                style={{ transform: 'translate3d(0, 0, 0)' }}
+                style={{ transform: "translate3d(0, 0, 0)" }}
               />
             </AnimatePresence>
           )}
           <div className="pl-8">
             <Link
               to="/about"
-              className={`font-semibold text-xl ${pathname === '/about' ? 'text-brand' : ''} hover:text-brand`}
-              onClick={handleMenuItemClick('/about')}
+              className={`font-semibold text-xl ${pathname === "/about" ? "text-brand" : ""} hover:text-brand`}
+              onClick={handleMenuItemClick("/about")}
             >
               About
             </Link>
@@ -190,7 +201,11 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
       </nav>
       <hr className="w-full border-zinc-200 dark:border-zinc-700" />
       <div className="my-4 font-medium pl-8">
-        <Toggle checked={darkMode} onChange={toggleDarkMode} labelClassName="text-xl" />
+        <Toggle
+          checked={darkMode}
+          onChange={toggleDarkMode}
+          labelClassName="text-xl"
+        />
       </div>
       <hr className="w-full border-zinc-200 dark:border-zinc-700" />
       <div className="absolute left-8 bottom-20 text-lg font-medium text-zinc-800 dark:text-zinc-400">
@@ -199,7 +214,14 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
         with React.js
       </div>
       <div className="absolute left-8 bottom-8 text-lg font-medium text-zinc-600 dark:text-zinc-400">
-        Hien Le © 2025 | <a href="/LICENSE" target="_blank" className="text-brand hover:underline">GPL v3</a>
+        Hien Le © 2025 |{" "}
+        <a
+          href="/LICENSE"
+          target="_blank"
+          className="text-brand hover:underline"
+        >
+          GPL v3
+        </a>
       </div>
     </div>
   );
@@ -209,24 +231,29 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
       {/* Desktop Sidebar */}
       <div
         className="hidden md:block w-72 pt-8 pb-8 fixed top-0 left-0 h-screen overflow-hidden bg-white dark:bg-zinc-900 text-black dark:text-white z-30"
-        style={{ boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}
+        style={{ boxShadow: "0 2px 8px 0 rgba(0,0,0,0.04)" }}
       >
         <div className="relative">
-          {pathname === '/' && (
-            <span className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10" style={{ transform: 'translate3d(0, 0, 0)' }} />
+          {pathname === "/" && (
+            <span
+              className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10"
+              style={{ transform: "translate3d(0, 0, 0)" }}
+            />
           )}
           <div className="pl-8 mb-8">
             <Link to="/" className="font-extrabold text-xl text-brand">
               HIEN LE
             </Link>
-            <div className="text-sm text-zinc-600 dark:text-zinc-400">Senior/Lead Product Designer</div>
+            <div className="text-sm text-zinc-600 dark:text-zinc-400">
+              Senior/Lead Product Designer
+            </div>
           </div>
         </div>
         <hr className="w-full border-zinc-200 dark:border-zinc-700 mb-8" />
         <nav className="flex flex-col gap-4 font-medium mb-8 mt-8">
           {/* Projects */}
           <div className="relative flex">
-            {pathname.startsWith('/projects') && (
+            {pathname.startsWith("/projects") && (
               <AnimatePresence>
                 <motion.div
                   key="selector-projects"
@@ -235,15 +262,15 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
                   className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10"
-                  style={{ transform: 'translate3d(0, 0, 0)' }}
+                  style={{ transform: "translate3d(0, 0, 0)" }}
                 />
               </AnimatePresence>
             )}
             <div className="pl-8">
               <Link
                 to="/projects"
-                className={`font-bold ${pathname.startsWith('/projects') ? 'text-brand' : ''} hover:text-brand`}
-                onClick={handleMenuItemClick('/projects')}
+                className={`font-bold ${pathname.startsWith("/projects") ? "text-brand" : ""} hover:text-brand`}
+                onClick={handleMenuItemClick("/projects")}
               >
                 Projects
               </Link>
@@ -254,7 +281,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
           </div>
           {/* Github */}
           <div className="relative flex">
-            {pathname === '/github' && (
+            {pathname === "/github" && (
               <AnimatePresence>
                 <motion.div
                   key="selector-github"
@@ -263,19 +290,21 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
                   className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10"
-                  style={{ transform: 'translate3d(0, 0, 0)' }}
+                  style={{ transform: "translate3d(0, 0, 0)" }}
                 />
               </AnimatePresence>
             )}
             <div className="pl-8">
               <Link
                 to="/github"
-                className={`font-bold ${pathname === '/github' ? 'text-brand' : ''} hover:text-brand`}
-                onClick={handleMenuItemClick('/github')}
+                className={`font-bold ${pathname === "/github" ? "text-brand" : ""} hover:text-brand`}
+                onClick={handleMenuItemClick("/github")}
               >
                 Github
               </Link>
-              <div className="text-sm text-zinc-600 dark:text-zinc-400">Codebase & tools</div>
+              <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                Codebase & tools
+              </div>
             </div>
           </div>
           {/* Github */}
@@ -305,7 +334,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
           </div> */}
           {/* About */}
           <div className="relative flex">
-            {pathname === '/about' && (
+            {pathname === "/about" && (
               <AnimatePresence>
                 <motion.div
                   key="selector-about"
@@ -314,15 +343,15 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
                   className="absolute left-0 top-0 h-full w-[4px] rounded bg-brand z-10"
-                  style={{ transform: 'translate3d(0, 0, 0)' }}
+                  style={{ transform: "translate3d(0, 0, 0)" }}
                 />
               </AnimatePresence>
             )}
             <div className="pl-8">
               <Link
                 to="/about"
-                className={`font-bold ${pathname === '/about' ? 'text-brand' : ''} hover:text-brand`}
-                onClick={handleMenuItemClick('/about')}
+                className={`font-bold ${pathname === "/about" ? "text-brand" : ""} hover:text-brand`}
+                onClick={handleMenuItemClick("/about")}
               >
                 About
               </Link>
@@ -334,17 +363,27 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
         </nav>
         <hr className="w-full border-zinc-200 dark:border-zinc-700" />
         <div className="px-8 my-4 font-medium">
-          <Toggle checked={darkMode} onChange={() => {
-          trackDarkModeToggle(!darkMode);
-          toggleDarkMode();
-        }} />
+          <Toggle
+            checked={darkMode}
+            onChange={() => {
+              trackDarkModeToggle(!darkMode);
+              toggleDarkMode();
+            }}
+          />
         </div>
         <hr className="w-full border-zinc-200 dark:border-zinc-700" />
         <div className="absolute left-8 bottom-16 text-sm font-medium text-zinc-800 dark:text-zinc-400">
           Developed with React.js
         </div>
         <div className="absolute left-8 bottom-8 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-          Hien Le © 2025 | <a href="/LICENSE" target="_blank" className="text-brand hover:underline">GPL v3</a>
+          Hien Le © 2025 |{" "}
+          <a
+            href="/LICENSE"
+            target="_blank"
+            className="text-brand hover:underline"
+          >
+            GPL v3
+          </a>
         </div>
       </div>
 
@@ -356,7 +395,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
             animate="open"
             exit="closed"
             variants={mobileVariants}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden fixed top-0 left-0 h-full w-full bg-white dark:bg-zinc-900 text-black dark:text-white z-40"
           >
             {sidebarContent}

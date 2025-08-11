@@ -4,9 +4,14 @@
  * @license MIT
  */
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { trackLinkedInClick, trackEmailClick, trackCVDownload } from '../utils/analytics';
+import React from "react";
+import { Link } from "react-router-dom";
+
+import {
+  trackLinkedInClick,
+  trackEmailClick,
+  trackCVDownload,
+} from "../utils/analytics";
 
 const Footer = () => {
   return (
@@ -15,7 +20,7 @@ const Footer = () => {
         Thanks for visiting :)
       </h3>
       <p className="text-base font-medium text-zinc-700 dark:text-zinc-200">
-        You can get in touch with me by{' '}
+        You can get in touch with me by{" "}
         <a
           href="https://www.linkedin.com/in/hienl"
           target="_blank"
@@ -24,34 +29,42 @@ const Footer = () => {
           onClick={trackLinkedInClick}
         >
           Connecting
-        </a>{' '}
-        with me in LinkedIn,{' '}
-        <a 
-          href="/cv_hien.pdf" 
+        </a>{" "}
+        with me in LinkedIn,{" "}
+        <a
+          href="/cv_hien.pdf"
           download
           className="text-brand hover:underline"
           onClick={trackCVDownload}
         >
           Downloading
-        </a>{' '}
-        my CV, or{' '}
-        <a 
-          href="mailto:letranduyhien@gmail.com" 
+        </a>{" "}
+        my CV, or{" "}
+        <a
+          href="mailto:letranduyhien@gmail.com"
           className="text-brand hover:underline"
           onClick={trackEmailClick}
         >
           Sending
-        </a>{' '}
+        </a>{" "}
         me Email.
       </p>
       <div className="mt-8 pt-4 border-t border-zinc-200 dark:border-zinc-700">
         <p className="text-sm text-zinc-500 dark:text-zinc-400 text-left">
-          © 2025 Hien Le. All rights reserved. This portfolio is licensed under the{' '}
-          <a href="/LICENSE" target="_blank" className="text-brand hover:underline">GPL v3</a>.
+          © 2025 Hien Le. All rights reserved. This portfolio is licensed under
+          the{" "}
+          <a
+            href="/LICENSE"
+            target="_blank"
+            className="text-brand hover:underline"
+          >
+            GPL v3
+          </a>
+          .
         </p>
       </div>
     </div>
   );
 };
 
-export default Footer; 
+export default Footer;

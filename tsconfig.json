@@ -12,6 +12,7 @@
     "esModuleInterop": true,
     "lib": ["dom", "esnext"],
     "module": "esnext",
+    "resolveJsonModule": true,
     "types": ["vite/client", "react", "react-dom", "node"],
     "moduleResolution": "node"
   }

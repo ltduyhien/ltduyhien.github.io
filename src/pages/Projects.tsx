@@ -27,17 +27,41 @@ const Projects = () => {
 
   useEffect(() => {
     async function loadProjects() {
+      console.log('Loading projects...');
+      
+      // Import all project data files statically
+      const projectModules = {
+        'nokia-data-suite': () => import('./projects/nokia-data-suite/data.json'),
+        'test-driver-cloud': () => import('./projects/test-driver-cloud/data.json'),
+        'allconnect-app': () => import('./projects/allconnect-app/data.json'),
+        'riva-audio': () => import('./projects/riva-audio/data.json'),
+        'cpq-pricing-tool': () => import('./projects/cpq-pricing-tool/data.json'),
+        'smb-admin-panel': () => import('./projects/smb-admin-panel/data.json'),
+        '3dmark-ios-app': () => import('./projects/3dmark-ios-app/data.json'),
+        '3dmark-design-system': () => import('./projects/3dmark-design-system/data.json'),
+        'procyon-desktop-client': () => import('./projects/procyon-desktop-client/data.json'),
+      };
+      
       const loaded = await Promise.all(
         PROJECTS_ORDER.map(async (proj) => {
           try {
-            const mod = await import(`./projects/${proj.slug}/data.json`);
-            return { ...mod.default, slug: proj.slug };
-          } catch {
+            console.log(`Loading ${proj.slug}...`);
+            const importFn = projectModules[proj.slug as keyof typeof projectModules];
+            if (importFn) {
+              const mod = await importFn();
+              console.log(`Loaded ${proj.slug}:`, mod.default);
+              return { ...mod.default, slug: proj.slug };
+            }
+            return null;
+          } catch (error) {
+            console.error(`Failed to load ${proj.slug}:`, error);
             return null;
           }
         }),
       );
-      setProjects(loaded.filter(Boolean));
+      const filtered = loaded.filter(Boolean);
+      console.log('Final projects array:', filtered);
+      setProjects(filtered);
     }
     loadProjects();
   }, []);
@@ -69,6 +93,12 @@ const Projects = () => {
   const designSystemProjects = projects.filter(
     (project) => project.slug === '3dmark-design-system',
   );
+  
+  console.log('Projects state:', projects);
+  console.log('SaaS projects:', saasProjects);
+  console.log('Mobile projects:', mobileProjects);
+  console.log('Desktop projects:', desktopProjects);
+  console.log('Design system projects:', designSystemProjects);
 
   return (
     <div className="container-custom px-8 pt-24 pb-16 md:py-16">

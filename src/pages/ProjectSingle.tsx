@@ -1089,35 +1089,36 @@ const ProjectSingle = () => {
         </ReactMarkdown>
       </div>
       {/* Explanation image below intro */}
-      <figure className="mb-8">
-        <DynamicImage
-          src="explaination.png"
-          alt="Explanation diagram"
-          className="w-full max-w-3xl mx-auto rounded border-2 border-zinc-200 dark:border-zinc-700"
-          style={{ boxSizing: 'border-box' }}
-          onOpenLightbox={handleLightboxOpen}
-          caption={
-            slug === 'nokia-data-suite'
-              ? 'Overview of Nokia Data Suite platform architecture and workflow for enterprise data analytics'
-              : slug === 'test-driver-cloud'
-              ? 'Overview of TDC platform and workflow for automated PC performance testing'
-              : slug === 'allconnect-app'
-              ? 'Overview of AllConnect mobile app ecosystem and connected device management workflow'
-              : slug === 'riva-audio'
-              ? 'Communication flow diagram showing how the Riva Audio mobile app communicates with speakers through various protocols including MQTT, WebSockets, and cloud APIs'
-              : slug === 'cpq-pricing-tool'
-              ? 'Overview of CPQ pricing tool platform and automated quote generation workflow'
-              : slug === 'smb-admin-panel'
-              ? 'Overview of SMB admin panel system architecture and file sharing management workflow'
-              : slug === '3dmark-ios-app'
-              ? 'Overview of 3DMark iOS app redesign and ecosystem integration workflow'
-              : slug === '3dmark-design-system'
-              ? 'Overview of 3DMark design system architecture and component library structure'
-              : slug === 'procyon-desktop-client'
-              ? 'Architecture diagram showing the Procyon Desktop Client system components and data flow for cross-platform benchmarking'
-              : 'Project overview and system architecture diagram'
-          }
-        />
+      {slug && (
+        <figure className="mb-8">
+          <DynamicImage
+            src={getImageUrl(slug, "explaination.png")}
+            alt="Explanation diagram"
+            className="w-full max-w-3xl mx-auto rounded border-2 border-zinc-200 dark:border-zinc-700"
+            style={{ boxSizing: 'border-box' }}
+            onOpenLightbox={handleLightboxOpen}
+            caption={
+              slug === 'nokia-data-suite'
+                ? 'Overview of Nokia Data Suite platform architecture and workflow for enterprise data analytics'
+                : slug === 'test-driver-cloud'
+                ? 'Overview of TDC platform and workflow for automated PC performance testing'
+                : slug === 'allconnect-app'
+                ? 'Overview of AllConnect mobile app ecosystem and connected device management workflow'
+                : slug === 'riva-audio'
+                ? 'Communication flow diagram showing how the Riva Audio mobile app communicates with speakers through various protocols including MQTT, WebSockets, and cloud APIs'
+                : slug === 'cpq-pricing-tool'
+                ? 'Overview of CPQ pricing tool platform and automated quote generation workflow'
+                : slug === 'smb-admin-panel'
+                ? 'Overview of SMB admin panel system architecture and file sharing management workflow'
+                : slug === '3dmark-ios-app'
+                ? 'Overview of 3DMark iOS app redesign and ecosystem integration workflow'
+                : slug === '3dmark-design-system'
+                ? 'Overview of 3DMark design system architecture and component library structure'
+                : slug === 'procyon-desktop-client'
+                ? 'Architecture diagram showing the Procyon Desktop Client system components and data flow for cross-platform benchmarking'
+                : 'Project overview and system architecture diagram'
+            }
+          />
         <figcaption className="text-center text-sm text-zinc-500 dark:text-zinc-400 mt-2">
           {slug === 'nokia-data-suite'
             ? 'Overview of Nokia Data Suite platform architecture and workflow for enterprise data analytics'
@@ -1139,7 +1140,8 @@ const ProjectSingle = () => {
             ? 'Architecture diagram showing the Procyon Desktop Client system components and data flow for cross-platform benchmarking'
             : 'Project overview and system architecture diagram'}
         </figcaption>
-      </figure>
+        </figure>
+      )}
       {/* Render sections, filtering out falsy values */}
       {sections
         .filter(

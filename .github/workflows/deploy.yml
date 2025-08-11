@@ -18,11 +18,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       
       - name: Setup Node.js
         uses: actions/setup-node@v4

@@ -2,6 +2,9 @@
   "name": "hienle-portfolio",
   "version": "1.0.0",
   "type": "module",
+  "author": "Hien Le",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2025 Hien Le",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

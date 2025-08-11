@@ -8,13 +8,9 @@ import { setProjectCategory } from '../utils/analytics';
 
 import type { ProjectData } from './ProjectSingle';
 import { PROJECTS_ORDER } from './projectsOrder';
+import { getProjectsList } from '../generated/content-bundle';
 
-// Vite dynamic image import
-const projectImages: Record<string, string> = import.meta.glob('./projects/*/*', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-});
+// No longer needed - using generated content bundle instead
 
 const Projects = () => {
   const [projects, setProjects] = useState<ProjectData[]>([]);
@@ -26,58 +22,26 @@ const Projects = () => {
   });
 
   useEffect(() => {
-    console.log('Loading projects...');
+    console.log('Loading projects from content bundle...');
     
-    const loadProjects = async () => {
-      try {
-        const loaded = await Promise.all(
-          PROJECTS_ORDER.map(async (proj) => {
-            console.log(`Loading ${proj.slug}...`);
-            try {
-              const data = await import(`@private-content/projects/${proj.slug}/data.json`);
-              return {
-                ...data.default,
-                slug: proj.slug,
-                // Use the real project banner image from the submodule
-                imageUrl: `@private-content/projects/${proj.slug}/${data.default.banner}`
-              };
-            } catch (error) {
-              console.error(`Failed to load ${proj.slug}:`, error);
-              // Fallback to mock data if submodule fails
-              return {
-                slug: proj.slug,
-                title: `Project: ${proj.slug}`,
-                summary: `Summary for ${proj.slug}`,
-                problem: `Problem for ${proj.slug}`,
-                constraints: `Constraints for ${proj.slug}`,
-                keyDecisions: [`Decision 1 for ${proj.slug}`],
-                outcomes: `Outcomes for ${proj.slug}`,
-                screenshots: [],
-                industries: [`Industry for ${proj.slug}`],
-                banner: 'header.png',
-                imageUrl: `https://picsum.photos/400/300?random=${proj.slug}`
-              };
-            }
-          })
-        );
-        
-        const filtered = loaded.filter(Boolean);
-        setProjects(filtered);
-      } catch (error) {
-        console.error('Failed to load projects:', error);
-        setProjects([]);
-      }
-    };
-    
-    loadProjects();
+    try {
+      // Use the generated content bundle instead of importing from submodules
+      const projectsList = getProjectsList();
+      const loaded = projectsList.map((proj) => ({
+        ...proj,
+        // Use the banner path from the generated content bundle
+        imageUrl: proj.banner || ''
+      }));
+      
+      setProjects(loaded);
+      console.log(`Loaded ${loaded.length} projects from content bundle`);
+    } catch (error) {
+      console.error('Failed to load projects from content bundle:', error);
+      setProjects([]);
+    }
   }, []);
 
-  function getBannerUrl(slug: string, banner?: string): string {
-    if (!banner) return '';
-    const key = `./projects/${slug}/${banner}`;
-    const url = projectImages[key];
-    return typeof url === 'string' ? url : '';
-  }
+  // Banner URLs are now handled by the generated content bundle
 
   // Categorize projects
   const saasProjects = projects.filter(

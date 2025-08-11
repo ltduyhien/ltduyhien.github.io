@@ -211,7 +211,7 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
             <Link to="/" className="font-extrabold text-xl text-brand">
               HIEN LE
             </Link>
-            <div className="text-sm text-zinc-600 dark:text-zinc-400">Senior Product Designer</div>
+            <div className="text-sm text-zinc-600 dark:text-zinc-400">Senior/Lead Product Designer</div>
           </div>
         </div>
         <hr className="w-full border-zinc-200 dark:border-zinc-700 mb-8" />

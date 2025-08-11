@@ -158,6 +158,15 @@ const WatermarkingDashboard: React.FC = () => {
                   Remove Watermarks
                 </button>
               </div>
+              
+              <div className="mt-2">
+                <button
+                  onClick={() => contentWatermarking.debugWatermarks()}
+                  className="w-full bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+                >
+                  🔍 Debug Watermarks
+                </button>
+              </div>
             </div>
           </div>
         )}

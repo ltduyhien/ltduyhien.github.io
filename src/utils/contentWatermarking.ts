@@ -107,7 +107,10 @@ export class ContentWatermarking {
 
     const images = document.querySelectorAll('img');
     
+    console.log('🔍 Found', images.length, 'images to watermark');
+    
     images.forEach((img, index) => {
+      console.log('🔍 Processing image', index, ':', img.src, img.alt);
       this.addImageWatermark(img as HTMLImageElement, index);
     });
 
@@ -116,6 +119,8 @@ export class ContentWatermarking {
 
   // Add subtle watermark to image
   private addImageWatermark(img: HTMLImageElement, index: number): void {
+    console.log('🔍 Adding watermark to image:', img.src, img.alt);
+    
     // Add watermark metadata
     img.setAttribute('data-watermark', 'true');
     img.setAttribute('data-watermark-id', this.watermarkId);
@@ -130,28 +135,45 @@ export class ContentWatermarking {
       position: absolute;
       bottom: 8px;
       right: 8px;
-      font-size: 10px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.7);
-      background: rgba(0, 0, 0, 0.6);
-      padding: 3px 6px;
-      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 4px 8px;
+      border-radius: 4px;
       pointer-events: none;
       user-select: none;
-      z-index: 1;
+      z-index: 9999;
       font-family: Arial, sans-serif;
-      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(2px);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     `;
     watermarkOverlay.setAttribute('data-watermark-overlay', 'true');
     
     // Ensure image container has relative positioning
-    if (img.style.position === 'static' || !img.style.position) {
+    const currentPosition = getComputedStyle(img).position;
+    console.log('🔍 Image position before:', currentPosition);
+    
+    if (currentPosition === 'static') {
       img.style.position = 'relative';
+      console.log('🔍 Changed image position to relative');
+    } else {
+      console.log('🔍 Image already has positioning:', currentPosition);
     }
     
     // Add watermark overlay to image
     img.appendChild(watermarkOverlay);
+    console.log('🔍 Watermark overlay added to image:', img.src);
+    
+    // Verify the watermark is in the DOM
+    const addedWatermark = img.querySelector('[data-watermark-overlay="true"]') as HTMLElement;
+    if (addedWatermark) {
+      console.log('✅ Watermark element verified in DOM:', addedWatermark);
+      console.log('✅ Watermark styles:', addedWatermark.style.cssText);
+    } else {
+      console.error('❌ Watermark element not found in DOM after adding');
+    }
     
     // For print: enhance watermark visibility
     img.addEventListener('beforeprint', () => {
@@ -450,6 +472,26 @@ export class ContentWatermarking {
       metadata,
       css
     };
+  }
+
+  // Debug method to highlight watermarks
+  debugWatermarks(): void {
+    console.log('🔍 Debugging watermarks...');
+    
+    const imageWatermarks = document.querySelectorAll('[data-watermark-overlay="true"]');
+    console.log('🔍 Found', imageWatermarks.length, 'image watermarks');
+    
+    imageWatermarks.forEach((watermark, index) => {
+      const watermarkEl = watermark as HTMLElement;
+      console.log(`🔍 Watermark ${index}:`, {
+        element: watermarkEl,
+        text: watermarkEl.textContent,
+        styles: watermarkEl.style.cssText,
+        computedStyles: getComputedStyle(watermarkEl),
+        parent: watermarkEl.parentElement,
+        parentStyles: watermarkEl.parentElement ? getComputedStyle(watermarkEl.parentElement) : null
+      });
+    });
   }
 
   // Update configuration

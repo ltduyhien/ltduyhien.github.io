@@ -26,44 +26,28 @@ const Projects = () => {
   });
 
   useEffect(() => {
-    async function loadProjects() {
-      console.log('Loading projects...');
-      
-      // Import all project data files statically
-      const projectModules = {
-        'nokia-data-suite': () => import('./projects/nokia-data-suite/data.json'),
-        'test-driver-cloud': () => import('./projects/test-driver-cloud/data.json'),
-        'allconnect-app': () => import('./projects/allconnect-app/data.json'),
-        'riva-audio': () => import('./projects/riva-audio/data.json'),
-        'cpq-pricing-tool': () => import('./projects/cpq-pricing-tool/data.json'),
-        'smb-admin-panel': () => import('./projects/smb-admin-panel/data.json'),
-        '3dmark-ios-app': () => import('./projects/3dmark-ios-app/data.json'),
-        '3dmark-design-system': () => import('./projects/3dmark-design-system/data.json'),
-        'procyon-desktop-client': () => import('./projects/procyon-desktop-client/data.json'),
+    console.log('Loading projects...');
+    
+    // For now, create empty project objects to test the UI
+    const loaded = PROJECTS_ORDER.map((proj) => {
+      console.log(`Creating project object for ${proj.slug}`);
+      return {
+        slug: proj.slug,
+        title: `Project: ${proj.slug}`,
+        summary: `Summary for ${proj.slug}`,
+        problem: `Problem for ${proj.slug}`,
+        constraints: `Constraints for ${proj.slug}`,
+        keyDecisions: [`Decision 1 for ${proj.slug}`],
+        outcomes: `Outcomes for ${proj.slug}`,
+        screenshots: [],
+        industries: [`Industry for ${proj.slug}`],
+        banner: 'header.png'
       };
-      
-      const loaded = await Promise.all(
-        PROJECTS_ORDER.map(async (proj) => {
-          try {
-            console.log(`Loading ${proj.slug}...`);
-            const importFn = projectModules[proj.slug as keyof typeof projectModules];
-            if (importFn) {
-              const mod = await importFn();
-              console.log(`Loaded ${proj.slug}:`, mod.default);
-              return { ...mod.default, slug: proj.slug };
-            }
-            return null;
-          } catch (error) {
-            console.error(`Failed to load ${proj.slug}:`, error);
-            return null;
-          }
-        }),
-      );
-      const filtered = loaded.filter(Boolean);
-      console.log('Final projects array:', filtered);
-      setProjects(filtered);
-    }
-    loadProjects();
+    });
+    
+    const filtered = loaded.filter(Boolean);
+    console.log('Final projects array:', filtered);
+    setProjects(filtered);
   }, []);
 
   function getBannerUrl(slug: string, banner?: string): string {

@@ -261,7 +261,9 @@ const DynamicImage: React.FC<{
   caption?: string 
 }> = ({ src, alt, className, style, isProjectThumbnail, onOpenLightbox, onCloseLightbox, caption }) => {
   const { slug } = useParams();
-  const imageSrc = slug ? getImageUrl(slug, src) : src;
+  
+  // Check if src is already a full path (starts with /)
+  const imageSrc = src.startsWith('/') ? src : (slug ? getImageUrl(slug, src) : src);
   
   // Debug logging for development
   if (import.meta.env.DEV) {
@@ -269,6 +271,7 @@ const DynamicImage: React.FC<{
       original: src, 
       slug, 
       resolved: imageSrc,
+      isFullPath: src.startsWith('/'),
       finalPath: imageSrc.startsWith('@private-content') 
         ? imageSrc.replace('@private-content', '/private-content')
         : imageSrc

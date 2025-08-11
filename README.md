@@ -59,21 +59,7 @@ npm run build
 npm run preview
 ```
 
-## 📊 Content Management
 
-The portfolio uses a sophisticated content management system:
-
-- **Private Submodules**: Content and styling stored in separate private repositories
-- **Build-Time Processing**: Content processed and bundled during build
-- **Asset Optimization**: Images automatically copied and optimized
-- **Content Bundle**: Generated TypeScript bundle for type-safe content access
-
-## 🚀 Deployment
-
-- **Automated CI/CD**: GitHub Actions workflow for deployment
-- **GitHub Pages**: Hosted on GitHub Pages with SPA routing support
-- **Asset Management**: Automated 404.html asset updates
-- **Submodule Handling**: Secure submodule cloning in CI environment
 
 ## 📝 License
 

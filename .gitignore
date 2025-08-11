@@ -45,3 +45,6 @@ coverage
 # Temporary folders
 tmp
 temp
+
+# Development tracking (not for public repository)
+DEVELOPMENT_LOG.md

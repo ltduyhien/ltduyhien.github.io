@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { rateLimiter } from '../utils/rateLimiter';
 import { securityHeaders } from '../utils/securityHeaders';
 import { antiScraping } from '../utils/antiScraping';
+import { contentWatermarking } from '../utils/contentWatermarking';
 
 interface SecurityStats {
   rateLimiting: {
@@ -25,16 +26,31 @@ interface SecurityStats {
     totalHeaders: number;
     validationErrors: string[];
   };
+  watermarking: {
+    textElements: number;
+    images: number;
+    metadata: boolean;
+    css: boolean;
+  };
 }
 
 const SecurityDashboard: React.FC = () => {
   const [stats, setStats] = useState<SecurityStats>({
     rateLimiting: { totalClients: 0, blockedClients: 0, storeSize: 0 },
     antiScraping: { totalIPs: 0, suspiciousIPs: 0, requestHistorySize: 0 },
-    securityHeaders: { enabled: true, totalHeaders: 0, validationErrors: [] }
+    securityHeaders: { enabled: true, totalHeaders: 0, validationErrors: [] },
+    watermarking: { textElements: 0, images: 0, metadata: false, css: false }
   });
   const [isVisible, setIsVisible] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'rate-limiting' | 'anti-scraping' | 'headers'>('overview');
+  
+  // Auto-hide in production - only show in development
+  const isDevelopment = import.meta.env.DEV;
+  
+  // Don't render anything in production
+  if (!isDevelopment) {
+    return null;
+  }
 
   useEffect(() => {
     updateStats();
@@ -46,6 +62,7 @@ const SecurityDashboard: React.FC = () => {
     const rateLimitStats = rateLimiter.getStats();
     const antiScrapingStats = antiScraping.getStats();
     const headerValidation = securityHeaders.validateConfig();
+    const watermarkingStats = contentWatermarking.getWatermarkStats();
 
     setStats({
       rateLimiting: rateLimitStats,
@@ -54,7 +71,8 @@ const SecurityDashboard: React.FC = () => {
         enabled: headerValidation.valid,
         totalHeaders: Object.keys(securityHeaders.getHeaders()).length,
         validationErrors: headerValidation.errors
-      }
+      },
+      watermarking: watermarkingStats
     });
   };
 
@@ -82,9 +100,10 @@ const SecurityDashboard: React.FC = () => {
       <button
         onClick={toggleVisibility}
         className="fixed bottom-4 right-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-all duration-200"
-        title="Security Dashboard"
+        title="Security Dashboard (Development Only)"
       >
         🔒 Security
+        <div className="text-xs opacity-75">DEV</div>
       </button>
     );
   }
@@ -93,7 +112,10 @@ const SecurityDashboard: React.FC = () => {
     <div className="fixed bottom-4 right-4 w-96 h-96 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden">
       {/* Header */}
       <div className="bg-red-600 text-white px-4 py-3 flex justify-between items-center">
-        <h3 className="font-semibold">🔒 Security Dashboard</h3>
+        <div className="flex items-center gap-2">
+          <h3 className="font-semibold">🔒 Security Dashboard</h3>
+          <span className="text-xs bg-red-700 px-2 py-1 rounded-full">DEV ONLY</span>
+        </div>
         <button
           onClick={toggleVisibility}
           className="text-white hover:text-gray-200 transition-colors"
@@ -123,6 +145,13 @@ const SecurityDashboard: React.FC = () => {
       <div className="p-4 h-80 overflow-y-auto">
         {activeTab === 'overview' && (
           <div className="space-y-4">
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-400">
+              <div className="text-sm text-blue-800 dark:text-blue-200">
+                <strong>Development Mode:</strong> This security dashboard is only visible during development. 
+                In production, all security features remain active but hidden from visitors.
+              </div>
+            </div>
+            
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">{stats.rateLimiting.totalClients}</div>
@@ -137,6 +166,11 @@ const SecurityDashboard: React.FC = () => {
             <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
               <div className="text-2xl font-bold text-blue-600">{stats.antiScraping.suspiciousIPs}</div>
               <div className="text-sm text-blue-600">Suspicious IPs</div>
+            </div>
+
+            <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
+              <div className="text-2xl font-bold text-purple-600">{stats.watermarking.textElements + stats.watermarking.images}</div>
+              <div className="text-sm text-purple-600">Watermarked Elements</div>
             </div>
 
             <div className={`p-3 rounded-lg ${

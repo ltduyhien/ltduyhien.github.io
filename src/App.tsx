@@ -18,6 +18,7 @@ import ProjectSingle from './pages/ProjectSingle';
 import Github from './pages/Github';
 import NotFound from './pages/NotFound';
 import SecurityDashboard from './components/SecurityDashboard';
+import WatermarkingDashboard from './components/WatermarkingDashboard';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -88,6 +89,7 @@ const App = () => {
         />
         <ContentWithFade />
         <SecurityDashboard />
+        <WatermarkingDashboard />
       </Router>
     </div>
   );

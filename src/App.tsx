@@ -17,6 +17,7 @@ import About from './pages/About';
 import ProjectSingle from './pages/ProjectSingle';
 import Github from './pages/Github';
 import NotFound from './pages/NotFound';
+import SecurityDashboard from './components/SecurityDashboard';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -86,6 +87,7 @@ const App = () => {
           onCloseMenu={() => setMenuOpen(false)}
         />
         <ContentWithFade />
+        <SecurityDashboard />
       </Router>
     </div>
   );

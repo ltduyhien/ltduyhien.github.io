@@ -96,9 +96,9 @@ class EnhancedTextWatermarking {
         const originalPointerEvents = element.style.pointerEvents;
         
         element.style.userSelect = 'none';
-        element.style.webkitUserSelect = 'none';
-        element.style.mozUserSelect = 'none';
-        element.style.msUserSelect = 'none';
+        (element.style as any).webkitUserSelect = 'none';
+        (element.style as any).mozUserSelect = 'none';
+        (element.style as any).msUserSelect = 'none';
         element.style.pointerEvents = 'auto';
         
         // Store original values for restoration
@@ -146,10 +146,9 @@ class EnhancedTextWatermarking {
     
     images.forEach(img => {
       if (img instanceof HTMLImageElement) {
-        // Disable right-click
+        // Disable right-click silently (no message)
         img.addEventListener('contextmenu', (e) => {
           e.preventDefault();
-          this.showProtectionMessage('Right-click disabled on images');
           return false;
         });
 
@@ -259,7 +258,6 @@ class EnhancedTextWatermarking {
       document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C')) {
           e.preventDefault();
-          this.showProtectionMessage('Copy function disabled');
           return false;
         }
       });
@@ -269,7 +267,6 @@ class EnhancedTextWatermarking {
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
         e.preventDefault();
-        this.showProtectionMessage('Print function disabled');
         return false;
       }
     });
@@ -278,7 +275,6 @@ class EnhancedTextWatermarking {
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
         e.preventDefault();
-        this.showProtectionMessage('Save function disabled');
         return false;
       }
     });
@@ -287,7 +283,6 @@ class EnhancedTextWatermarking {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
         e.preventDefault();
-        this.showProtectionMessage('Developer tools disabled');
         return false;
       }
     });
@@ -302,44 +297,9 @@ class EnhancedTextWatermarking {
         }
         
         e.preventDefault();
-        this.showProtectionMessage('Right-click disabled');
         return false;
       });
     }
-  }
-
-  private showProtectionMessage(message: string): void {
-    // Create or update protection message
-    let messageElement = document.getElementById('protection-message');
-    if (!messageElement) {
-      messageElement = document.createElement('div');
-      messageElement.id = 'protection-message';
-      messageElement.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #ff4444;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        z-index: 10000;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        animation: slideIn 0.3s ease-out;
-      `;
-      document.body.appendChild(messageElement);
-    }
-
-    messageElement.textContent = message;
-    messageElement.style.display = 'block';
-
-    // Auto-hide after 3 seconds
-    setTimeout(() => {
-      if (messageElement) {
-        messageElement.style.display = 'none';
-      }
-    }, 3000);
   }
 
   public updateConfig(newConfig: Partial<WatermarkConfig>): void {
@@ -369,21 +329,15 @@ class EnhancedTextWatermarking {
     // Restore text selection
     this.protectedElements.forEach(({ element, originalUserSelect, originalPointerEvents }) => {
       element.style.userSelect = originalUserSelect;
-      element.style.webkitUserSelect = originalUserSelect;
-      element.style.mozUserSelect = originalUserSelect;
-      element.style.msUserSelect = originalUserSelect;
+      (element.style as any).webkitUserSelect = originalUserSelect;
+      (element.style as any).mozUserSelect = originalUserSelect;
+      (element.style as any).msUserSelect = originalUserSelect;
       element.style.pointerEvents = originalPointerEvents;
     });
     
     // Remove watermarks
     this.watermarkElements.forEach(element => element.remove());
     this.watermarkElements = [];
-    
-    // Remove protection message
-    const messageElement = document.getElementById('protection-message');
-    if (messageElement) {
-      messageElement.remove();
-    }
     
     console.log('🔓 Text watermarking protection disabled');
   }

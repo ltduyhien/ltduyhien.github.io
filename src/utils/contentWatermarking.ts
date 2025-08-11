@@ -114,49 +114,84 @@ export class ContentWatermarking {
     console.log('🔒 Image watermarks applied to', images.length, 'images');
   }
 
-  // Add invisible watermark to image
+  // Add subtle watermark to image
   private addImageWatermark(img: HTMLImageElement, index: number): void {
-    // Add watermark metadata only - no visual changes
+    // Add watermark metadata
     img.setAttribute('data-watermark', 'true');
     img.setAttribute('data-watermark-id', this.watermarkId);
     img.setAttribute('data-element-index', index.toString());
-    
-    // Add invisible watermark data attribute for tracking
     img.setAttribute('data-watermark-text', this.config.watermarkText);
     img.setAttribute('data-watermark-timestamp', Date.now().toString());
     
-    // For print only: add watermark overlay
+    // Create a subtle watermark overlay that won't break layout
+    const watermarkOverlay = document.createElement('div');
+    watermarkOverlay.textContent = this.config.watermarkText;
+    watermarkOverlay.style.cssText = `
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 3px 6px;
+      border-radius: 3px;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      font-family: Arial, sans-serif;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(2px);
+    `;
+    watermarkOverlay.setAttribute('data-watermark-overlay', 'true');
+    
+    // Ensure image container has relative positioning
+    if (img.style.position === 'static' || !img.style.position) {
+      img.style.position = 'relative';
+    }
+    
+    // Add watermark overlay to image
+    img.appendChild(watermarkOverlay);
+    
+    // For print: enhance watermark visibility
     img.addEventListener('beforeprint', () => {
-      if (img.style.position === 'static' || !img.style.position) {
-        img.style.position = 'relative';
-      }
-      
-      const printWatermark = document.createElement('div');
-      printWatermark.textContent = this.config.watermarkText;
-      printWatermark.style.cssText = `
+      watermarkOverlay.style.cssText = `
         position: absolute;
-        bottom: 5px;
-        right: 5px;
-        font-size: 10px;
+        bottom: 10px;
+        right: 10px;
+        font-size: 14px;
+        font-weight: bold;
         color: #000;
-        opacity: 0.5;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 2px 4px;
-        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 5px 8px;
+        border-radius: 4px;
         pointer-events: none;
+        user-select: none;
         z-index: 1;
+        font-family: Arial, sans-serif;
+        border: 1px solid #ccc;
       `;
-      printWatermark.setAttribute('data-print-watermark', 'true');
-      
-      img.appendChild(printWatermark);
     });
     
-    // Remove print watermark after print
+    // Reset watermark after print
     img.addEventListener('afterprint', () => {
-      const printWatermark = img.querySelector('[data-print-watermark="true"]');
-      if (printWatermark) {
-        printWatermark.remove();
-      }
+      watermarkOverlay.style.cssText = `
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        font-size: 10px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        background: rgba(0, 0, 0, 0.6);
+        padding: 3px 6px;
+        border-radius: 3px;
+        pointer-events: none;
+        user-select: none;
+        z-index: 1;
+        font-family: Arial, sans-serif;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(2px);
+      `;
     });
   }
 
@@ -385,6 +420,10 @@ export class ContentWatermarking {
       el.removeAttribute('data-element-index');
     });
 
+    // Remove image watermark overlays
+    const imageWatermarks = document.querySelectorAll('[data-watermark-overlay="true"]');
+    imageWatermarks.forEach(watermark => watermark.remove());
+
     // Remove watermark classes
     document.body.classList.remove('watermark-overlay');
 
@@ -401,7 +440,7 @@ export class ContentWatermarking {
   // Get watermark statistics
   getWatermarkStats(): { textElements: number; images: number; metadata: boolean; css: boolean } {
     const textElements = document.querySelectorAll('[data-watermark]').length;
-    const images = document.querySelectorAll('img[data-watermark]').length;
+    const images = document.querySelectorAll('[data-watermark-overlay="true"]').length;
     const metadata = document.body.hasAttribute('data-watermark-id');
     const css = document.body.classList.contains('watermark-overlay');
 

@@ -15,10 +15,7 @@ const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
       <div className="flex-shrink-0 w-full md:w-56 overflow-hidden [border-radius:4px_/_4px]">
         {imageUrl ? (
           <img
-            src={imageUrl.startsWith('@private-content') 
-              ? imageUrl.replace('@private-content', '/private-content')
-              : imageUrl
-            }
+            src={imageUrl}
             alt="Project preview"
             className="w-full h-auto [border-radius:6px_/_6px] md:border-2 md:border-zinc-200 md:dark:border-zinc-700"
             style={{ boxSizing: 'border-box' }}

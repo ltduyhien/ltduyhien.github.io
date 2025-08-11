@@ -25,6 +25,7 @@ import ClickableImage from '../components/ClickableImage';
 import Footer from '../components/Footer';
 
 import { PROJECTS_ORDER } from './projectsOrder';
+import { getProjectData } from '../generated/content-bundle';
 import 'highlight.js/styles/github-dark.css';
 
 // Configure highlight.js with defensive programming
@@ -288,12 +289,12 @@ const DynamicImage: React.FC<{
   );
 };
 
-// Images are now loaded from submodules
+// Images are now loaded from the build output
 
 // Helper function to get image URL
 const getImageUrl = (slug: string, imageName: string): string => {
-  // Use submodule path for images - this will be resolved by ClickableImage
-  return `@private-content/projects/${slug}/${imageName}`;
+  // Use the build output path for images
+  return `/project-images/${slug}/${imageName}`;
 };
 
 const ProjectSingle = () => {
@@ -352,20 +353,29 @@ const ProjectSingle = () => {
 
   useEffect(() => {
     if (!slug) return;
-            import(`@private-content/projects/${slug}/data.json`).then((mod) => {
-      setProject(mod.default || mod);
-      setLoading(false);
-      // Track project view
-      trackProjectView(slug);
-      // Reset engagement tracking
-      setStartTime(Date.now());
-      setInteractionCount(0);
-      setScrollDepth(0);
-    }).catch((error) => {
+    
+    try {
+      // Use the generated content bundle instead of importing from submodules
+      const projectData = getProjectData(slug);
+      if (projectData) {
+        setProject(projectData);
+        setLoading(false);
+        // Track project view
+        trackProjectView(slug);
+        // Reset engagement tracking
+        setStartTime(Date.now());
+        setInteractionCount(0);
+        setScrollDepth(0);
+      } else {
+        console.error(`Project not found: ${slug}`);
+        setLoading(false);
+        setProject(null);
+      }
+    } catch (error) {
       console.error(`Failed to load project data for slug: ${slug}`, error);
       setLoading(false);
       setProject(null);
-    });
+    }
   }, [slug]);
 
   useEffect(() => {

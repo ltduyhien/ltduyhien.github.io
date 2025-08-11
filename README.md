@@ -11,21 +11,7 @@ A modern, secure portfolio website built with React, TypeScript, and Tailwind CS
 - **Content Protection**: Invisible watermarking system for copyright protection
 - **Performance**: Optimized builds with code splitting and lazy loading
 
-## 🏗️ Architecture
 
-- **Frontend**: React SPA with React Router for navigation
-- **Styling**: Tailwind CSS with custom SCSS components
-- **Build Tool**: Vite with optimized production builds
-- **Deployment**: GitHub Pages with automated CI/CD
-- **Content Management**: Git submodules for secure content separation
-
-## 🔒 Security & Privacy
-
-- **Private Content**: Sensitive project content stored in private submodules
-- **Anti-Scraping**: Bot detection, rate limiting, and honeypot elements
-- **Security Headers**: CSP, HSTS, X-Frame-Options, Permissions Policy
-- **Content Watermarking**: Invisible copyright protection system
-- **Build-Time Processing**: Content processed at build time, not exposed at runtime
 
 ## 📁 Project Structure
 

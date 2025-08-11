@@ -10,6 +10,7 @@
     "build:content": "node scripts/build-content.js",
     "prebuild": "npm run build:content",
     "build": "npm run build:content && vite build",
+    "postbuild": "node scripts/update-404-assets.js",
     "preview": "vite preview",
     "security:validate": "node scripts/validate-content.js"
   },

@@ -130,7 +130,7 @@ export class ContentWatermarking {
     
     // Create a visible watermark overlay
     const watermarkOverlay = document.createElement('div');
-    watermarkOverlay.textContent = this.config.watermarkText;
+    watermarkOverlay.textContent = `${this.config.watermarkText} [${index + 1}]`;
     watermarkOverlay.style.cssText = `
       position: absolute;
       bottom: 10px;
@@ -230,9 +230,27 @@ export class ContentWatermarking {
             // Debug positioning context
             console.log('🔍 Watermark positioning context:');
             console.log('  - Parent element:', parent);
-            console.log('  - Parent computed styles:', getComputedStyle(parent));
-            console.log('  - Watermark computed styles:', getComputedStyle(addedWatermark));
+            console.log('  - Parent tag:', parent.tagName);
+            console.log('  - Parent classes:', parent.className);
+            console.log('  - Parent computed styles:', {
+              position: getComputedStyle(parent).position,
+              overflow: getComputedStyle(parent).overflow,
+              display: getComputedStyle(parent).display,
+              width: getComputedStyle(parent).width,
+              height: getComputedStyle(parent).height,
+              zIndex: getComputedStyle(parent).zIndex
+            });
+            console.log('  - Watermark computed styles:', {
+              position: getComputedStyle(addedWatermark).position,
+              bottom: getComputedStyle(addedWatermark).bottom,
+              right: getComputedStyle(addedWatermark).right,
+              zIndex: getComputedStyle(addedWatermark).zIndex,
+              display: getComputedStyle(addedWatermark).display,
+              visibility: getComputedStyle(addedWatermark).visibility,
+              opacity: getComputedStyle(addedWatermark).opacity
+            });
             console.log('  - Watermark bounding rect:', addedWatermark.getBoundingClientRect());
+            console.log('  - Parent bounding rect:', parent.getBoundingClientRect());
             
             console.log('✅ Forced watermark visibility with !important styles');
           } else {

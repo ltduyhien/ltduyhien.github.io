@@ -275,7 +275,7 @@ const DynamicImage: React.FC<{
 };
 
 // Dynamic image imports using Vite glob
-const projectImages = import.meta.glob('./projects-private/*/*.{png,jpg,jpeg}', { eager: true });
+const projectImages = import.meta.glob('./projects/*/*.{png,jpg,jpeg}', { eager: true });
 
 // Helper function to get image URL
 const getImageUrl = (slug: string, imageName: string): string => {
@@ -339,7 +339,7 @@ const ProjectSingle = () => {
 
   useEffect(() => {
     if (!slug) return;
-            import(`./projects-private/${slug}/data.json`).then((mod) => {
+            import(`./projects/${slug}/data.json`).then((mod) => {
       setProject(mod.default || mod);
       setLoading(false);
       // Track project view

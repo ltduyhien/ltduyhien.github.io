@@ -1,1 +1,0 @@
-private-styling/tailwind.config.js

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Sidebar navigation component for Hien Le's portfolio
+ * @copyright Copyright (c) 2025 Hien Le. All rights reserved.
+ * @license MIT
+ */
+
 import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -192,7 +198,11 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
         <br />
         with React.js
       </div>
-      <div className="absolute left-8 bottom-8 text-lg font-medium">Hien Le © 2025</div>
+      <div className="absolute left-8 bottom-8 text-lg font-medium text-zinc-600 dark:text-zinc-400">
+        Hien Le © 2025
+        <br />
+        <span className="text-sm">MIT License</span>
+      </div>
     </div>
   );
 
@@ -337,7 +347,11 @@ const Sidebar = ({ darkMode, toggleDarkMode, menuOpen, onCloseMenu }: SidebarPro
           <br />
           with React.js
         </div>
-        <div className="absolute left-8 bottom-8 text-sm font-medium">Hien Le © 2025</div>
+        <div className="absolute left-8 bottom-8 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+          Hien Le © 2025
+          <br />
+          <span className="text-xs">MIT License</span>
+        </div>
       </div>
 
       {/* Mobile Sidebar */}

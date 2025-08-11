@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Footer component for Hien Le's portfolio
+ * @copyright Copyright (c) 2025 Hien Le. All rights reserved.
+ * @license MIT
+ */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { trackLinkedInClick, trackEmailClick, trackCVDownload } from '../utils/analytics';
@@ -38,6 +44,11 @@ const Footer = () => {
         </a>{' '}
         me Email.
       </p>
+      <div className="mt-8 pt-4 border-t border-zinc-200 dark:border-zinc-700">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center">
+          © 2025 Hien Le. All rights reserved. This portfolio is licensed under the MIT License.
+        </p>
+      </div>
     </div>
   );
 };

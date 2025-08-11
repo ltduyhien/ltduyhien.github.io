@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Home page component for Hien Le's portfolio
+ * @copyright Copyright (c) 2025 Hien Le. All rights reserved.
+ * @license MIT
+ */
+
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Main application component for Hien Le's portfolio
+ * @copyright Copyright (c) 2025 Hien Le. All rights reserved.
+ * @license MIT
+ */
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';

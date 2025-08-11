@@ -7,8 +7,11 @@
   "copyright": "Copyright (c) 2025 Hien Le",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build:content": "node scripts/build-content.js",
+    "prebuild": "npm run build:content",
+    "build": "npm run build:content && vite build",
+    "preview": "vite preview",
+    "security:validate": "node scripts/validate-content.js"
   },
   "dependencies": {
     "framer-motion": "^10.18.0",

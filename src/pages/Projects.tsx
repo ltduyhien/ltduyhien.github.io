@@ -44,7 +44,7 @@ const Projects = () => {
 
   function getBannerUrl(slug: string, banner?: string): string {
     if (!banner) return '';
-    const key = `../projects/${slug}/${banner}`;
+    const key = `./projects/${slug}/${banner}`;
     const url = projectImages[key];
     return typeof url === 'string' ? url : '';
   }

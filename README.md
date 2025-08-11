@@ -25,8 +25,6 @@ github-portfolio/
 │   └── generated/         # Build-time generated content
 ├── scripts/               # Build and automation scripts
 ├── public/                # Static assets and 404.html
-├── private-content/       # Private project content (submodule)
-├── private-styling/       # Private styling assets (submodule)
 └── .github/workflows/     # CI/CD deployment workflows
 ```
 

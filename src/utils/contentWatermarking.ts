@@ -128,26 +128,28 @@ export class ContentWatermarking {
     img.setAttribute('data-watermark-text', this.config.watermarkText);
     img.setAttribute('data-watermark-timestamp', Date.now().toString());
     
-    // Create a subtle watermark overlay that won't break layout
+    // Create a visible watermark overlay
     const watermarkOverlay = document.createElement('div');
     watermarkOverlay.textContent = this.config.watermarkText;
     watermarkOverlay.style.cssText = `
       position: absolute;
-      bottom: 8px;
-      right: 8px;
-      font-size: 12px;
+      bottom: 10px;
+      right: 10px;
+      font-size: 14px;
       font-weight: bold;
       color: #ffffff;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 4px 8px;
-      border-radius: 4px;
+      background: #ff0000;
+      padding: 6px 10px;
+      border-radius: 6px;
       pointer-events: none;
       user-select: none;
-      z-index: 9999;
+      z-index: 999999;
       font-family: Arial, sans-serif;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+      border: 2px solid #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+      min-width: 80px;
+      text-align: center;
     `;
     watermarkOverlay.setAttribute('data-watermark-overlay', 'true');
     
@@ -162,6 +164,29 @@ export class ContentWatermarking {
       console.log('🔍 Image already has positioning:', currentPosition);
     }
     
+    // Check for CSS conflicts
+    const computedStyle = getComputedStyle(img);
+    console.log('🔍 Image computed styles:', {
+      overflow: computedStyle.overflow,
+      clip: computedStyle.clip,
+      clipPath: computedStyle.clipPath,
+      transform: computedStyle.transform,
+      zIndex: computedStyle.zIndex
+    });
+    
+    // Check parent container for clipping
+    const parent = img.parentElement;
+    if (parent) {
+      const parentStyle = getComputedStyle(parent);
+      console.log('🔍 Parent container styles:', {
+        overflow: parentStyle.overflow,
+        clip: parentStyle.clip,
+        clipPath: parentStyle.clipPath,
+        position: parentStyle.position,
+        zIndex: parentStyle.zIndex
+      });
+    }
+    
     // Add watermark overlay to image
     img.appendChild(watermarkOverlay);
     console.log('🔍 Watermark overlay added to image:', img.src);
@@ -171,6 +196,32 @@ export class ContentWatermarking {
     if (addedWatermark) {
       console.log('✅ Watermark element verified in DOM:', addedWatermark);
       console.log('✅ Watermark styles:', addedWatermark.style.cssText);
+      
+          // Force visibility with !important styles
+    addedWatermark.style.setProperty('display', 'block', 'important');
+    addedWatermark.style.setProperty('visibility', 'visible', 'important');
+    addedWatermark.style.setProperty('opacity', '1', 'important');
+    addedWatermark.style.setProperty('z-index', '999999', 'important');
+    
+    // Add a test watermark that's impossible to hide
+    const testWatermark = document.createElement('div');
+    testWatermark.textContent = 'TEST WATERMARK';
+    testWatermark.style.cssText = `
+      position: fixed !important;
+      top: 50px !important;
+      left: 50px !important;
+      background: #ff0000 !important;
+      color: #ffffff !important;
+      padding: 20px !important;
+      font-size: 24px !important;
+      font-weight: bold !important;
+      z-index: 9999999 !important;
+      border: 5px solid #ffff00 !important;
+    `;
+    document.body.appendChild(testWatermark);
+    
+    console.log('✅ Forced watermark visibility with !important styles');
+    console.log('✅ Added test watermark to body for debugging');
     } else {
       console.error('❌ Watermark element not found in DOM after adding');
     }
@@ -490,6 +541,37 @@ export class ContentWatermarking {
         computedStyles: getComputedStyle(watermarkEl),
         parent: watermarkEl.parentElement,
         parentStyles: watermarkEl.parentElement ? getComputedStyle(watermarkEl.parentElement) : null
+      });
+      
+      // Try to make this watermark visible by moving it to body
+      const clonedWatermark = watermarkEl.cloneNode(true) as HTMLElement;
+      clonedWatermark.style.cssText = `
+        position: fixed !important;
+        top: ${100 + index * 60}px !important;
+        left: 50px !important;
+        background: #ff0000 !important;
+        color: #ffffff !important;
+        padding: 10px !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        z-index: 9999999 !important;
+        border: 3px solid #ffff00 !important;
+      `;
+      clonedWatermark.textContent = `WATERMARK ${index}: ${watermarkEl.textContent}`;
+      document.body.appendChild(clonedWatermark);
+      console.log(`✅ Added visible watermark ${index} to body for testing`);
+    });
+    
+    // Also check all images for watermark attributes
+    const allImages = document.querySelectorAll('img');
+    console.log('🔍 Checking all images for watermark data:');
+    allImages.forEach((img, index) => {
+      const imgEl = img as HTMLImageElement;
+      console.log(`Image ${index}:`, {
+        src: imgEl.src,
+        hasWatermark: imgEl.hasAttribute('data-watermark'),
+        watermarkId: imgEl.getAttribute('data-watermark-id'),
+        watermarkOverlay: imgEl.querySelector('[data-watermark-overlay="true"]')
       });
     });
   }

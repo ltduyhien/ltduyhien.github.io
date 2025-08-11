@@ -1,0 +1,107 @@
+/**
+ * @fileoverview License page component for Hien Le's portfolio
+ * @copyright Copyright (c) 2025 Hien Le. All rights reserved.
+ * @license GPL v3
+ */
+
+import React from "react";
+import { Link } from "react-router-dom";
+
+import Footer from "../components/Footer";
+import { useScrollToTop } from "../hooks/useScrollToTop";
+
+const License: React.FC = () => {
+  // Smooth scroll to top when navigating to License page
+  useScrollToTop({
+    autoScroll: true,
+    behavior: "smooth",
+    delay: 100,
+  });
+
+  return (
+    <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4">
+          License
+        </h1>
+        <p className="text-lg text-zinc-600 dark:text-zinc-400">
+          This portfolio and its associated projects are licensed under the GNU General Public License v3.0.
+        </p>
+      </div>
+
+      <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-200 dark:border-zinc-700 p-8 mb-8">
+        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-white mb-6">
+          GNU General Public License v3.0
+        </h2>
+        
+        <div className="prose prose-zinc dark:prose-invert max-w-none">
+          <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+            Copyright (c) 2025 Hien Le
+          </p>
+          
+          <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+            This program is free software: you can redistribute it and/or modify
+            it under the terms of the GNU General Public License as published by
+            the Free Software Foundation, either version 3 of the License, or
+            (at your option) any later version.
+          </p>
+          
+          <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+            This program is distributed in the hope that it will be useful,
+            but WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+            GNU General Public License for more details.
+          </p>
+          
+          <p className="text-zinc-700 dark:text-zinc-300 mb-6">
+            You should have received a copy of the GNU General Public License
+            along with this program. If not, see{" "}
+            <a 
+              href="https://www.gnu.org/licenses/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-brand hover:underline"
+            >
+              https://www.gnu.org/licenses/
+            </a>.
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-zinc-900 dark:text-white mb-3">
+          What This Means
+        </h3>
+        <ul className="text-zinc-700 dark:text-zinc-300 space-y-2">
+          <li className="flex items-start">
+            <span className="mr-2 text-brand">•</span>
+            <span>You are free to use, modify, and distribute this code</span>
+          </li>
+          <li className="flex items-start">
+            <span className="mr-2 text-brand">•</span>
+            <span>Any derivative works must also be licensed under GPL v3</span>
+          </li>
+          <li className="flex items-start">
+            <span className="mr-2 text-brand">•</span>
+            <span>Source code must be made available when distributing</span>
+          </li>
+          <li className="flex items-start">
+            <span className="mr-2 text-brand">•</span>
+            <span>Commercial use is permitted under these terms</span>
+          </li>
+        </ul>
+      </div>
+
+      <div className="mt-8 text-center">
+        <Link
+          to="/"
+          className="inline-flex items-center px-6 py-3 bg-brand text-white font-medium rounded-lg hover:bg-brand/90 transition-colors duration-200"
+        >
+          ← Back to Home
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default License;

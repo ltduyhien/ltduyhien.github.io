@@ -23,6 +23,7 @@ import About from "./pages/About";
 import ProjectSingle from "./pages/ProjectSingle";
 import Github from "./pages/Github";
 import NotFound from "./pages/NotFound";
+import License from "./pages/License";
 import SecurityDashboard from "./components/SecurityDashboard";
 import WatermarkingDashboard from "./components/WatermarkingDashboard";
 import EnhancedTextWatermarking from "./utils/enhancedTextWatermarking";
@@ -44,26 +45,34 @@ const App = () => {
     }
   }, [darkMode]);
 
-  // Initialize enhanced text watermarking for content protection
+  // Initialize enhanced text watermarking for content protection (production only)
   useEffect(() => {
-    const textWatermarking = new EnhancedTextWatermarking({
-      enabled: true,
-      text: '© 2025 Hien Le',
-      opacity: 0.15,
-      fontSize: 14,
-      color: 'rgba(0, 0, 0, 0.15)',
-      rotation: -12,
-      spacing: 150,
-      disableTextSelection: true,
-      disableRightClick: true,
-      disableCopy: false,
-      invisibleWatermarks: true
-    });
+    // Only enable content protection in production
+    const isProduction = import.meta.env.PROD;
+    
+    if (isProduction) {
+      const textWatermarking = new EnhancedTextWatermarking({
+        enabled: true,
+        text: '© 2025 Hien Le',
+        opacity: 0.15,
+        fontSize: 14,
+        color: 'rgba(0, 0, 0, 0.15)',
+        rotation: -12,
+        spacing: 150,
+        disableTextSelection: true,
+        disableRightClick: true,
+        disableCopy: false,
+        invisibleWatermarks: true
+      });
 
-    // Cleanup on unmount
-    return () => {
-      textWatermarking.destroy();
-    };
+      // Cleanup on unmount
+      return () => {
+        textWatermarking.destroy();
+      };
+    }
+    
+    // In development, log that protection is disabled
+    console.log('🔓 Content protection disabled in development mode');
   }, []);
 
   // Close menu when resizing to desktop
@@ -144,9 +153,13 @@ function ContentWithFade() {
     }
   }, [location.pathname]);
 
-  // Special handling for 404 page
+  // Special handling for 404 page - render outside main layout
   if (location.pathname === "/404" || location.pathname === "*") {
-    return <NotFound />;
+    return (
+      <div className="fixed inset-0 z-50">
+        <NotFound />
+      </div>
+    );
   }
 
   return (
@@ -166,6 +179,7 @@ function ContentWithFade() {
             <Route path="/github" element={<Github />} />
             {/* <Route path="/github" element={<Github />} /> */}
             <Route path="/about" element={<About />} />
+            <Route path="/license" element={<License />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

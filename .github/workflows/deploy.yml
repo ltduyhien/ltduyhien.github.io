@@ -25,9 +25,14 @@ jobs:
       
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: true
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Clone Private Content
+        run: |
+          git clone git@github.com:ltduyhien/portfolio-private-content.git private-content
+      
+      - name: Clone Private Styling
+        run: |
+          git clone git@github.com:ltduyhien/portfolio-private-styling.git private-styling
       
       - name: Setup Node.js
         uses: actions/setup-node@v4

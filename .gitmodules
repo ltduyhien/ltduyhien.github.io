@@ -1,6 +1,0 @@
-[submodule "private-content"]
-	path = private-content
-	url = git@github.com:ltduyhien/portfolio-private-content.git
-[submodule "private-styling"]
-	path = private-styling
-	url = git@github.com:ltduyhien/portfolio-private-styling.git

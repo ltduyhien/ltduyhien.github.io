@@ -28,27 +28,48 @@ const Projects = () => {
   useEffect(() => {
     console.log('Loading projects...');
     
-    // For now, create empty project objects to test the UI
-    const loaded = PROJECTS_ORDER.map((proj) => {
-      console.log(`Creating project object for ${proj.slug}`);
+    const loadProjects = async () => {
+      try {
+        const loaded = await Promise.all(
+          PROJECTS_ORDER.map(async (proj) => {
+            console.log(`Loading ${proj.slug}...`);
+            try {
+              const data = await import(`@private-content/projects/${proj.slug}/data.json`);
               return {
-          slug: proj.slug,
-          title: `Project: ${proj.slug}`,
-          summary: `Summary for ${proj.slug}`,
-          problem: `Problem for ${proj.slug}`,
-          constraints: `Constraints for ${proj.slug}`,
-          keyDecisions: [`Decision 1 for ${proj.slug}`],
-          outcomes: `Outcomes for ${proj.slug}`,
-          screenshots: [],
-          industries: [`Industry for ${proj.slug}`],
-          banner: 'header.png',
-                       // Add a placeholder image URL for testing
-             imageUrl: `https://picsum.photos/400/300?random=${proj.slug}`
-        };
-    });
+                ...data.default,
+                slug: proj.slug,
+                // Use the real project banner image from the submodule
+                imageUrl: `@private-content/projects/${proj.slug}/${data.default.banner}`
+              };
+            } catch (error) {
+              console.error(`Failed to load ${proj.slug}:`, error);
+              // Fallback to mock data if submodule fails
+              return {
+                slug: proj.slug,
+                title: `Project: ${proj.slug}`,
+                summary: `Summary for ${proj.slug}`,
+                problem: `Problem for ${proj.slug}`,
+                constraints: `Constraints for ${proj.slug}`,
+                keyDecisions: [`Decision 1 for ${proj.slug}`],
+                outcomes: `Outcomes for ${proj.slug}`,
+                screenshots: [],
+                industries: [`Industry for ${proj.slug}`],
+                banner: 'header.png',
+                imageUrl: `https://picsum.photos/400/300?random=${proj.slug}`
+              };
+            }
+          })
+        );
+        
+        const filtered = loaded.filter(Boolean);
+        setProjects(filtered);
+      } catch (error) {
+        console.error('Failed to load projects:', error);
+        setProjects([]);
+      }
+    };
     
-    const filtered = loaded.filter(Boolean);
-    setProjects(filtered);
+    loadProjects();
   }, []);
 
   function getBannerUrl(slug: string, banner?: string): string {

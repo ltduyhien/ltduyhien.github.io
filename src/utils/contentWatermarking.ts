@@ -185,9 +185,32 @@ export class ContentWatermarking {
         position: parentStyle.position,
         zIndex: parentStyle.zIndex
       });
+      
+      // Check if parent has overflow hidden
+      if (parentStyle.overflow === 'hidden' || parentStyle.overflow === 'clip') {
+        console.log('⚠️  WARNING: Parent has overflow hidden - this will clip watermarks!');
+        
+        // Try to fix by changing parent overflow
+        parent.style.setProperty('overflow', 'visible', 'important');
+        console.log('🔧 Fixed parent overflow to visible');
+      }
     }
     
-    // Add watermark overlay to image
+    // Check all ancestor containers for clipping
+    let ancestor = parent;
+    let depth = 1;
+    while (ancestor && depth <= 5) {
+      const ancestorStyle = getComputedStyle(ancestor);
+      if (ancestorStyle.overflow === 'hidden' || ancestorStyle.overflow === 'clip') {
+        console.log(`⚠️  WARNING: Ancestor at depth ${depth} has overflow hidden:`, ancestor);
+        console.log('🔧 Fixing ancestor overflow...');
+        ancestor.style.setProperty('overflow', 'visible', 'important');
+      }
+      ancestor = ancestor.parentElement;
+      depth++;
+    }
+    
+        // Add watermark overlay to image
     img.appendChild(watermarkOverlay);
     console.log('🔍 Watermark overlay added to image:', img.src);
     
@@ -197,31 +220,50 @@ export class ContentWatermarking {
       console.log('✅ Watermark element verified in DOM:', addedWatermark);
       console.log('✅ Watermark styles:', addedWatermark.style.cssText);
       
-          // Force visibility with !important styles
-    addedWatermark.style.setProperty('display', 'block', 'important');
-    addedWatermark.style.setProperty('visibility', 'visible', 'important');
-    addedWatermark.style.setProperty('opacity', '1', 'important');
-    addedWatermark.style.setProperty('z-index', '999999', 'important');
-    
-    // Add a test watermark that's impossible to hide
-    const testWatermark = document.createElement('div');
-    testWatermark.textContent = 'TEST WATERMARK';
-    testWatermark.style.cssText = `
-      position: fixed !important;
-      top: 50px !important;
-      left: 50px !important;
-      background: #ff0000 !important;
-      color: #ffffff !important;
-      padding: 20px !important;
-      font-size: 24px !important;
-      font-weight: bold !important;
-      z-index: 9999999 !important;
-      border: 5px solid #ffff00 !important;
-    `;
-    document.body.appendChild(testWatermark);
-    
-    console.log('✅ Forced watermark visibility with !important styles');
-    console.log('✅ Added test watermark to body for debugging');
+      // Force visibility with !important styles
+      addedWatermark.style.setProperty('display', 'block', 'important');
+      addedWatermark.style.setProperty('visibility', 'visible', 'important');
+      addedWatermark.style.setProperty('opacity', '1', 'important');
+      addedWatermark.style.setProperty('z-index', '999999', 'important');
+      
+      // Add a test watermark that's impossible to hide
+      const testWatermark = document.createElement('div');
+      testWatermark.textContent = 'TEST WATERMARK';
+      testWatermark.style.cssText = `
+        position: fixed !important;
+        top: 50px !important;
+        left: 50px !important;
+        background: #ff0000 !important;
+        color: #ffffff !important;
+        padding: 20px !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+        z-index: 9999999 !important;
+        border: 5px solid #ffff00 !important;
+      `;
+      document.body.appendChild(testWatermark);
+      
+      // Also add a fixed watermark overlay for this specific image
+      const fixedWatermark = document.createElement('div');
+      fixedWatermark.textContent = `IMAGE: ${img.alt || 'Unknown'}`;
+      fixedWatermark.style.cssText = `
+        position: fixed !important;
+        top: ${100 + index * 60}px !important;
+        left: 200px !important;
+        background: #00ff00 !important;
+        color: #000000 !important;
+        padding: 10px !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        z-index: 9999999 !important;
+        border: 3px solid #000000 !important;
+        border-radius: 5px !important;
+      `;
+      document.body.appendChild(fixedWatermark);
+      
+      console.log('✅ Forced watermark visibility with !important styles');
+      console.log('✅ Added test watermark to body for debugging');
+      console.log('✅ Added fixed image watermark overlay');
     } else {
       console.error('❌ Watermark element not found in DOM after adding');
     }

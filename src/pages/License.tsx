@@ -25,9 +25,11 @@ const License: React.FC = () => {
           License
         </h1>
         <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed">
-          This portfolio website and its development are licensed under the GNU General Public License v3.0.{" "}
+          This portfolio website and its development are licensed under the GNU
+          General Public License v3.0.{" "}
           <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 px-2 py-1 rounded">
-            The projects showcased here represent my work experience at various companies and are not part of this open source license.
+            The projects showcased here represent my work experience at various
+            companies and are not part of this open source license.
           </span>
         </p>
       </div>
@@ -36,37 +38,38 @@ const License: React.FC = () => {
         <h2 className="text-lg font-medium mb-4 text-zinc-900 dark:text-white">
           GNU General Public License v3.0
         </h2>
-        
+
         <div className="prose prose-zinc dark:prose-invert max-w-none">
           <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
             Copyright (c) 2025 Hien Le
           </p>
-          
+
           <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
             This program is free software: you can redistribute it and/or modify
             it under the terms of the GNU General Public License as published by
             the Free Software Foundation, either version 3 of the License, or
             (at your option) any later version.
           </p>
-          
+
           <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
-            This program is distributed in the hope that it will be useful,
-            but WITHOUT ANY WARRANTY; without even the implied warranty of
-            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-            GNU General Public License for more details.
+            This program is distributed in the hope that it will be useful, but
+            WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+            General Public License for more details.
           </p>
-          
+
           <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6">
             You should have received a copy of the GNU General Public License
             along with this program. If not, see{" "}
-            <a 
-              href="https://www.gnu.org/licenses/" 
-              target="_blank" 
+            <a
+              href="https://www.gnu.org/licenses/"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-brand hover:underline"
             >
               https://www.gnu.org/licenses/
-            </a>.
+            </a>
+            .
           </p>
         </div>
       </div>

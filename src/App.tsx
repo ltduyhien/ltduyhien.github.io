@@ -49,20 +49,20 @@ const App = () => {
   useEffect(() => {
     // Only enable content protection in production
     const isProduction = import.meta.env.PROD;
-    
+
     if (isProduction) {
       const textWatermarking = new EnhancedTextWatermarking({
         enabled: true,
-        text: '© 2025 Hien Le',
+        text: "© 2025 Hien Le",
         opacity: 0.15,
         fontSize: 14,
-        color: 'rgba(0, 0, 0, 0.15)',
+        color: "rgba(0, 0, 0, 0.15)",
         rotation: -12,
         spacing: 150,
         disableTextSelection: true,
         disableRightClick: true,
         disableCopy: false,
-        invisibleWatermarks: true
+        invisibleWatermarks: true,
       });
 
       // Cleanup on unmount
@@ -70,9 +70,9 @@ const App = () => {
         textWatermarking.destroy();
       };
     }
-    
+
     // In development, log that protection is disabled
-    console.log('🔓 Content protection disabled in development mode');
+    console.log("🔓 Content protection disabled in development mode");
   }, []);
 
   // Close menu when resizing to desktop

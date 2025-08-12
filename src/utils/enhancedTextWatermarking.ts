@@ -24,6 +24,12 @@ interface ProtectedElement {
   originalPointerEvents: string;
 }
 
+interface CSSStyleDeclarationWithUserSelect extends CSSStyleDeclaration {
+  webkitUserSelect: string;
+  mozUserSelect: string;
+  msUserSelect: string;
+}
+
 class EnhancedTextWatermarking {
   private config: WatermarkConfig;
   private protectedElements: ProtectedElement[] = [];
@@ -33,17 +39,17 @@ class EnhancedTextWatermarking {
   constructor(config?: Partial<WatermarkConfig>) {
     this.config = {
       enabled: true,
-      text: '© 2025 Hien Le',
+      text: "© 2025 Hien Le",
       opacity: 0.15,
       fontSize: 14,
-      color: 'rgba(0, 0, 0, 0.15)',
+      color: "rgba(0, 0, 0, 0.15)",
       rotation: -12,
       spacing: 100,
       disableTextSelection: true,
       disableRightClick: true,
       disableCopy: false,
       invisibleWatermarks: true,
-      ...config
+      ...config,
     };
 
     this.initializeProtection();
@@ -53,21 +59,23 @@ class EnhancedTextWatermarking {
     if (!this.config.enabled) return;
 
     this.isActive = true;
-    
+
     // Apply protection after DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.applyProtection());
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () =>
+        this.applyProtection(),
+      );
     } else {
       this.applyProtection();
     }
 
     // Setup global event listeners
     this.setupGlobalProtection();
-    
+
     // Apply watermarks
     this.applyTextWatermarks();
-    
-    console.log('🔒 Enhanced text watermarking initialized');
+
+    console.log("🔒 Enhanced text watermarking initialized");
   }
 
   private applyProtection(): void {
@@ -88,24 +96,29 @@ class EnhancedTextWatermarking {
   }
 
   private disableTextSelection(): void {
-    const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div, li, td, th');
-    
-    textElements.forEach(element => {
+    const textElements = document.querySelectorAll(
+      "p, h1, h2, h3, h4, h5, h6, span, div, li, td, th",
+    );
+
+    textElements.forEach((element) => {
       if (element instanceof HTMLElement) {
         const originalUserSelect = element.style.userSelect;
         const originalPointerEvents = element.style.pointerEvents;
-        
-        element.style.userSelect = 'none';
-        (element.style as any).webkitUserSelect = 'none';
-        (element.style as any).mozUserSelect = 'none';
-        (element.style as any).msUserSelect = 'none';
-        element.style.pointerEvents = 'auto';
-        
+
+        element.style.userSelect = "none";
+        (element.style as CSSStyleDeclarationWithUserSelect).webkitUserSelect =
+          "none";
+        (element.style as CSSStyleDeclarationWithUserSelect).mozUserSelect =
+          "none";
+        (element.style as CSSStyleDeclarationWithUserSelect).msUserSelect =
+          "none";
+        element.style.pointerEvents = "auto";
+
         // Store original values for restoration
         this.protectedElements.push({
           element,
           originalUserSelect,
-          originalPointerEvents
+          originalPointerEvents,
         });
       }
     });
@@ -115,7 +128,7 @@ class EnhancedTextWatermarking {
   }
 
   private addGlobalCSS(): void {
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       * {
         -webkit-user-select: none !important;
@@ -142,18 +155,18 @@ class EnhancedTextWatermarking {
   }
 
   private protectImages(): void {
-    const images = document.querySelectorAll('img');
-    
-    images.forEach(img => {
+    const images = document.querySelectorAll("img");
+
+    images.forEach((img) => {
       if (img instanceof HTMLImageElement) {
         // Disable right-click silently (no message)
-        img.addEventListener('contextmenu', (e) => {
+        img.addEventListener("contextmenu", (e) => {
           e.preventDefault();
           return false;
         });
 
         // Disable drag and drop
-        img.addEventListener('dragstart', (e) => {
+        img.addEventListener("dragstart", (e) => {
           e.preventDefault();
           return false;
         });
@@ -165,8 +178,8 @@ class EnhancedTextWatermarking {
   }
 
   private addImageProtectionOverlay(img: HTMLImageElement): void {
-    const overlay = document.createElement('div');
-    overlay.className = 'image-protection-overlay';
+    const overlay = document.createElement("div");
+    overlay.className = "image-protection-overlay";
     overlay.style.cssText = `
       position: absolute;
       top: 0;
@@ -180,7 +193,7 @@ class EnhancedTextWatermarking {
 
     // Make image container relative for overlay positioning
     if (img.parentElement) {
-      img.parentElement.style.position = 'relative';
+      img.parentElement.style.position = "relative";
       img.parentElement.appendChild(overlay);
     }
   }
@@ -188,7 +201,7 @@ class EnhancedTextWatermarking {
   private applyTextWatermarks(): void {
     // Create visible watermarks
     this.createVisibleWatermarks();
-    
+
     // Create invisible watermarks
     if (this.config.invisibleWatermarks) {
       this.createInvisibleWatermarks();
@@ -197,11 +210,14 @@ class EnhancedTextWatermarking {
 
   private createVisibleWatermarks(): void {
     const watermarkText = this.config.text;
-    const watermarkCount = Math.ceil((window.innerWidth * window.innerHeight) / (this.config.spacing * this.config.spacing));
-    
+    const watermarkCount = Math.ceil(
+      (window.innerWidth * window.innerHeight) /
+        (this.config.spacing * this.config.spacing),
+    );
+
     for (let i = 0; i < watermarkCount; i++) {
-      const watermark = document.createElement('div');
-      watermark.className = 'text-watermark';
+      const watermark = document.createElement("div");
+      watermark.className = "text-watermark";
       watermark.textContent = watermarkText;
       watermark.style.cssText = `
         position: fixed;
@@ -218,7 +234,7 @@ class EnhancedTextWatermarking {
         user-select: none;
         z-index: -1;
       `;
-      
+
       document.body.appendChild(watermark);
       this.watermarkElements.push(watermark);
     }
@@ -226,7 +242,7 @@ class EnhancedTextWatermarking {
 
   private createInvisibleWatermarks(): void {
     // Add invisible watermarks using CSS pseudo-elements
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       .invisible-watermark::before {
         content: "© 2025 Hien Le - ${new Date().toISOString()}";
@@ -244,10 +260,12 @@ class EnhancedTextWatermarking {
     document.head.appendChild(style);
 
     // Apply invisible watermarks to key elements
-    const keyElements = document.querySelectorAll('h1, h2, h3, .project-title, .project-description');
-    keyElements.forEach(element => {
+    const keyElements = document.querySelectorAll(
+      "h1, h2, h3, .project-title, .project-description",
+    );
+    keyElements.forEach((element) => {
       if (element instanceof HTMLElement) {
-        element.classList.add('invisible-watermark');
+        element.classList.add("invisible-watermark");
       }
     });
   }
@@ -255,8 +273,8 @@ class EnhancedTextWatermarking {
   private setupGlobalProtection(): void {
     // Disable copy shortcuts
     if (this.config.disableCopy) {
-      document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C')) {
+      document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && (e.key === "c" || e.key === "C")) {
           e.preventDefault();
           return false;
         }
@@ -264,24 +282,24 @@ class EnhancedTextWatermarking {
     }
 
     // Disable print
-    document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "p" || e.key === "P")) {
         e.preventDefault();
         return false;
       }
     });
 
     // Disable save page
-    document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
         e.preventDefault();
         return false;
       }
     });
 
     // Disable view source
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
         e.preventDefault();
         return false;
       }
@@ -289,13 +307,17 @@ class EnhancedTextWatermarking {
 
     // Disable right-click globally
     if (this.config.disableRightClick) {
-      document.addEventListener('contextmenu', (e) => {
+      document.addEventListener("contextmenu", (e) => {
         // Allow right-click on specific elements
         const target = e.target as HTMLElement;
-        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.contentEditable === 'true') {
+        if (
+          target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.contentEditable === "true"
+        ) {
           return true;
         }
-        
+
         e.preventDefault();
         return false;
       });
@@ -304,7 +326,7 @@ class EnhancedTextWatermarking {
 
   public updateConfig(newConfig: Partial<WatermarkConfig>): void {
     this.config = { ...this.config, ...newConfig };
-    
+
     if (this.config.enabled && !this.isActive) {
       this.initializeProtection();
     } else if (!this.config.enabled && this.isActive) {
@@ -316,30 +338,35 @@ class EnhancedTextWatermarking {
 
   public refreshWatermarks(): void {
     // Remove existing watermarks
-    this.watermarkElements.forEach(element => element.remove());
+    this.watermarkElements.forEach((element) => element.remove());
     this.watermarkElements = [];
-    
+
     // Reapply watermarks
     this.applyTextWatermarks();
   }
 
   public disableProtection(): void {
     this.isActive = false;
-    
+
     // Restore text selection
-    this.protectedElements.forEach(({ element, originalUserSelect, originalPointerEvents }) => {
-      element.style.userSelect = originalUserSelect;
-      (element.style as any).webkitUserSelect = originalUserSelect;
-      (element.style as any).mozUserSelect = originalUserSelect;
-      (element.style as any).msUserSelect = originalUserSelect;
-      element.style.pointerEvents = originalPointerEvents;
-    });
-    
+    this.protectedElements.forEach(
+      ({ element, originalUserSelect, originalPointerEvents }) => {
+        element.style.userSelect = originalUserSelect;
+        (element.style as CSSStyleDeclarationWithUserSelect).webkitUserSelect =
+          originalUserSelect;
+        (element.style as CSSStyleDeclarationWithUserSelect).mozUserSelect =
+          originalUserSelect;
+        (element.style as CSSStyleDeclarationWithUserSelect).msUserSelect =
+          originalUserSelect;
+        element.style.pointerEvents = originalPointerEvents;
+      },
+    );
+
     // Remove watermarks
-    this.watermarkElements.forEach(element => element.remove());
+    this.watermarkElements.forEach((element) => element.remove());
     this.watermarkElements = [];
-    
-    console.log('🔓 Text watermarking protection disabled');
+
+    console.log("🔓 Text watermarking protection disabled");
   }
 
   public getConfig(): WatermarkConfig {

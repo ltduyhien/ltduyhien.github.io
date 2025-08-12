@@ -53,10 +53,7 @@ const Footer = () => {
         <p className="text-sm text-zinc-500 dark:text-zinc-400 text-left">
           © 2025 Hien Le. All rights reserved. This portfolio is licensed under
           the{" "}
-          <Link
-            to="/license"
-            className="text-brand hover:underline"
-          >
+          <Link to="/license" className="text-brand hover:underline">
             GPL v3
           </Link>
           .

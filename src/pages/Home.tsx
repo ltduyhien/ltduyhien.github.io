@@ -92,7 +92,7 @@ const Home = () => {
         // Filter to only show homepage projects
         const loaded = HOMEPAGE_PROJECTS.map((proj) => {
           const projectData = allProjects.find((p) => p.slug === proj.slug);
-          
+
           if (projectData) {
             return {
               ...projectData,

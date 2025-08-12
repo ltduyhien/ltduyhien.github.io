@@ -4,28 +4,42 @@
  * @license GPL v3
  */
 
-import React, { useState, useEffect, useRef } from 'react';
-import AdvancedBotProtection from '../utils/advancedBotProtection';
-import ContentEncryption from '../utils/contentEncryption';
+import React, { useState, useEffect, useRef } from "react";
+
+import AdvancedBotProtection from "../utils/advancedBotProtection";
+import ContentEncryption from "../utils/contentEncryption";
 
 interface SecurityEvent {
   id: string;
-  type: 'bot_detection' | 'encryption_failure' | 'watermark_violation' | 'geographic_block' | 'suspicious_activity';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  type:
+    | "bot_detection"
+    | "encryption_failure"
+    | "watermark_violation"
+    | "geographic_block"
+    | "suspicious_activity";
+  severity: "low" | "medium" | "high" | "critical";
   message: string;
   timestamp: number;
-  details: any;
+  details: SecurityEventDetails;
   resolved: boolean;
+}
+
+interface SecurityEventDetails {
+  type: string;
+  data?: {
+    indicators?: string[];
+    error?: string;
+    failures?: number;
+    countryCode?: string;
+    pattern?: string;
+  };
 }
 
 interface SecurityMetrics {
   botAttempts: number;
   blockedIPs: number;
   geographicBlocks: number;
-  threatLevel: 'low' | 'medium' | 'high' | 'critical';
-  encryptionFailures: number;
-  watermarkViolations: number;
-  activeThreats: number;
+  threatLevel: "low" | "medium" | "high" | "critical";
   lastUpdate: number;
 }
 
@@ -42,24 +56,21 @@ const SecurityMonitoringDashboard: React.FC = () => {
     botAttempts: 0,
     blockedIPs: 0,
     geographicBlocks: 0,
-    threatLevel: 'low',
-    encryptionFailures: 0,
-    watermarkViolations: 0,
-    activeThreats: 0,
-    lastUpdate: Date.now()
+    threatLevel: "low",
+    lastUpdate: Date.now(),
   });
-  
+
   const [securityEvents, setSecurityEvents] = useState<SecurityEvent[]>([]);
   const [threatAnalysis, setThreatAnalysis] = useState<ThreatAnalysis>({
     riskScore: 0,
-    threatVector: 'none',
-    recommendedAction: 'monitor',
-    confidence: 0
+    threatVector: "none",
+    recommendedAction: "monitor",
+    confidence: 0,
   });
-  
+
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [alertSound, setAlertSound] = useState(true);
-  
+
   const botProtectionRef = useRef<AdvancedBotProtection | null>(null);
   const contentEncryptionRef = useRef<ContentEncryption | null>(null);
   const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -67,7 +78,7 @@ const SecurityMonitoringDashboard: React.FC = () => {
   useEffect(() => {
     initializeSecuritySystems();
     setupEventListeners();
-    
+
     if (autoRefresh) {
       startAutoRefresh();
     }
@@ -84,55 +95,69 @@ const SecurityMonitoringDashboard: React.FC = () => {
     try {
       botProtectionRef.current = new AdvancedBotProtection();
       contentEncryptionRef.current = new ContentEncryption();
-      console.log('🔒 Security systems initialized');
+      console.log("🔒 Security systems initialized");
     } catch (error) {
-      console.error('Failed to initialize security systems:', error);
+      console.error("Failed to initialize security systems:", error);
     }
   };
 
   const setupEventListeners = () => {
     // Listen for security metrics updates
-    window.addEventListener('securityMetrics', (event: any) => {
-      updateSecurityMetrics(event.detail);
+    window.addEventListener("securityMetrics", (event: Event) => {
+      const customEvent = event as CustomEvent<SecurityMetrics>;
+      updateSecurityMetrics(customEvent.detail);
     });
 
     // Listen for security alerts
-    window.addEventListener('securityAlert', (event: any) => {
-      handleSecurityAlert(event.detail);
+    window.addEventListener("securityAlert", (event: Event) => {
+      const customEvent = event as CustomEvent<SecurityEventDetails>;
+      handleSecurityAlert(customEvent.detail);
     });
 
     // Listen for watermark violations
-    window.addEventListener('watermarkViolation', (event: any) => {
-      handleWatermarkViolation(event.detail);
+    window.addEventListener("watermarkViolation", (event: Event) => {
+      const customEvent = event as CustomEvent<{
+        failures: number;
+        elements: string[];
+      }>;
+      handleWatermarkViolation(customEvent.detail);
     });
   };
 
-  const updateSecurityMetrics = (metrics: any) => {
-    setSecurityMetrics(prev => ({
+  const updateSecurityMetrics = (metrics: SecurityMetrics) => {
+    setSecurityMetrics((prev) => ({
       ...prev,
       ...metrics,
-      lastUpdate: Date.now()
+      lastUpdate: Date.now(),
     }));
-    
+
     // Update threat analysis
     analyzeThreats();
   };
 
-  const handleSecurityAlert = (alert: any) => {
+  const handleSecurityAlert = (alert: SecurityEventDetails) => {
     const newEvent: SecurityEvent = {
       id: `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      type: alert.type,
+      type: alert.type as
+        | "bot_detection"
+        | "encryption_failure"
+        | "watermark_violation"
+        | "geographic_block"
+        | "suspicious_activity",
       severity: determineSeverity(alert.type),
       message: generateAlertMessage(alert),
       timestamp: Date.now(),
       details: alert,
-      resolved: false
+      resolved: false,
     };
 
-    setSecurityEvents(prev => [newEvent, ...prev.slice(0, 49)]); // Keep last 50 events
-    
+    setSecurityEvents((prev) => [newEvent, ...prev.slice(0, 49)]); // Keep last 50 events
+
     // Play alert sound for high/critical events
-    if (alertSound && (newEvent.severity === 'high' || newEvent.severity === 'critical')) {
+    if (
+      alertSound &&
+      (newEvent.severity === "high" || newEvent.severity === "critical")
+    ) {
       playAlertSound();
     }
 
@@ -140,112 +165,99 @@ const SecurityMonitoringDashboard: React.FC = () => {
     updateMetricsFromEvent(newEvent);
   };
 
-  const handleWatermarkViolation = (violation: any) => {
-    setSecurityMetrics(prev => ({
-      ...prev,
-      watermarkViolations: prev.watermarkViolations + 1
-    }));
+  const handleWatermarkViolation = (violation: {
+    failures: number;
+    elements: string[];
+  }) => {
+    // Update metrics if needed
+    console.log("Watermark violation detected:", violation);
   };
 
-  const determineSeverity = (type: string): 'low' | 'medium' | 'high' | 'critical' => {
+  const determineSeverity = (
+    type: string,
+  ): "low" | "medium" | "high" | "critical" => {
     switch (type) {
-      case 'bot_detection':
-        return 'medium';
-      case 'encryption_failure':
-        return 'high';
-      case 'watermark_violation':
-        return 'critical';
-      case 'geographic_block':
-        return 'low';
-      case 'suspicious_activity':
-        return 'medium';
+      case "bot_detection":
+        return "medium";
+      case "encryption_failure":
+        return "high";
+      case "watermark_violation":
+        return "critical";
+      case "geographic_block":
+        return "low";
+      case "suspicious_activity":
+        return "medium";
       default:
-        return 'low';
+        return "low";
     }
   };
 
-  const generateAlertMessage = (alert: any): string => {
+  const generateAlertMessage = (alert: SecurityEventDetails): string => {
     switch (alert.type) {
-      case 'bot_detection':
-        return `Bot activity detected: ${alert.data?.indicators?.join(', ') || 'Unknown pattern'}`;
-      case 'encryption_failure':
-        return `Content encryption failed: ${alert.data?.error || 'Unknown error'}`;
-      case 'watermark_violation':
+      case "bot_detection":
+        return `Bot activity detected: ${alert.data?.indicators?.join(", ") || "Unknown pattern"}`;
+      case "encryption_failure":
+        return `Content encryption failed: ${alert.data?.error || "Unknown error"}`;
+      case "watermark_violation":
         return `Watermark integrity compromised: ${alert.data?.failures || 0} violations detected`;
-      case 'geographic_block':
-        return `Access blocked from restricted region: ${alert.data?.countryCode || 'Unknown'}`;
-      case 'suspicious_activity':
-        return `Suspicious user behavior detected: ${alert.data?.pattern || 'Unknown pattern'}`;
+      case "geographic_block":
+        return `Access blocked from restricted region: ${alert.data?.countryCode || "Unknown"}`;
+      case "suspicious_activity":
+        return `Suspicious user behavior detected: ${alert.data?.pattern || "Unknown pattern"}`;
       default:
         return `Security alert: ${alert.type}`;
     }
   };
 
   const updateMetricsFromEvent = (event: SecurityEvent) => {
-    setSecurityMetrics(prev => {
-      const updates: Partial<SecurityMetrics> = {};
-      
-      switch (event.type) {
-        case 'bot_detection':
-          updates.botAttempts = prev.botAttempts + 1;
-          break;
-        case 'encryption_failure':
-          updates.encryptionFailures = prev.encryptionFailures + 1;
-          break;
-        case 'watermark_violation':
-          updates.watermarkViolations = prev.watermarkViolations + 1;
-          break;
-        case 'geographic_block':
-          updates.geographicBlocks = prev.geographicBlocks + 1;
-          break;
-      }
-      
-      return { ...prev, ...updates };
-    });
+    // Update metrics based on event type
+    setSecurityMetrics((prev) => ({
+      ...prev,
+      botAttempts:
+        event.type === "bot_detection"
+          ? prev.botAttempts + 1
+          : prev.botAttempts,
+      lastUpdate: Date.now(),
+    }));
   };
 
   const analyzeThreats = () => {
-    const riskFactors = [
-      securityMetrics.botAttempts * 10,
-      securityMetrics.encryptionFailures * 20,
-      securityMetrics.watermarkViolations * 50,
-      securityMetrics.geographicBlocks * 5
-    ];
-    
-    const totalRisk = riskFactors.reduce((sum, factor) => sum + factor, 0);
-    const riskScore = Math.min(totalRisk, 100);
-    
-    let threatVector = 'none';
-    let recommendedAction = 'monitor';
+    const metrics = securityMetrics;
+    let riskScore = 0;
+    let threatVector = "none";
+    let recommendedAction = "monitor";
     let confidence = 0;
-    
-    if (riskScore > 80) {
-      threatVector = 'multiple_high_risk';
-      recommendedAction = 'immediate_response';
+
+    // Calculate risk score based on metrics
+    if (metrics.botAttempts > 10) {
+      riskScore = 90;
+      threatVector = "bot_attack";
+      recommendedAction = "block";
       confidence = 95;
-    } else if (riskScore > 60) {
-      threatVector = 'elevated_risk';
-      recommendedAction = 'investigate';
+    } else if (metrics.botAttempts > 5) {
+      riskScore = 70;
+      threatVector = "suspicious_activity";
+      recommendedAction = "investigate";
       confidence = 80;
-    } else if (riskScore > 30) {
-      threatVector = 'moderate_risk';
-      recommendedAction = 'monitor_closely';
-      confidence = 65;
-    } else if (riskScore > 10) {
-      threatVector = 'low_risk';
-      recommendedAction = 'continue_monitoring';
-      confidence = 45;
+    } else if (metrics.geographicBlocks > 0) {
+      riskScore = 30;
+      threatVector = "geographic_threat";
+      recommendedAction = "monitor";
+      confidence = 60;
     }
-    
+
     setThreatAnalysis({
       riskScore,
       threatVector,
       recommendedAction,
-      confidence
+      confidence,
     });
   };
 
   const startAutoRefresh = () => {
+    if (refreshIntervalRef.current) {
+      clearInterval(refreshIntervalRef.current);
+    }
     refreshIntervalRef.current = setInterval(() => {
       if (botProtectionRef.current) {
         const metrics = botProtectionRef.current.getSecurityMetrics();
@@ -255,48 +267,58 @@ const SecurityMonitoringDashboard: React.FC = () => {
   };
 
   const cleanupSecuritySystems = () => {
-    if (botProtectionRef.current) {
-      botProtectionRef.current.destroy();
-    }
-    if (contentEncryptionRef.current) {
-      contentEncryptionRef.current.destroy();
+    // Clean up event listeners and intervals
+    if (refreshIntervalRef.current) {
+      clearInterval(refreshIntervalRef.current);
     }
   };
 
   const playAlertSound = () => {
     try {
-      const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
+      const audio = new Audio(
+        "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT",
+      );
       audio.play();
     } catch (error) {
-      console.warn('Could not play alert sound:', error);
+      console.warn("Could not play alert sound:", error);
     }
   };
 
   const resolveEvent = (eventId: string) => {
-    setSecurityEvents(prev => 
-      prev.map(event => 
-        event.id === eventId ? { ...event, resolved: true } : event
-      )
+    setSecurityEvents((prev) =>
+      prev.map((event) =>
+        event.id === eventId ? { ...event, resolved: true } : event,
+      ),
     );
   };
 
   const getThreatLevelColor = (level: string) => {
     switch (level) {
-      case 'low': return 'text-green-600 bg-green-100';
-      case 'medium': return 'text-yellow-600 bg-yellow-100';
-      case 'high': return 'text-orange-600 bg-orange-100';
-      case 'critical': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case "low":
+        return "text-green-600 bg-green-100";
+      case "medium":
+        return "text-yellow-600 bg-yellow-100";
+      case "high":
+        return "text-orange-600 bg-orange-100";
+      case "critical":
+        return "text-red-600 bg-red-100";
+      default:
+        return "text-gray-600 bg-gray-100";
     }
   };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'low': return 'border-l-green-500';
-      case 'medium': return 'border-l-yellow-500';
-      case 'high': return 'border-l-orange-500';
-      case 'critical': return 'border-l-red-500';
-      default: return 'border-l-gray-500';
+      case "low":
+        return "border-l-green-500";
+      case "medium":
+        return "border-l-yellow-500";
+      case "high":
+        return "border-l-orange-500";
+      case "critical":
+        return "border-l-red-500";
+      default:
+        return "border-l-gray-500";
     }
   };
 
@@ -317,7 +339,9 @@ const SecurityMonitoringDashboard: React.FC = () => {
       <div className="bg-white dark:bg-zinc-900 rounded-lg shadow-xl max-w-6xl w-full max-h-full overflow-hidden">
         {/* Header */}
         <div className="bg-red-600 text-white p-4 flex justify-between items-center">
-          <h2 className="text-xl font-bold">🔒 Security Monitoring Dashboard</h2>
+          <h2 className="text-xl font-bold">
+            🔒 Security Monitoring Dashboard
+          </h2>
           <button
             onClick={() => setIsVisible(false)}
             className="text-white hover:text-red-200"
@@ -330,20 +354,28 @@ const SecurityMonitoringDashboard: React.FC = () => {
           {/* Security Metrics Overview */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">{securityMetrics.botAttempts}</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {securityMetrics.botAttempts}
+              </div>
               <div className="text-sm text-blue-600">Bot Attempts</div>
             </div>
             <div className="bg-red-50 dark:bg-red-900 p-4 rounded-lg">
-              <div className="text-2xl font-bold text-red-600">{securityMetrics.encryptionFailures}</div>
-              <div className="text-sm text-red-600">Encryption Failures</div>
+              <div className="text-2xl font-bold text-red-600">
+                {securityMetrics.blockedIPs}
+              </div>
+              <div className="text-sm text-red-600">Blocked IPs</div>
             </div>
             <div className="bg-orange-50 dark:bg-orange-900 p-4 rounded-lg">
-              <div className="text-2xl font-bold text-orange-600">{securityMetrics.watermarkViolations}</div>
-              <div className="text-sm text-orange-600">Watermark Violations</div>
+              <div className="text-2xl font-bold text-orange-600">
+                {securityMetrics.geographicBlocks}
+              </div>
+              <div className="text-sm text-orange-600">Geographic Blocks</div>
             </div>
             <div className="bg-purple-50 dark:bg-purple-900 p-4 rounded-lg">
-              <div className="text-2xl font-bold text-purple-600">{securityMetrics.geographicBlocks}</div>
-              <div className="text-sm text-purple-600">Geographic Blocks</div>
+              <div className="text-2xl font-bold text-purple-600">
+                {securityMetrics.threatLevel}
+              </div>
+              <div className="text-sm text-purple-600">Threat Level</div>
             </div>
           </div>
 
@@ -352,32 +384,53 @@ const SecurityMonitoringDashboard: React.FC = () => {
             <h3 className="text-lg font-semibold mb-3">🎯 Threat Analysis</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Risk Score</div>
-                <div className="text-2xl font-bold text-red-600">{threatAnalysis.riskScore}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  Risk Score
+                </div>
+                <div className="text-2xl font-bold text-red-600">
+                  {threatAnalysis.riskScore}
+                </div>
               </div>
               <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Threat Vector</div>
-                <div className="text-lg font-semibold">{threatAnalysis.threatVector.replace('_', ' ')}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  Threat Vector
+                </div>
+                <div className="text-lg font-semibold">
+                  {threatAnalysis.threatVector.replace("_", " ")}
+                </div>
               </div>
               <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Recommended Action</div>
-                <div className="text-lg font-semibold">{threatAnalysis.recommendedAction.replace('_', ' ')}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  Recommended Action
+                </div>
+                <div className="text-lg font-semibold">
+                  {threatAnalysis.recommendedAction.replace("_", " ")}
+                </div>
               </div>
               <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Confidence</div>
-                <div className="text-lg font-semibold">{threatAnalysis.confidence}%</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  Confidence
+                </div>
+                <div className="text-lg font-semibold">
+                  {threatAnalysis.confidence}%
+                </div>
               </div>
             </div>
           </div>
 
           {/* Current Threat Level */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3">⚠️ Current Threat Level</h3>
-            <div className={`inline-block px-4 py-2 rounded-lg font-bold ${getThreatLevelColor(securityMetrics.threatLevel)}`}>
+            <h3 className="text-lg font-semibold mb-3">
+              ⚠️ Current Threat Level
+            </h3>
+            <div
+              className={`inline-block px-4 py-2 rounded-lg font-bold ${getThreatLevelColor(securityMetrics.threatLevel)}`}
+            >
               {securityMetrics.threatLevel.toUpperCase()}
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-              Last updated: {new Date(securityMetrics.lastUpdate).toLocaleTimeString()}
+              Last updated:{" "}
+              {new Date(securityMetrics.lastUpdate).toLocaleTimeString()}
             </div>
           </div>
 
@@ -386,13 +439,15 @@ const SecurityMonitoringDashboard: React.FC = () => {
             <h3 className="text-lg font-semibold mb-3">🚨 Security Events</h3>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {securityEvents.length === 0 ? (
-                <div className="text-gray-500 text-center py-4">No security events detected</div>
+                <div className="text-gray-500 text-center py-4">
+                  No security events detected
+                </div>
               ) : (
-                securityEvents.map(event => (
+                securityEvents.map((event) => (
                   <div
                     key={event.id}
                     className={`border-l-4 p-3 bg-gray-50 dark:bg-gray-800 ${getSeverityColor(event.severity)} ${
-                      event.resolved ? 'opacity-60' : ''
+                      event.resolved ? "opacity-60" : ""
                     }`}
                   >
                     <div className="flex justify-between items-start">
@@ -438,7 +493,7 @@ const SecurityMonitoringDashboard: React.FC = () => {
               />
               Auto-refresh metrics
             </label>
-            
+
             <label className="flex items-center">
               <input
                 type="checkbox"
@@ -468,11 +523,8 @@ const SecurityMonitoringDashboard: React.FC = () => {
                   botAttempts: 0,
                   blockedIPs: 0,
                   geographicBlocks: 0,
-                  threatLevel: 'low',
-                  encryptionFailures: 0,
-                  watermarkViolations: 0,
-                  activeThreats: 0,
-                  lastUpdate: Date.now()
+                  threatLevel: "low",
+                  lastUpdate: Date.now(),
                 });
               }}
               className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"

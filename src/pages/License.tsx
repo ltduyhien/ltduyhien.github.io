@@ -25,7 +25,10 @@ const License: React.FC = () => {
           License
         </h1>
         <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed">
-          This portfolio and its associated projects are licensed under the GNU General Public License v3.0.
+          This portfolio website and its development are licensed under the GNU General Public License v3.0.{" "}
+          <span className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 px-2 py-1 rounded">
+            The projects showcased here represent my work experience at various companies and are not part of this open source license.
+          </span>
         </p>
       </div>
 
@@ -92,10 +95,10 @@ const License: React.FC = () => {
         </ul>
       </div>
 
-      <div className="mt-8 text-center">
+      <div className="mt-8">
         <Link
           to="/"
-          className="inline-flex items-center px-6 py-3 bg-brand text-white font-medium rounded-lg hover:bg-brand/90 transition-colors duration-200"
+          className="inline-flex items-center text-brand hover:text-brand/80 transition-colors duration-200 font-medium"
         >
           ← Back to Home
         </Link>

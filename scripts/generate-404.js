@@ -1,4 +1,60 @@
-<!DOCTYPE html>
+#!/usr/bin/env node
+
+/**
+ * @fileoverview Script to automatically generate 404.html from NotFound.tsx
+ * This ensures both pages stay in sync automatically
+ * @copyright Copyright (c) 2025 Hien Le. All rights reserved.
+ * @license MIT
+ */
+
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Read the NotFound.tsx component
+const notFoundPath = path.join(__dirname, '../src/pages/NotFound.tsx');
+const outputPath = path.join(__dirname, '../public/404.html');
+
+try {
+  const notFoundContent = fs.readFileSync(notFoundPath, 'utf8');
+  
+  // Extract the JSX content from NotFound.tsx
+  // Look for the return statement content
+  const jsxMatch = notFoundContent.match(/return\s*\(\s*([\s\S]*?)\s*\);/);
+  
+  if (!jsxMatch) {
+    throw new Error('Could not find JSX content in NotFound.tsx');
+  }
+  
+  let jsxContent = jsxMatch[1];
+  
+  // Convert JSX to HTML
+  // Remove React-specific attributes and convert to plain HTML
+  jsxContent = jsxContent
+    // Convert className to class
+    .replace(/className=/g, 'class=')
+    // Remove motion.div and convert to regular div
+    .replace(/<motion\.div/g, '<div')
+    .replace(/<\/motion\.div>/g, '</div>')
+    // Remove motion props
+    .replace(/\s+initial=\{[\s\S]*?\}/g, '')
+    .replace(/\s+animate=\{[\s\S]*?\}/g, '')
+    .replace(/\s+transition=\{[\s\S]*?\}/g, '')
+    // Convert Link to anchor tag
+    .replace(/<Link\s+to="([^"]+)"/g, '<a href="$1"')
+    .replace(/<\/Link>/g, '</a>')
+    // Remove React fragments
+    .replace(/<>/g, '')
+    .replace(/<\/>/g, '')
+    // Clean up extra whitespace
+    .replace(/\s+/g, ' ')
+    .trim();
+  
+  // Create the 404.html file
+  const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -74,4 +130,14 @@
     </div>
   </div>
 </body>
-</html>
+</html>`;
+
+  fs.writeFileSync(outputPath, htmlContent, 'utf8');
+  
+  console.log('✅ Successfully generated 404.html from NotFound.tsx');
+  console.log('📁 Output file:', outputPath);
+  
+} catch (error) {
+  console.error('❌ Error generating 404.html:', error.message);
+  process.exit(1);
+}

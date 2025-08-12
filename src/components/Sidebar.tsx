@@ -376,13 +376,12 @@ const Sidebar = ({
         </div>
         <div className="absolute left-8 bottom-8 text-sm font-medium text-zinc-600 dark:text-zinc-400">
           Hien Le © 2025 |{" "}
-          <a
-            href="/LICENSE"
-            target="_blank"
+          <Link
+            to="/license"
             className="text-brand hover:underline"
           >
             GPL v3
-          </a>
+          </Link>
         </div>
       </div>
 

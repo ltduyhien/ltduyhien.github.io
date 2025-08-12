@@ -153,17 +153,8 @@ function ContentWithFade() {
     }
   }, [location.pathname]);
 
-  // Special handling for 404 page - render outside main layout
-  if (location.pathname === "/404" || location.pathname === "*") {
-    return (
-      <div className="fixed inset-0 z-50">
-        <NotFound />
-      </div>
-    );
-  }
-
   return (
-    <div className="md:ml-72 min-h-screen pt-8 md:pt-12">
+    <div className="md:ml-72 min-h-screen pt-6 md:pt-8">
       <AnimatePresence mode="wait">
         <motion.div
           key={location.pathname}

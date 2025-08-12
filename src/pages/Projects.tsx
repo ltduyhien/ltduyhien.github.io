@@ -65,28 +65,58 @@ const Projects = () => {
   // Banner URLs are now handled by the generated content bundle
 
   // Categorize projects
-  const saasProjects = projects.filter(
-    (project) =>
-      project.slug === "test-driver-cloud" ||
-      project.slug === "cpq-pricing-tool" ||
-      project.slug === "smb-admin-panel" ||
-      project.slug === "nokia-data-suite",
-  );
+  const saasProjects = PROJECTS_ORDER.filter(
+    (orderedProject) => {
+      const project = projects.find(p => p.slug === orderedProject.slug);
+      return project && (
+        project.slug === "test-driver-cloud" ||
+        project.slug === "cpq-pricing-tool" ||
+        project.slug === "smb-admin-panel" ||
+        project.slug === "nokia-data-suite"
+      );
+    }
+  ).map(orderedProject => {
+    const project = projects.find(p => p.slug === orderedProject.slug);
+    return project;
+  }).filter((project): project is ProjectData => project !== undefined);
 
-  const mobileProjects = projects.filter(
-    (project) =>
-      project.slug === "allconnect-app" ||
-      project.slug === "3dmark-ios-app" ||
-      project.slug === "riva-audio",
-  );
+  const mobileProjects = PROJECTS_ORDER.filter(
+    (orderedProject) => {
+      const project = projects.find(p => p.slug === orderedProject.slug);
+      return project && (
+        project.slug === "allconnect-app" ||
+        project.slug === "3dmark-ios-app" ||
+        project.slug === "riva-audio"
+      );
+    }
+  ).map(orderedProject => {
+    const project = projects.find(p => p.slug === orderedProject.slug);
+    return project;
+  }).filter((project): project is ProjectData => project !== undefined);
 
-  const desktopProjects = projects.filter(
-    (project) => project.slug === "procyon-desktop-client",
-  );
+  const desktopProjects = PROJECTS_ORDER.filter(
+    (orderedProject) => {
+      const project = projects.find(p => p.slug === orderedProject.slug);
+      return project && (
+        project.slug === "procyon-desktop-client"
+      );
+    }
+  ).map(orderedProject => {
+    const project = projects.find(p => p.slug === orderedProject.slug);
+    return project;
+  }).filter((project): project is ProjectData => project !== undefined);
 
-  const designSystemProjects = projects.filter(
-    (project) => project.slug === "3dmark-design-system",
-  );
+  const designSystemProjects = PROJECTS_ORDER.filter(
+    (orderedProject) => {
+      const project = projects.find(p => p.slug === orderedProject.slug);
+      return project && (
+        project.slug === "3dmark-design-system"
+      );
+    }
+  ).map(orderedProject => {
+    const project = projects.find(p => p.slug === orderedProject.slug);
+    return project;
+  }).filter((project): project is ProjectData => project !== undefined);
 
   console.log("Projects state:", projects);
   console.log("SaaS projects:", saasProjects);

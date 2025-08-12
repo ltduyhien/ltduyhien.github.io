@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const NotFound: React.FC = () => {
   return (
-    <div className="container-custom px-8 pt-24 pb-16 md:pt-8 md:pb-16">
+    <div className="w-fit mx-auto px-8 pt-28 pb-16 md:py-28">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

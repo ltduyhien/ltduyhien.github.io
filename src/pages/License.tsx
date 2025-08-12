@@ -19,41 +19,41 @@ const License: React.FC = () => {
   });
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="container-custom px-8 pt-24 pb-16 md:pt-8 md:pb-16">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4">
+        <h1 className="text-xl font-bold mb-4 text-zinc-900 dark:text-white leading-relaxed">
           License
         </h1>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400">
+        <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed">
           This portfolio and its associated projects are licensed under the GNU General Public License v3.0.
         </p>
       </div>
 
       <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-200 dark:border-zinc-700 p-8 mb-8">
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-white mb-6">
+        <h2 className="text-lg font-medium mb-4 text-zinc-900 dark:text-white">
           GNU General Public License v3.0
         </h2>
         
         <div className="prose prose-zinc dark:prose-invert max-w-none">
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+          <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
             Copyright (c) 2025 Hien Le
           </p>
           
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+          <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
             This program is free software: you can redistribute it and/or modify
             it under the terms of the GNU General Public License as published by
             the Free Software Foundation, either version 3 of the License, or
             (at your option) any later version.
           </p>
           
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4">
+          <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
             This program is distributed in the hope that it will be useful,
             but WITHOUT ANY WARRANTY; without even the implied warranty of
             MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
             GNU General Public License for more details.
           </p>
           
-          <p className="text-zinc-700 dark:text-zinc-300 mb-6">
+          <p className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6">
             You should have received a copy of the GNU General Public License
             along with this program. If not, see{" "}
             <a 
@@ -69,10 +69,10 @@ const License: React.FC = () => {
       </div>
 
       <div className="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-zinc-900 dark:text-white mb-3">
+        <h3 className="text-lg font-medium mb-4 text-zinc-900 dark:text-white">
           What This Means
         </h3>
-        <ul className="text-zinc-700 dark:text-zinc-300 space-y-2">
+        <ul className="text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed space-y-2">
           <li className="flex items-start">
             <span className="mr-2 text-brand">•</span>
             <span>You are free to use, modify, and distribute this code</span>
@@ -100,6 +100,7 @@ const License: React.FC = () => {
           ← Back to Home
         </Link>
       </div>
+      <Footer />
     </div>
   );
 };

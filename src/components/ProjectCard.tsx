@@ -67,10 +67,11 @@ const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
           <div className="md:hidden -mx-8">
             <div
               ref={scrollContainerRef}
-              className="chips-scroll-container flex flex-nowrap gap-2 mt-auto overflow-x-auto scrollbar-hide pb-1 min-w-0 w-full"
+              className="chips-scroll-container flex flex-nowrap gap-2 mt-auto overflow-x-auto scrollbar-hide scrollbar-hide-ios pb-1 min-w-0 w-full"
               style={{ 
                 scrollbarWidth: "none", 
                 msOverflowStyle: "none",
+                WebkitOverflowScrolling: "touch",
                 paddingLeft: "2rem",
                 paddingRight: "2rem"
               } as React.CSSProperties}

@@ -90,6 +90,21 @@ $brand-dark: color.adjust($brand, $lightness: -25%);
     width: 0 !important;
     height: 0 !important;
   }
+  
+  /* iOS-specific scrollbar hiding */
+  .scrollbar-hide-ios {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  .scrollbar-hide-ios::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    -webkit-appearance: none !important;
+  }
   .scrollbar-auto {
     -ms-overflow-style: auto;
     scrollbar-width: auto;

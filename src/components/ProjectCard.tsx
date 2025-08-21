@@ -76,13 +76,13 @@ const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
       const walk = currentX - startX;
       const newScrollLeft = scrollLeft - walk;
       
-      // Add resistance at edges
+      // Add subtle resistance at edges
       let finalScrollLeft = newScrollLeft;
       if (newScrollLeft < 0) {
-        finalScrollLeft = newScrollLeft * 0.3; // Resistance at left edge
+        finalScrollLeft = newScrollLeft * 0.85; // Subtle resistance at left edge
       } else if (newScrollLeft > container.scrollWidth - container.clientWidth) {
         const overscroll = newScrollLeft - (container.scrollWidth - container.clientWidth);
-        finalScrollLeft = (container.scrollWidth - container.clientWidth) + (overscroll * 0.3); // Resistance at right edge
+        finalScrollLeft = (container.scrollWidth - container.clientWidth) + (overscroll * 0.85); // Subtle resistance at right edge
       }
       
       container.scrollLeft = finalScrollLeft;

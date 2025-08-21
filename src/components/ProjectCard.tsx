@@ -32,9 +32,41 @@ const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
       }
     };
 
+    // Touch scrolling for iOS
+    let startX = 0;
+    let scrollLeft = 0;
+    let isDown = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      isDown = true;
+      startX = e.touches[0].pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.touches[0].pageX - container.offsetLeft;
+      const walk = (x - startX) * 2;
+      container.scrollLeft = scrollLeft - walk;
+    };
+
+    const handleTouchEnd = () => {
+      isDown = false;
+    };
+
     container.addEventListener("scroll", handleScroll);
+    container.addEventListener("touchstart", handleTouchStart);
+    container.addEventListener("touchmove", handleTouchMove);
+    container.addEventListener("touchend", handleTouchEnd);
+    
     handleScroll();
-    return () => container.removeEventListener("scroll", handleScroll);
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+      container.removeEventListener("touchend", handleTouchEnd);
+    };
   }, []);
 
   // (Alignment handled purely via CSS full-bleed container)
@@ -67,13 +99,8 @@ const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
           <div className="md:hidden -mx-8">
             <div
               ref={scrollContainerRef}
-              className="chips-scroll-container flex flex-nowrap gap-2 mt-auto overflow-x-auto scrollbar-hide scrollbar-hide-ios pb-1 min-w-0 w-full"
+              className="chips-scroll-container flex flex-nowrap gap-2 mt-auto overflow-hidden pb-1 min-w-0 w-full"
               style={{ 
-                scrollbarWidth: "none", 
-                msOverflowStyle: "none",
-                WebkitOverflowScrolling: "touch",
-                WebkitScrollbarWidth: "none",
-                WebkitScrollbarHeight: "none",
                 paddingLeft: "2rem",
                 paddingRight: "2rem"
               } as React.CSSProperties}

@@ -107,27 +107,84 @@ const Home = () => {
       }
     };
 
-    // Touch scrolling for iOS
+    // Smooth touch scrolling for iOS with momentum
     let startX = 0;
+    let startTime = 0;
     let scrollLeft = 0;
     let isDown = false;
+    let velocity = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let animationId: number | null = null;
 
     const handleTouchStart = (e: TouchEvent) => {
       isDown = true;
       startX = e.touches[0].pageX - container.offsetLeft;
+      startTime = Date.now();
       scrollLeft = container.scrollLeft;
+      lastX = startX;
+      lastTime = startTime;
+      velocity = 0;
+      
+      // Cancel any ongoing momentum animation
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!isDown) return;
       e.preventDefault();
-      const x = e.touches[0].pageX - container.offsetLeft;
-      const walk = (x - startX) * 2;
-      container.scrollLeft = scrollLeft - walk;
+      
+      const currentX = e.touches[0].pageX - container.offsetLeft;
+      const currentTime = Date.now();
+      const deltaX = currentX - lastX;
+      const deltaTime = currentTime - lastTime;
+      
+      // Calculate velocity (pixels per millisecond)
+      if (deltaTime > 0) {
+        velocity = deltaX / deltaTime;
+      }
+      
+      // Apply scroll with resistance at edges
+      const walk = currentX - startX;
+      const newScrollLeft = scrollLeft - walk;
+      
+      // Add resistance at edges
+      let finalScrollLeft = newScrollLeft;
+      if (newScrollLeft < 0) {
+        finalScrollLeft = newScrollLeft * 0.3; // Resistance at left edge
+      } else if (newScrollLeft > container.scrollWidth - container.clientWidth) {
+        const overscroll = newScrollLeft - (container.scrollWidth - container.clientWidth);
+        finalScrollLeft = (container.scrollWidth - container.clientWidth) + (overscroll * 0.3); // Resistance at right edge
+      }
+      
+      container.scrollLeft = finalScrollLeft;
+      
+      lastX = currentX;
+      lastTime = currentTime;
     };
 
     const handleTouchEnd = () => {
       isDown = false;
+      
+      // Apply momentum scrolling
+      if (Math.abs(velocity) > 0.5) { // Only apply momentum if velocity is significant
+        const momentum = () => {
+          velocity *= 0.95; // Decay factor
+          container.scrollLeft += velocity * 16; // 16ms = 60fps
+          
+          // Stop momentum when velocity is too low or hitting edges
+          if (Math.abs(velocity) > 0.1 && 
+              container.scrollLeft > 0 && 
+              container.scrollLeft < container.scrollWidth - container.clientWidth) {
+            animationId = requestAnimationFrame(momentum);
+          }
+        };
+        
+        animationId = requestAnimationFrame(momentum);
+      }
     };
 
     container.addEventListener("scroll", handleScroll);
@@ -145,6 +202,11 @@ const Home = () => {
       container.removeEventListener("touchstart", handleTouchStart);
       container.removeEventListener("touchmove", handleTouchMove);
       container.removeEventListener("touchend", handleTouchEnd);
+      
+      // Cancel any ongoing animation
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
     };
   }, []);
 

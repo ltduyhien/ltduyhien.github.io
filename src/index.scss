@@ -103,6 +103,13 @@ $brand-dark: color.adjust($brand, $lightness: -25%);
     /* Force hide on modern iOS Chrome */
     -webkit-appearance: none !important;
     appearance: none !important;
+    /* Additional iOS Chrome 139+ hiding */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    /* Force hardware acceleration */
+    will-change: scroll-position;
+    /* Additional webkit properties */
+    -webkit-overflow-scrolling: auto;
   }
   
   .scrollbar-hide-ios::-webkit-scrollbar {
@@ -159,6 +166,42 @@ $brand-dark: color.adjust($brand, $lightness: -25%);
     display: none !important;
     width: 0 !important;
     height: 0 !important;
+  }
+  
+  /* iOS Chrome 139+ specific scrollbar hiding */
+  .scrollbar-hide-ios::-webkit-scrollbar {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    /* Force hide with multiple approaches */
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+  }
+  
+  /* Additional iOS Chrome hiding for all scrollbar parts */
+  .scrollbar-hide-ios::-webkit-scrollbar-track,
+  .scrollbar-hide-ios::-webkit-scrollbar-thumb,
+  .scrollbar-hide-ios::-webkit-scrollbar-corner,
+  .scrollbar-hide-ios::-webkit-scrollbar-button {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
   .scrollbar-auto {
     -ms-overflow-style: auto;

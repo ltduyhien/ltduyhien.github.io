@@ -45,8 +45,8 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
     ? src.replace("@private-content", "/private-content")
     : src;
 
-  // Debug logging for development
-  if (import.meta.env.DEV) {
+  // Debug logging for development (reduced verbosity)
+  if (import.meta.env.DEV && false) { // Disabled verbose logging
     console.log("🔍 ClickableImage path resolution:", {
       original: src,
       resolved: imageSrc,
@@ -54,16 +54,6 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
         ? imageSrc.replace("@private-content", "/private-content")
         : imageSrc,
     });
-
-    // Log individual values for clarity
-    console.log("🔍 Original src:", src);
-    console.log("🔍 Resolved imageSrc:", imageSrc);
-    console.log(
-      "🔍 Final path:",
-      imageSrc.startsWith("@private-content")
-        ? imageSrc.replace("@private-content", "/private-content")
-        : imageSrc,
-    );
   }
 
   return (
@@ -75,14 +65,11 @@ const ClickableImage: React.FC<ClickableImageProps> = ({
         style={style}
         onClick={handleImageClick}
         onLoad={() => {
-          if (import.meta.env.DEV) {
-            console.log("✅ Image loaded successfully:", imageSrc);
-          }
+          // Image loaded successfully
         }}
         onError={(e) => {
           if (import.meta.env.DEV) {
             console.error("❌ Image failed to load:", imageSrc);
-            console.error("❌ Error details:", e);
           }
         }}
       />

@@ -1,34 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Hien Le - Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Load the main app assets before redirecting -->
-    <script type="module" crossorigin src="/assets/index-DIICp0EI.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-FMrqBOm1.css">
-    
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
-      // This script takes the current url and converts the path and query
-      // string into just a query string, and then redirects the browser
-      // to the new url with only a query string and hash fragment.
-      var pathSegmentsToKeep = 0;
+<head>
+  <meta charset="utf-8">
+  <title>Hien Le - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Load the main app assets -->
+  <script type="module" crossorigin src="/assets/index-CByY_t4w.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BLgHUB70.css">
+  
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // MIT License
+    // https://github.com/rafgraph/spa-github-pages
+    // This script takes the current url and converts the path and query
+    // string into just a query string, and then redirects the browser
+    // to the new url with only a query string and hash fragment.
+    var pathSegmentsToKeep = 0;
 
-      var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        (l.hash ? '&' + l.hash.slice(1).replace(/&/g, '~and~') : '')
-      );
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html> 
+    var l = window.location;
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      (l.hash ? '&' + l.hash.slice(1).replace(/&/g, '~and~') : '')
+    );
+  </script>
+</head>
+<body>
+  <div id="root">
+    <!-- Static 404 content that matches NotFound.tsx -->
+    <div class="w-fit mx-auto px-8 pt-28 pb-16 md:py-28">
+      <div>
+        <h1 class="text-lg font-bold mb-6 text-zinc-900 dark:text-white leading-tight">
+          Sorry, the link you are looking for is not found!
+        </h1>
+
+        <div class="text-zinc-600 dark:text-zinc-400 mb-6">
+          <p class="text-base mb-3">Possible reasons:</p>
+          <div class="space-y-2 ml-4">
+            <p class="flex items-start text-sm">
+              <span class="mr-2 text-brand">•</span>
+              <span>Either the link is broken</span>
+            </p>
+            <p class="flex items-start text-sm">
+              <span class="mr-2 text-brand">•</span>
+              <span>Or the page has moved</span>
+            </p>
+            <p class="flex items-start text-sm">
+              <span class="mr-2 text-brand">•</span>
+              <span>Or maybe there could be typo in the URL</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="text-zinc-600 dark:text-zinc-400 mb-4">
+          <p class="text-base">
+            For now you can get back to 
+            <a href="/" class="text-brand hover:text-brand/80 transition-colors duration-200">
+              Home page
+            </a> 
+            or
+            <br />
+            try 
+            <a href="mailto:letranduyhien@gmail.com" class="text-brand hover:text-brand/80 transition-colors duration-200">
+              Asking me
+            </a> 
+            about the content you are looking for
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

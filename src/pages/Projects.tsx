@@ -30,12 +30,9 @@ const Projects = () => {
   });
 
   useEffect(() => {
-    console.log("Loading projects from content bundle...");
-
     try {
       // Use the generated content bundle instead of importing from submodules
       const projectsList = getProjectsList();
-      console.log("Raw projects list:", projectsList);
 
       const loaded = projectsList.map((proj) => ({
         ...proj,
@@ -55,10 +52,6 @@ const Projects = () => {
       }));
 
       setProjects(loaded);
-      console.log(
-        `Loaded ${loaded.length} projects from content bundle:`,
-        loaded,
-      );
     } catch (error) {
       console.error("Failed to load projects from content bundle:", error);
       setProjects([]);
@@ -119,11 +112,7 @@ const Projects = () => {
     })
     .filter((project): project is ProjectData => project !== undefined);
 
-  console.log("Projects state:", projects);
-  console.log("SaaS projects:", saasProjects);
-  console.log("Mobile projects:", mobileProjects);
-  console.log("Desktop projects:", desktopProjects);
-  console.log("Design system projects:", designSystemProjects);
+  // Projects categorized successfully
 
   return (
     <div className="container-custom px-8 pt-24 pb-16 md:py-16">

@@ -299,8 +299,8 @@ const DynamicImage: React.FC<{
       ? getImageUrl(slug, src)
       : src;
 
-  // Debug logging for development
-  if (import.meta.env.DEV) {
+  // Debug logging for development (reduced verbosity)
+  if (import.meta.env.DEV && false) { // Disabled verbose logging
     console.log("🔍 DynamicImage path resolution:", {
       original: src,
       slug,
@@ -332,7 +332,6 @@ const DynamicImage: React.FC<{
 const getImageUrl = (slug: string, imageName: string): string => {
   // Use the build output path for images
   const fullPath = `/project-images/${slug}/${imageName}`;
-  console.log(`🔍 getImageUrl: ${slug}/${imageName} → ${fullPath}`);
   return fullPath;
 };
 
@@ -421,12 +420,7 @@ const ProjectSingle = () => {
         setInteractionCount(0);
         setScrollDepth(0);
 
-        // Debug image paths
-        console.log(`🔍 Project loaded: ${slug}`);
-        console.log(`🔍 Banner path: ${projectData.banner}`);
-        console.log(
-          `🔍 Explanation image: ${getImageUrl(slug, "explaination.png")}`,
-        );
+        // Project loaded successfully
       } else {
         console.error(`Project not found: ${slug}`);
         setLoading(false);

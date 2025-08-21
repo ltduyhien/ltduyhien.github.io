@@ -8,15 +8,7 @@ import React, { useState, useEffect } from "react";
 
 import { contentWatermarking } from "../utils/contentWatermarking";
 
-console.log(
-  "🔍 WatermarkingDashboard: contentWatermarking imported:",
-  contentWatermarking,
-);
-console.log("🔍 WatermarkingDashboard: contentWatermarking methods:", {
-  applyAllWatermarks: contentWatermarking?.applyAllWatermarks,
-  removeAllWatermarks: contentWatermarking?.removeAllWatermarks,
-  getWatermarkStats: contentWatermarking?.getWatermarkStats,
-});
+// WatermarkingDashboard initialized
 
 interface WatermarkStats {
   textElements: number;
@@ -52,16 +44,8 @@ const WatermarkingDashboard: React.FC = () => {
   };
 
   const applyWatermarks = () => {
-    console.log("🔍 WatermarkingDashboard: applyWatermarks called");
-    console.log("🔍 contentWatermarking object:", contentWatermarking);
-    console.log(
-      "🔍 contentWatermarking.applyAllWatermarks:",
-      contentWatermarking.applyAllWatermarks,
-    );
-
     try {
       contentWatermarking.applyAllWatermarks();
-      console.log("✅ Watermarks applied successfully");
     } catch (error) {
       console.error("❌ Error applying watermarks:", error);
     }

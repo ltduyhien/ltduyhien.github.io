@@ -34,6 +34,7 @@ const Home = () => {
   );
   const [buttonLeft, setButtonLeft] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const chipsScrollRef = useRef<HTMLDivElement>(null);
 
   const tags = [
     "SaaS",
@@ -80,8 +81,40 @@ const Home = () => {
   useEffect(() => {
     updateButtonPosition();
     window.addEventListener("resize", updateButtonPosition);
-    return () => window.removeEventListener("resize", updateButtonPosition);
+    return () => {
+      window.removeEventListener("resize", updateButtonPosition);
+    };
   }, [updateButtonPosition]);
+
+  // Handle chips scroll indicators and set default scroll position
+  useEffect(() => {
+    const container = chipsScrollRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      if (container.scrollLeft > 0) {
+        container.classList.add("scrolled");
+      } else {
+        container.classList.remove("scrolled");
+      }
+      const atEnd =
+        Math.ceil(container.scrollLeft + container.clientWidth) >=
+        container.scrollWidth - 1;
+      if (atEnd) {
+        container.classList.add("at-end");
+      } else {
+        container.classList.remove("at-end");
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    // run once to set initial state
+    handleScroll();
+    
+    // Ensure initial state styles are correct without forcing scroll position
+
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     function loadProjects() {
@@ -105,9 +138,6 @@ const Home = () => {
         }).filter((project): project is ProjectData => project !== null);
 
         setProjects(loaded);
-        console.log(
-          `Loaded ${loaded.length} homepage projects from content bundle`,
-        );
       } catch (error) {
         console.error("Failed to load projects from content bundle:", error);
         setProjects([]);
@@ -117,22 +147,52 @@ const Home = () => {
   }, []);
 
   return (
-    <div
-      className="container-custom px-8 pt-24 pb-16 md:pt-8 md:pb-16"
-      ref={containerRef}
-    >
-      <h2 className="text-xl font-bold mb-4 text-zinc-900 dark:text-white leading-relaxed">
-        <span className="font-bold">Senior Product Designer</span>
-        <br />
-        <span className="font-medium">
-          13+ yrs in SaaS & Technical Products
-        </span>
-      </h2>
-      <div className="flex flex-wrap gap-2 mb-6">
-        {tags.map((tag) => (
-          <Chip key={tag} text={tag} />
-        ))}
+    <>
+      <div
+        className="container-custom px-8 pt-24 pb-0 md:pt-8 md:pb-0"
+        ref={containerRef}
+      >
+        <h2 className="text-xl font-bold mb-4 text-zinc-900 dark:text-white leading-relaxed">
+          <span className="font-bold">Senior Product Designer</span>
+          <br />
+          <span className="font-medium">
+            13+ yrs in SaaS & Technical Products
+          </span>
+        </h2>
       </div>
+      
+      {/* Mobile: full-width chips with left alignment */}
+      <div className="md:hidden">
+        <div className="mb-6">
+          <div
+            className="chips-scroll-container flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide pb-1 min-w-0 w-full"
+            ref={chipsScrollRef}
+            style={{ 
+              scrollbarWidth: "none", 
+              msOverflowStyle: "none",
+              paddingLeft: "2rem",
+              paddingRight: "1rem"
+            } as React.CSSProperties}
+          >
+            <div className="flex flex-nowrap gap-2 min-w-max">
+              {tags.map((tag) => (
+                <Chip key={tag} text={tag} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop: clamp to container, no overflow UI */}
+      <div className="container-custom px-8 hidden md:block">
+        <div className="flex flex-wrap gap-2 mb-6">
+          {tags.map((tag) => (
+            <Chip key={tag} text={tag} />
+          ))}
+        </div>
+      </div>
+      
+      <div className="container-custom px-8 pb-16">
       <p className="mb-4 text-base font-medium text-zinc-700 dark:text-zinc-300 leading-relaxed">
         Hello, I am Hien. I am a Senior/Lead Product Designer based in Espoo,
         Finland. Currently designing features that help you improve and track
@@ -308,7 +368,8 @@ const Home = () => {
           Collapse All
         </button>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

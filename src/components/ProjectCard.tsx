@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
 import Chip from "./Chip";
+import FullBleedRow from "./FullBleedRow";
 
 type ProjectCardProps = {
   title: string;
@@ -10,8 +11,37 @@ type ProjectCardProps = {
 };
 
 const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      if (container.scrollLeft > 0) {
+        container.classList.add("scrolled");
+      } else {
+        container.classList.remove("scrolled");
+      }
+      const atEnd =
+        Math.ceil(container.scrollLeft + container.clientWidth) >=
+        container.scrollWidth - 1;
+      if (atEnd) {
+        container.classList.add("at-end");
+      } else {
+        container.classList.remove("at-end");
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // (Alignment handled purely via CSS full-bleed container)
+
   return (
-    <div className="group flex flex-col md:flex-row gap-4 [border-radius:4px_/_4px] transition-transform duration-300 hover:scale-[1.02]">
+    <div className="project-card group flex flex-col md:flex-row gap-4 [border-radius:4px_/_4px] transition-transform duration-300 hover:scale-[1.02]">
       <div className="flex-shrink-0 w-full md:w-56 overflow-hidden [border-radius:4px_/_4px]">
         {imageUrl ? (
           <img
@@ -33,10 +63,20 @@ const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
         <p className="text-base md:text-sm font-medium text-zinc-700 dark:text-zinc-400 mb-2">
           {subtitle}
         </p>
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {tags.map((tag) => (
-            <Chip key={tag} text={tag} />
-          ))}
+        <div className="relative">
+          <FullBleedRow>
+            <div
+              ref={scrollContainerRef}
+              className="chips-scroll-container flex flex-nowrap md:flex-wrap gap-2 mt-auto overflow-x-auto md:overflow-x-visible scrollbar-hide md:scrollbar-auto pb-1 md:pb-0 min-w-0 w-full md:w-auto"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}
+            >
+              <div className="flex flex-nowrap md:flex-wrap gap-2 min-w-max md:min-w-0">
+                {tags.map((tag) => (
+                  <Chip key={tag} text={tag} />
+                ))}
+              </div>
+            </div>
+          </FullBleedRow>
         </div>
       </div>
     </div>

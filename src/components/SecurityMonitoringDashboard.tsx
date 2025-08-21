@@ -95,7 +95,7 @@ const SecurityMonitoringDashboard: React.FC = () => {
     try {
       botProtectionRef.current = new AdvancedBotProtection();
       contentEncryptionRef.current = new ContentEncryption();
-      console.log("🔒 Security systems initialized");
+      // Security systems initialized
     } catch (error) {
       console.error("Failed to initialize security systems:", error);
     }
@@ -170,7 +170,7 @@ const SecurityMonitoringDashboard: React.FC = () => {
     elements: string[];
   }) => {
     // Update metrics if needed
-    console.log("Watermark violation detected:", violation);
+          // Watermark violation detected
   };
 
   const determineSeverity = (

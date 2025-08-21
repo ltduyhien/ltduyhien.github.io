@@ -72,7 +72,7 @@ const App = () => {
     }
 
     // In development, log that protection is disabled
-    console.log("🔓 Content protection disabled in development mode");
+    // Content protection disabled in development mode
   }, []);
 
   // Close menu when resizing to desktop
@@ -145,7 +145,7 @@ function ContentWithFade() {
 
   // Track page views for Google Analytics
   useEffect(() => {
-    console.log("Route changed to:", location.pathname);
+    // Route changed
     trackPageView(location.pathname);
     // Test custom dimensions on first load
     if (location.pathname === "/") {

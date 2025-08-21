@@ -72,6 +72,8 @@ const ProjectCard = ({ title, subtitle, tags, imageUrl }: ProjectCardProps) => {
                 scrollbarWidth: "none", 
                 msOverflowStyle: "none",
                 WebkitOverflowScrolling: "touch",
+                WebkitScrollbarWidth: "none",
+                WebkitScrollbarHeight: "none",
                 paddingLeft: "2rem",
                 paddingRight: "2rem"
               } as React.CSSProperties}

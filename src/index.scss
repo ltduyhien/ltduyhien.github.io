@@ -96,9 +96,41 @@ $brand-dark: color.adjust($brand, $lightness: -25%);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
+    /* Additional iOS-specific properties */
+    -webkit-scrollbar-width: none !important;
+    -webkit-scrollbar-height: none !important;
+    overflow: -moz-scrollbars-none !important;
   }
   
   .scrollbar-hide-ios::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    -webkit-appearance: none !important;
+    /* Force hide on iOS */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Additional iOS webkit scrollbar hiding */
+  .scrollbar-hide-ios::-webkit-scrollbar-track {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    -webkit-appearance: none !important;
+  }
+  
+  .scrollbar-hide-ios::-webkit-scrollbar-thumb {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    -webkit-appearance: none !important;
+  }
+  
+  .scrollbar-hide-ios::-webkit-scrollbar-corner {
     display: none !important;
     width: 0 !important;
     height: 0 !important;

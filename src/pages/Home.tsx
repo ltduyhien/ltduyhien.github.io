@@ -167,12 +167,15 @@ const Home = () => {
           <div
                               className="chips-scroll-container flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide scrollbar-hide-ios pb-1 min-w-0 w-full"
             ref={chipsScrollRef}
-            style={{ 
-              scrollbarWidth: "none", 
-              msOverflowStyle: "none",
-              paddingLeft: "2rem",
-              paddingRight: "1rem"
-            } as React.CSSProperties}
+                          style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+                WebkitOverflowScrolling: "touch",
+                WebkitScrollbarWidth: "none",
+                WebkitScrollbarHeight: "none",
+                paddingLeft: "2rem",
+                paddingRight: "1rem"
+              } as React.CSSProperties}
           >
             <div className="flex flex-nowrap gap-2 min-w-max">
               {tags.map((tag) => (

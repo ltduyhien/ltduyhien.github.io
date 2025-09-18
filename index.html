@@ -8,7 +8,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hien Le | Product Designer Portfolio</title>
+    <title id="page-title">Hien Le | Product Designer Portfolio</title>
     <meta name="title" content="Hien Le | Product Designer Portfolio" />
     <meta name="description" content="Senior Product Designer with 13+ years in SaaS, AI, and technical products. View projects, CV, and contact info." />
     <meta property="og:type" content="website" />
@@ -49,6 +49,12 @@
       // GA ID will be injected by Vite during build
       if (window.GA_MEASUREMENT_ID) {
         gtag('config', window.GA_MEASUREMENT_ID);
+      }
+      
+      // Update page title for development environment
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        document.title = 'Local Dev | Hien Le Portfolio';
+        document.querySelector('meta[name="title"]').setAttribute('content', 'Local Dev | Hien Le Portfolio');
       }
     </script>
   </head>
